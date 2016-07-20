@@ -248,12 +248,12 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      * Sets the array of recent search queries.
      * It is advisable to save the queries when the activity is destroyed
      * and call this method when creating the activity.
-     * @param requests an array of queries
+     * @param suggestions an array of queries
      * @see #getLastSuggestions()
      * @see #setMaxSuggestionCount(int)
      */
-    private void setLastSuggestions(List<String> requests) {
-        adapter.setSuggestions(requests);
+    public void setLastSuggestions(List<String> suggestions) {
+        adapter.setSuggestions(suggestions);
     }
 
     private boolean listenerExists(){
