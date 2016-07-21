@@ -9,6 +9,8 @@
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         app:speechMode="true"
+        app:hint="Custom hint"
+        app:maxSuggestionsCount="10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchBar" />

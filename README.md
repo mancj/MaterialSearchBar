@@ -27,11 +27,17 @@ add the dependency to the the app level build.gradle file
     'com.github.mancj:MaterialSearchBar:0.1.0'
 
 
-**then add SearchBar to your activity:**
+then add SearchBar to your activity:
 
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+```xml
+<com.mancj.materialsearchbar.MaterialSearchBar
+    app:speechMode="true"
+    app:hint="Custom hint"
+    app:maxSuggestionsCount="10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/searchBar" />
+```
 
 ----------
 
@@ -70,46 +76,47 @@ To save search queries when the activity is destroyed, use the method `searchBar
 
 Here is a simple example of using MaterialSearchBar
 
-    private List<String> lastSearches;
-    private MaterialSearchBar searchBar;
+```java
+private List<String> lastSearches;
+private MaterialSearchBar searchBar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
-        searchBar.setHint("Custom hint");
-        searchBar.setSpeechMode(true);
-        //enable searchbar callbacks
-        searchBar.setOnSearchActionListener(this);
-        //restore last queries from disk
-        lastSearches = loadSearchSuggestionFromDiks();
-        searchBar.setLastSuggestions(list);
-    }
+    searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
+    searchBar.setHint("Custom hint");
+    searchBar.setSpeechMode(true);
+    //enable searchbar callbacks
+    searchBar.setOnSearchActionListener(this);
+    //restore last queries from disk
+    lastSearches = loadSearchSuggestionFromDiks();
+    searchBar.setLastSuggestions(list);
+}
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //save last queries to disk
-        saveSearchSuggestionToDisk(searchBar.getLastSuggestions());
-    }
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+    //save last queries to disk
+    saveSearchSuggestionToDisk(searchBar.getLastSuggestions());
+}
 
-    //called when searchbar enabled or disabled
-    @Override
-    public void onSearchStateChanged(boolean enabled) {
-        String s = enabled ? "enabled" : "disabled";
-        Toast.makeText(MainActivity.this, "Search " + s, Toast.LENGTH_SHORT).show();
-    }
+//called when searchbar enabled or disabled
+@Override
+public void onSearchStateChanged(boolean enabled) {
+    String s = enabled ? "enabled" : "disabled";
+    Toast.makeText(MainActivity.this, "Search " + s, Toast.LENGTH_SHORT).show();
+}
 
-    //called when user confirms request
-    @Override
-    public void onSearchConfirmed(CharSequence text) {
-        startSearch(text.toString(), true, null, true);
-    }
+//called when user confirms request
+@Override
+public void onSearchConfirmed(CharSequence text) {
+    startSearch(text.toString(), true, null, true);
+}
 
-    //called when microphone icon clicked
-    @Override
-    public void onSpeechIconSelected() {
-        openVoiceRecognizer();
-    }
+//called when microphone icon clicked
+@Override
+public void onSpeechIconSelected() {
+    openVoiceRecognizer();
+}```
