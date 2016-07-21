@@ -112,9 +112,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             searchEdit.setHint(hint);
     }
 
-    //=======================================
-    //          Public methods
-
     /**
      * Register listener for search bar callbacks.
      * @param onSearchActionListener the callback listener
@@ -136,7 +133,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         searchIcon.startAnimation(in);
 
         if (listenerExists())
-            onSearchActionListener.onSearchDisabled();
+            onSearchActionListener.onSearchStateChanged(false);
         if (suggestionsVisible) animateLastRequests(getListHeight(), 0);
     }
 
@@ -153,7 +150,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         inputContainer.startAnimation(left_in);
         animateLastRequests(0, getListHeight());
         if (listenerExists()) {
-            onSearchActionListener.onSearchEnabled();
+            onSearchActionListener.onSearchStateChanged(true);
         }
         searchIcon.startAnimation(left_out);
     }
@@ -204,8 +201,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     /**
      *sets the speechMode for the search bar.
      * If set to true, microphone icon will display instead of the search icon.
-     * Also clicking on this icon will trigger the callback method onSpeechSelected()
-     * @see OnSearchActionListener#onSpeechSelected()
+     * Also clicking on this icon will trigger the callback method onSpeechIconSelected()
+     * @see OnSearchActionListener#onSpeechIconSelected()
      * @param speechMode
      */
     public void setSpeechMode(boolean speechMode){
@@ -222,7 +219,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
-     * Sets the maximum value of the last search queries
+     * Specifies the maximum number of search queries stored until the activity is destroyed
      * @param maxQuery maximum queries
      */
     public void setMaxSuggestionCount(int maxQuery){
@@ -268,8 +265,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             if (!searchEnabled)
             {
                 enableSearch();
-                if (listenerExists())
-                    onSearchActionListener.onSearchBarClicked();
             }
         }else if (id == R.id.mt_arrow){
             disableSearch();
@@ -278,7 +273,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
                 searchEdit.setText(v.getTag().toString());
         }else if (id == R.id.mt_search){
             if (listenerExists())
-                onSearchActionListener.onSpeechSelected();
+                onSearchActionListener.onSpeechIconSelected();
         }else if (id == R.id.mt_clear){
             searchEdit.setText("");
         }
@@ -321,7 +316,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (listenerExists())
-            onSearchActionListener.onSearch(searchEdit.getText());
+            onSearchActionListener.onSearchConfirmed(searchEdit.getText());
         if (suggestionsVisible)
             animateLastRequests(getListHeight(), 0);
         adapter.addSuggestion(searchEdit.getText().toString());
@@ -332,12 +327,10 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         return (int) ((adapter.getItemCount()*50)*destiny);
     }
 
-    interface OnSearchActionListener {
-        void onSearchBarClicked();
-        void onSearchEnabled();
-        void onSearchDisabled();
-        void onSearch(CharSequence text);
-        void onSpeechSelected();
+    public interface OnSearchActionListener {
+        void onSearchStateChanged(boolean enabled);
+        void onSearchConfirmed(CharSequence text);
+        void onSpeechIconSelected();
     }
 
     @Override

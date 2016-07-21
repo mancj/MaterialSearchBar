@@ -10,6 +10,19 @@
     <com.mancj.materialsearchbar.MaterialSearchBar
         app:speechMode="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/searchBar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/round_corners"
+        android:id="@+id/reveal"
+        android:elevation="3dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/searchBar" />
 
 </RelativeLayout>

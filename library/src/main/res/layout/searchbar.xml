@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:background="@drawable/round_corners"
+    <android.support.v7.widget.CardView
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/white"
         android:layout_margin="8dp"
-        android:id="@+id/root"
-        android:elevation="3dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/mt_search"
-            android:tint="@color/material_grey_600"
-            android:src="@drawable/ic_magnify_black_48dp"
-            android:padding="13dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:visibility="visible" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:id="@+id/inputContainer"
-            android:visibility="gone"
-            android:layout_toStartOf="@+id/mt_search"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
-
-            <ImageView
-                android:clickable="true"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/mt_arrow"
-                android:src="@drawable/ic_arrow_left_black_48dp"
-                android:tint="@color/material_grey_600"
-                android:visibility="visible"
-                android:padding="13dp" />
-
-            <EditText
-                android:imeOptions="flagNoExtractUi|actionSearch"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:hint="@string/action_search"
-                android:background="@android:color/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/mt_editText"
-                android:singleLine="true"
-                android:visibility="visible"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:background="?attr/selectableItemBackground"
-                android:tint="@color/material_grey_600"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/mt_clear"
-                android:src="@drawable/ic_close_black_48dp"
-                android:padding="14dp" />
-
-        </LinearLayout>
-
         <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="50dp"
-            android:id="@+id/last">
-            <View
+            android:id="@+id/root"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/mt_search"
+                android:tint="@color/material_grey_600"
+                android:src="@drawable/ic_magnify_black_48dp"
+                android:padding="13dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/material_grey_300"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mt_recycler"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:id="@+id/inputContainer"
+                android:visibility="gone"
+                android:layout_toStartOf="@+id/mt_search"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toLeftOf="@+id/mt_search">
+
+                <ImageView
+                    android:clickable="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/mt_arrow"
+                    android:src="@drawable/ic_arrow_left_black_48dp"
+                    android:tint="@color/material_grey_600"
+                    android:visibility="visible"
+                    android:padding="13dp" />
+
+                <EditText
+                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:hint="@string/action_search"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/mt_editText"
+                    android:singleLine="true"
+                    android:visibility="visible"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:background="?attr/selectableItemBackground"
+                    android:tint="@color/material_grey_600"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/mt_clear"
+                    android:src="@drawable/ic_close_black_48dp"
+                    android:padding="14dp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="50dp"
+                android:id="@+id/last">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/material_grey_300"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mt_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </merge>
