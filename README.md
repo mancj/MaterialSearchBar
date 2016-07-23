@@ -2,7 +2,11 @@
 #Material SearchBar Android
 Material Design Search Bar for Android
 
-[How to use](#How to use)
+[1. How to use](#How to use)
+[2. xml attributes](**MaterialSarchBar has the following xml attributes:**)
+[3. public methods](**public methods:**)
+[4. example](#Example)
+[5. todo](#TODO)
 
 ----------
 This beautiful and easy to use library will help to add Lollipop Material Desing SearchView in your project.
