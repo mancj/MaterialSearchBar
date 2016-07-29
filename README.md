@@ -24,7 +24,7 @@ This beautiful and easy to use library will help to add Lollipop Material Desing
 
 add the dependency to the the app level build.gradle file 
 
-    compile 'com.github.mancj:MaterialSearchBar:0.1.0'
+    compile 'com.github.mancj:MaterialSearchBar:0.1.1'
 
 
 then add SearchBar to your activity:
