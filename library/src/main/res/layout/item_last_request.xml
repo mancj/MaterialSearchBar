@@ -16,10 +16,20 @@
         android:padding="13dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Last request"
         android:id="@+id/text"
         android:textColor="@android:color/black" />
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:tint="@color/material_grey_600"
+        android:src="@drawable/ic_close_black_48dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="13dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 </LinearLayout>
