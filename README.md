@@ -50,6 +50,8 @@ then add SearchBar to your activity:
 | maxSuggestionsCount | Specifies the maximum number of search queries stored until the activity is destroyed |
 | iconLeft            | Change left icon                                                                      |
 | iconRight           | Change right icon                                                                     |
+| textColor           | Change text color                                                                     |
+| hintColor           | Change text hint color                                                                |
 
 
 ----------
@@ -66,6 +68,10 @@ then add SearchBar to your activity:
  - `setMaxSuggestionCount(int maxQuery)`
  - `setIconLeft(int iconLefttResId)`
  - `setIconRight(int iconRightResId)`
+ - `setTextColor(int textColor)`
+ - `setTextHintColor(int hintColor)`
+ - `inflateMenu(int menuResource)`
+ - `getMenu()`
  
 ----------
 
@@ -93,6 +99,9 @@ protected void onCreate(Bundle savedInstanceState) {
     //restore last queries from disk
     lastSearches = loadSearchSuggestionFromDiks();
     searchBar.setLastSuggestions(list);
+    //Inflate menu and setup OnMenuItemClickListener
+    searchBar.inflateMenu(R.menu.main);
+    searchBar.getMenu().setOnMenuItemClickListener(this);
 }
 
 @Override
