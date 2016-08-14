@@ -7,10 +7,12 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +53,12 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private int maxSuggestionCount;
     private boolean speechMode;
 
+    private int menuResource;
+    private PopupMenu popupMenu;
+
+    private int textColor;
+    private int hintColor;
+
     public MaterialSearchBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
@@ -77,7 +85,10 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_maxSuggestionsCount, 3);
         speechMode = array.getBoolean(R.styleable.MaterialSearchBar_speechMode, false);
 
-        destiny = getResources().getDisplayMetrics().density;//分辨率
+        hintColor = array.getColor(R.styleable.MaterialSearchBar_hintColor, -1);
+        textColor = array.getColor(R.styleable.MaterialSearchBar_textColor, -1);
+
+        destiny = getResources().getDisplayMetrics().density;
         adapter = new SuggestionsAdapter(LayoutInflater.from(getContext()));
         adapter.setListener(this);
         adapter.maxSuggestionsCount = maxSuggestionCount;
@@ -100,10 +111,37 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (speechMode)
             searchIcon.setOnClickListener(this);
 
-        setupIcons();
+        postSetup();
     }
 
-    private void setupIcons(){
+    /**
+     * Inflate menu for searchBar
+     * @param menuResource - menu resource
+     */
+    public void inflateMenu(int menuResource){
+        this.menuResource = menuResource;
+        if (menuResource > 0){
+            ImageView menuIcon = (ImageView) findViewById(R.id.mt_menu);
+            RelativeLayout.LayoutParams params = (LayoutParams) searchIcon.getLayoutParams();
+            params.rightMargin = (int) (36*destiny);
+            searchIcon.setLayoutParams(params);
+            menuIcon.setVisibility(VISIBLE);
+            menuIcon.setOnClickListener(this);
+            popupMenu = new PopupMenu(getContext(), findViewById(R.id.root));
+            popupMenu.inflate(menuResource);
+            popupMenu.setGravity(Gravity.RIGHT);
+        }
+    }
+
+    /**
+     * Get popup menu
+     * @return PopupMenu
+     */
+    public PopupMenu getMenu(){
+        return this.popupMenu;
+    }
+
+    private void postSetup(){
         if (speechMode)
             searchIcon.setImageResource(R.drawable.ic_microphone_black_48dp);
         if (iconRightResId > 0)
@@ -112,6 +150,14 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             arrowIcon.setImageResource(iconLefttResId);
         if (hint != null)
             searchEdit.setHint(hint);
+        setupTextColors();
+    }
+
+    private void setupTextColors(){
+        if (hintColor != -1)
+            searchEdit.setHintTextColor(ContextCompat.getColor(getContext(), hintColor));
+        if (textColor != -1)
+            searchEdit.setTextColor(ContextCompat.getColor(getContext(), textColor));
     }
 
     /**
@@ -210,6 +256,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public void setSpeechMode(boolean speechMode){
         this.speechMode = speechMode;
         if (speechMode) searchIcon.setImageResource(R.drawable.ic_microphone_black_48dp);
+        searchIcon.setOnClickListener(this);
     }
 
     /**
@@ -255,6 +302,16 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         adapter.setSuggestions(suggestions);
     }
 
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+        setupTextColors();
+    }
+
+    public void setTextHintColor(int hintColor) {
+        this.hintColor = hintColor;
+        setupTextColors();
+    }
+
     private boolean listenerExists(){
         return onSearchActionListener != null;
     }
@@ -274,6 +331,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
                 onSearchActionListener.onSpeechIconSelected();
         }else if (id == R.id.mt_clear){
             searchEdit.setText("");
+        }else if (id == R.id.mt_menu){
+            popupMenu.show();
         }
     }
 
@@ -389,8 +448,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         iconRightResId = savedState.iconRightResId;
         hint = savedState.hint;
         maxSuggestionCount = savedState.maxSuggestions > 0 ? maxSuggestionCount  = savedState.maxSuggestions : maxSuggestionCount;
-        Log.d("LOG_TAG", getClass().getSimpleName() + ": max " + maxSuggestionCount);
-        setupIcons();
+        postSetup();
     }
 
     private static class SavedState extends BaseSavedState{

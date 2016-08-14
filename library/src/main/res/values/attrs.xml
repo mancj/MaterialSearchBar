@@ -6,5 +6,7 @@
         <attr name="hint" format="string"/>
         <attr name="maxSuggestionsCount" format="string"/>
         <attr name="speechMode" format="boolean"/>
+        <attr name="hintColor" format="color"/>
+        <attr name="textColor" format="color"/>
     </declare-styleable>
 </resources>

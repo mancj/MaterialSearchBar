@@ -1,7 +1,11 @@
 package com.mancj.example;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -11,7 +15,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener {
+public class MainActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener, PopupMenu.OnMenuItemClickListener {
     private List<String> lastSearches;
     private MaterialSearchBar searchBar;
     private FrameLayout dim;
@@ -24,10 +28,10 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
         dim = (FrameLayout) findViewById(R.id.dim);
 
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
-        searchBar.setHint("Custom hint");
-        searchBar.setSpeechMode(true);
         //enable searchbar callbacks
         searchBar.setOnSearchActionListener(this);
+        searchBar.inflateMenu(R.menu.main);
+        searchBar.getMenu().setOnMenuItemClickListener(this);
         //restore last queries from disk
 //        lastSearches = loadSearchSuggestionFromDiks();
 //        searchBar.setLastSuggestions(list);
@@ -55,12 +59,18 @@ public class MainActivity extends AppCompatActivity implements MaterialSearchBar
     //called when user confirms request
     @Override
     public void onSearchConfirmed(CharSequence text) {
-        startSearch(text.toString(), true, null, true);
+//        startSearch(text.toString(), true, null, true);
     }
 
     //called when microphone icon clicked
     @Override
     public void onSpeechIconSelected() {
 //        openVoiceRecognizer();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Log.d("LOG_TAG", getClass().getSimpleName() + ": item clicked " + item.getTitle());
+        return false;
     }
 }
