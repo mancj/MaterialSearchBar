@@ -5,8 +5,7 @@ Material Design Search Bar for Android
 ----------
 This beautiful and easy to use library will help to add Lollipop Material Desing SearchView in your project.
 
-![Material Design SearchBar Android gif](https://github.com/mancj/MaterialSearchBar/blob/master/art/ezgif-838715850.gif)
-![Gif](https://github.com/mancj/MaterialSearchBar/blob/master/art/device-2016-07-20-170335.png)
+![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview.gif)
 
 ----------
 #How to use
