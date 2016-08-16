@@ -1,7 +1,7 @@
 
 #Material SearchBar Android
 Material Design Search Bar for Android
-
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialSearchBar-orange.svg?style=flat)](http://android-arsenal.com/details/1/4158)
 ----------
 This beautiful and easy to use library will help to add Lollipop Material Desing SearchView in your project.
 
@@ -129,7 +129,3 @@ public void onSpeechIconSelected() {
     openVoiceRecognizer();
 }
 ```
-
-
-#TODO 
-- first of all I'll add background dim behing SearchBar
