@@ -127,7 +127,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             searchIcon.setLayoutParams(params);
             menuIcon.setVisibility(VISIBLE);
             menuIcon.setOnClickListener(this);
-            popupMenu = new PopupMenu(getContext(), findViewById(R.id.root));
+            popupMenu = new PopupMenu(getContext(), menuIcon);
             popupMenu.inflate(menuResource);
             popupMenu.setGravity(Gravity.RIGHT);
         }
