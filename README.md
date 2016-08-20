@@ -57,6 +57,7 @@ then add SearchBar to your activity:
 | navIconDrawable     | Set navigation icon drawable resource                                                 |
 | textColor           | Change text color                                                                     |
 | hintColor           | Change text hint color                                                                |
+| navIconEnabled      | Set navigation icon enabled                                                           |
 
 
 ----------
@@ -66,6 +67,7 @@ then add SearchBar to your activity:
  - `enableSearch()`
  - `isSearchEnabled()`
  - `setHint(CharSequence hint)`
+ - `setNavButtonEnabled(boolean navButtonEnabled)`
  - `setSpeechMode(boolean speechMode)`
  - `setOnSearchActionListener(OnSearchActionListener onSearchActionListener)`
  - `setLastSuggestions(List<String> suggestions)`
