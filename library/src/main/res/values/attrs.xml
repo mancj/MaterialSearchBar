@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MaterialSearchBar">
-        <attr name="iconRight" format="reference"/>
-        <attr name="iconLeft" format="reference"/>
+        <attr name="searchIconDrawable" format="reference"/>
+        <attr name="navIconDrawable" format="reference"/>
         <attr name="hint" format="string"/>
         <attr name="maxSuggestionsCount" format="string"/>
         <attr name="speechMode" format="boolean"/>
         <attr name="hintColor" format="color"/>
         <attr name="textColor" format="color"/>
+        <attr name="navIconEnabled" format="boolean"/>
     </declare-styleable>
 </resources>

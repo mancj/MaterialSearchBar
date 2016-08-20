@@ -34,11 +34,14 @@ import java.util.List;
 public class MaterialSearchBar extends RelativeLayout implements View.OnClickListener,
         Animation.AnimationListener,SuggestionsAdapter.OnItemViewClickListener,
         View.OnFocusChangeListener, TextView.OnEditorActionListener {
+    public static final int BUTTON_SPEECH = 1;
+    public static final int BUTTON_NAVIGATION = 2;
 
     private LinearLayout inputContainer;
     private ImageView searchIcon;
     private ImageView arrowIcon;
     private EditText searchEdit;
+    private ImageView navIcon;
     private OnSearchActionListener onSearchActionListener;
     private boolean searchEnabled;
     private boolean suggestionsVisible;
@@ -47,8 +50,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private SuggestionsAdapter adapter;
     private float destiny;
 
-    private int iconRightResId;
-    private int iconLefttResId;
+    private int searchIconRes;
+    private int navIconResId;
     private CharSequence hint;
     private int maxSuggestionCount;
     private boolean speechMode;
@@ -58,6 +61,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private int textColor;
     private int hintColor;
+
+    private boolean navButtonEnabled;
 
     public MaterialSearchBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -79,14 +84,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         inflate(getContext(), R.layout.searchbar, this);
 
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.MaterialSearchBar);
-        iconRightResId = array.getResourceId(R.styleable.MaterialSearchBar_iconRight, -1);
-        iconLefttResId = array.getResourceId(R.styleable.MaterialSearchBar_iconLeft, -1);
+        searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_searchIconDrawable, -1);
+        navIconResId = array.getResourceId(R.styleable.MaterialSearchBar_navIconDrawable, -1);
         hint = array.getString(R.styleable.MaterialSearchBar_hint);
         maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_maxSuggestionsCount, 3);
         speechMode = array.getBoolean(R.styleable.MaterialSearchBar_speechMode, false);
 
         hintColor = array.getColor(R.styleable.MaterialSearchBar_hintColor, -1);
         textColor = array.getColor(R.styleable.MaterialSearchBar_textColor, -1);
+        navButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_navIconEnabled, false);
 
         destiny = getResources().getDisplayMetrics().density;
         adapter = new SuggestionsAdapter(LayoutInflater.from(getContext()));
@@ -102,15 +108,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         arrowIcon = (ImageView) findViewById(R.id.mt_arrow);
         searchEdit = (EditText) findViewById(R.id.mt_editText);
         inputContainer = (LinearLayout) findViewById(R.id.inputContainer);
+        navIcon = (ImageView) findViewById(R.id.mt_nav);
         findViewById(R.id.mt_clear).setOnClickListener(this);
 
-        arrowIcon.setOnClickListener(this);
-        searchEdit.setOnFocusChangeListener(this);
         setOnClickListener(this);
+        arrowIcon.setOnClickListener(this);
+        searchIcon.setOnClickListener(this);
+        searchEdit.setOnFocusChangeListener(this);
         searchEdit.setOnEditorActionListener(this);
-        if (speechMode)
-            searchIcon.setOnClickListener(this);
-
+        navIcon.setOnClickListener(this);
         postSetup();
     }
 
@@ -142,15 +148,18 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     private void postSetup(){
-        if (speechMode)
-            searchIcon.setImageResource(R.drawable.ic_microphone_black_48dp);
-        if (iconRightResId > 0)
-            searchIcon.setImageResource(iconRightResId);
-        if (iconLefttResId > 0)
-            arrowIcon.setImageResource(iconLefttResId);
+        if (searchIconRes < 0)
+            searchIconRes = R.drawable.ic_magnify_black_48dp;
+        setSpeechMode(speechMode);
+        if (navIconResId < 0)
+            navIconResId = R.drawable.ic_menu_black_24dp;
+        setNavigationIcon(navIconResId);
         if (hint != null)
             searchEdit.setHint(hint);
         setupTextColors();
+        setNavButtonEnabled(navButtonEnabled);
+        if (popupMenu == null)
+            findViewById(R.id.mt_menu).setVisibility(GONE);
     }
 
     private void setupTextColors(){
@@ -207,6 +216,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         suggestionsVisible = to > 0;
         final RelativeLayout last = (RelativeLayout) findViewById(R.id.last);
         final ViewGroup.LayoutParams lp = last.getLayoutParams();
+        if (to == 0 && lp.height == 0)
+            return;
         ValueAnimator animator = ValueAnimator.ofInt(from, to);
         animator.setDuration(200);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -216,25 +227,26 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
                 last.setLayoutParams(lp);
             }
         });
-        if (adapter.getItemCount() > 0) animator.start();
+        if (adapter.getItemCount() > 0)
+            animator.start();
     }
 
     /**
-     * sets the icon instead of the back arrow
-     * @param iconRightResId icon resource id
+     * Set search icon drawable resource
+     * @param searchIconResId icon resource id
      */
-    public void setIconRight(int iconRightResId) {
-        this.iconRightResId = iconRightResId;
-        searchIcon.setImageResource(iconRightResId);
+    public void setSearchIcon(int searchIconResId) {
+        this.searchIconRes = searchIconResId;
+        this.searchIcon.setImageResource(searchIconResId);
     }
 
     /**
-     * sets the icon instead of the search arrow
-     * @param iconLefttResId icon resource id
+     * Set navigation icon drawable resource
+     * @param navigationIconResId icon resource id
      */
-    public void setIconLeft(int iconLefttResId) {
-        this.iconLefttResId = iconLefttResId;
-        arrowIcon.setImageResource(iconLefttResId);
+    public void setNavigationIcon(int navigationIconResId) {
+        this.navIconResId = navigationIconResId;
+        this.navIcon.setImageResource(navigationIconResId);
     }
 
     /**
@@ -249,14 +261,20 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     /**
      *sets the speechMode for the search bar.
      * If set to true, microphone icon will display instead of the search icon.
-     * Also clicking on this icon will trigger the callback method onSpeechIconSelected()
-     * @see OnSearchActionListener#onSpeechIconSelected()
+     * Also clicking on this icon will trigger the callback method onButtonClicked()
+     * @see #BUTTON_SPEECH
+     * @see OnSearchActionListener#onButtonClicked(int)
      * @param speechMode
      */
     public void setSpeechMode(boolean speechMode){
         this.speechMode = speechMode;
-        if (speechMode) searchIcon.setImageResource(R.drawable.ic_microphone_black_48dp);
-        searchIcon.setOnClickListener(this);
+        if (speechMode){
+            searchIcon.setImageResource(R.drawable.ic_microphone_black_48dp);
+            searchIcon.setClickable(true);
+        }else {
+            searchIcon.setImageResource(searchIconRes);
+            searchIcon.setClickable(false);
+        }
     }
 
     /**
@@ -302,14 +320,41 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         adapter.setSuggestions(suggestions);
     }
 
+    /**
+     * Set search input text color
+     * @param textColor text color
+     */
     public void setTextColor(int textColor) {
         this.textColor = textColor;
         setupTextColors();
     }
 
+    /**
+     * Set text input hint color
+     * @param hintColor text hint color
+     */
     public void setTextHintColor(int hintColor) {
         this.hintColor = hintColor;
         setupTextColors();
+    }
+
+    /**
+     * Set navigation drawer menu icon enabled
+     * @param navButtonEnabled icon enabled
+     */
+    public void setNavButtonEnabled(boolean navButtonEnabled) {
+        this.navButtonEnabled = navButtonEnabled;
+        if (navButtonEnabled){
+            navIcon.setVisibility(VISIBLE);
+            navIcon.setClickable(true);
+            LayoutParams lp = (LayoutParams) inputContainer.getLayoutParams();
+            lp.leftMargin = (int) (50 * destiny);
+            inputContainer.setLayoutParams(lp);
+            arrowIcon.setVisibility(GONE);
+        }else {
+            navIcon.setVisibility(GONE);
+            navIcon.setClickable(false);
+        }
     }
 
     private boolean listenerExists(){
@@ -328,12 +373,14 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             disableSearch();
         }else if (id == R.id.mt_search){
             if (listenerExists())
-                onSearchActionListener.onSpeechIconSelected();
+                onSearchActionListener.onButtonClicked(BUTTON_SPEECH);
         }else if (id == R.id.mt_clear){
             searchEdit.setText("");
         }else if (id == R.id.mt_menu){
             popupMenu.show();
-        }
+        }else if (id == R.id.mt_nav)
+            if (listenerExists())
+                onSearchActionListener.onButtonClicked(BUTTON_NAVIGATION);
     }
 
     @Override
@@ -409,10 +456,27 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         }
     }
 
+    /**
+     * Interface definition for MaterialSearchBar callbacks.
+     */
     public interface OnSearchActionListener {
+        /**
+         * Invoked when SearchBar opened or closed
+         * @param enabled
+         */
         void onSearchStateChanged(boolean enabled);
+
+        /**
+         * Invoked when search confirmed and "search" button is clicked on the soft keyboard
+         * @param text search input
+         */
         void onSearchConfirmed(CharSequence text);
-        void onSpeechIconSelected();
+
+        /**
+         * Invoked when "speech" or "navigation" buttons clicked.
+         * @param buttonCode {@link #BUTTON_NAVIGATION} or {@link #BUTTON_SPEECH} will be passed
+         */
+        void onButtonClicked(int buttonCode);
     }
 
     @Override
@@ -421,8 +485,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         savedState.isSearchBarVisible = searchEnabled ? VIEW_VISIBLE : VIEW_INVISIBLE;
         savedState.suggestionsVisible = suggestionsVisible ? VIEW_VISIBLE : VIEW_INVISIBLE;
         savedState.speechMode = speechMode ? VIEW_VISIBLE : VIEW_INVISIBLE;
-        savedState.iconLefttResId = iconLefttResId;
-        savedState.iconRightResId = iconRightResId;
+        savedState.navIconResId = navIconResId;
+        savedState.searchIconRes = searchIconRes;
         savedState.suggestions = getLastSuggestions();
         savedState.maxSuggestions = maxSuggestionCount;
         if (hint != null) savedState.hint = hint.toString();
@@ -435,7 +499,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         super.onRestoreInstanceState(savedState.getSuperState());
         searchEnabled = savedState.isSearchBarVisible == VIEW_VISIBLE;
         suggestionsVisible = savedState.suggestionsVisible == VIEW_VISIBLE;
-        speechMode = savedState.speechMode == VIEW_VISIBLE;
         setLastSuggestions(savedState.suggestions);
         if (suggestionsVisible)
             animateLastRequests(0, getListHeight(false));
@@ -444,19 +507,20 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             inputContainer.setVisibility(VISIBLE);
             searchIcon.setVisibility(GONE);
         }
-        iconLefttResId = savedState.iconLefttResId;
-        iconRightResId = savedState.iconRightResId;
-        hint = savedState.hint;
-        maxSuggestionCount = savedState.maxSuggestions > 0 ? maxSuggestionCount  = savedState.maxSuggestions : maxSuggestionCount;
-        postSetup();
+//        speechMode = savedState.speechMode == VIEW_VISIBLE;
+//        navIconResId = savedState.navIconResId;
+//        searchIconRes = savedState.searchIconRes;
+//        hint = savedState.hint;
+//        maxSuggestionCount = savedState.maxSuggestions > 0 ? maxSuggestionCount  = savedState.maxSuggestions : maxSuggestionCount;
+//        postSetup();
     }
 
     private static class SavedState extends BaseSavedState{
         private int isSearchBarVisible;
         private int suggestionsVisible;
         private int speechMode;
-        private int iconRightResId;
-        private int iconLefttResId;
+        private int searchIconRes;
+        private int navIconResId;
         private String hint;
         private List<String> suggestions;
         private int maxSuggestions;
@@ -468,8 +532,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             out.writeInt(suggestionsVisible);
             out.writeInt(speechMode);
 
-            out.writeInt(iconRightResId);
-            out.writeInt(iconLefttResId);
+            out.writeInt(searchIconRes);
+            out.writeInt(navIconResId);
             out.writeString(hint);
             out.writeList(suggestions);
             out.writeInt(maxSuggestions);
@@ -481,8 +545,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             suggestionsVisible = source.readInt();
             speechMode = source.readInt();
 
-            iconLefttResId = source.readInt();
-            iconRightResId = source.readInt();
+            navIconResId = source.readInt();
+            searchIconRes = source.readInt();
             hint = source.readString();
             suggestions = source.readArrayList(null);
             maxSuggestions = source.readInt();

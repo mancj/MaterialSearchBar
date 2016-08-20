@@ -28,6 +28,9 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
     }
 
     public void addSuggestion(String r){
+        if (maxSuggestionsCount <= 0)
+            return;
+
         if (r.length() <= 0)
             return;
         if (!suggestions.contains(r))

@@ -15,23 +15,11 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/mt_search"
-                android:tint="@color/material_grey_600"
-                android:src="@drawable/ic_magnify_black_48dp"
-                android:padding="13dp"
-                android:visibility="visible"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:clickable="false" />
-
-            <ImageView
                 android:clickable="true"
                 android:layout_width="36dp"
                 android:layout_height="50dp"
                 android:id="@+id/mt_menu"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="@color/material_grey_600"
                 android:src="@drawable/ic_dots_vertical_black_48dp"
                 android:padding="13dp"
@@ -41,6 +29,18 @@
                 android:scaleType="centerCrop"
                 android:visibility="gone" />
 
+            <ImageView
+                android:tint="@color/material_grey_600"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                app:srcCompat="@drawable/ic_menu_black_24dp"
+                android:id="@+id/mt_nav"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:scaleType="center"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -48,9 +48,9 @@
                 android:gravity="center_vertical"
                 android:id="@+id/inputContainer"
                 android:visibility="gone"
+                android:layout_toRightOf="@+id/mt_nav"
                 android:layout_toStartOf="@+id/mt_menu"
-                android:layout_alignRight="@+id/mt_search"
-                android:layout_alignEnd="@+id/mt_search">
+                android:layout_toLeftOf="@+id/mt_menu">
 
                 <ImageView
                     android:clickable="true"
@@ -64,6 +64,7 @@
                     android:padding="13dp" />
 
                 <EditText
+                    android:layout_marginLeft="8dp"
                     android:imeOptions="flagNoExtractUi|actionSearch"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:hint="@string/action_search"
@@ -103,6 +104,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/mt_search"
+                android:tint="@color/material_grey_600"
+                android:src="@drawable/ic_magnify_black_48dp"
+                android:padding="13dp"
+                android:visibility="visible"
+                android:clickable="false"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 

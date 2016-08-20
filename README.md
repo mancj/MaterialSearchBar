@@ -53,8 +53,8 @@ then add SearchBar to your activity:
 | hint                | Set custom prompt in the search box                                                   |
 | speechMode          | If set to true, microphone icon will display instead of the search icon.              |
 | maxSuggestionsCount | Specifies the maximum number of search queries stored until the activity is destroyed |
-| iconLeft            | Change left icon                                                                      |
-| iconRight           | Change right icon                                                                     |
+| searchIconDrawable  | Set search icon drawable resource                                                     |
+| navIconDrawable     | Set navigation icon drawable resource                                                 |
 | textColor           | Change text color                                                                     |
 | hintColor           | Change text hint color                                                                |
 
@@ -71,8 +71,8 @@ then add SearchBar to your activity:
  - `setLastSuggestions(List<String> suggestions)`
  - `getLastSuggestions()`
  - `setMaxSuggestionCount(int maxQuery)`
- - `setIconLeft(int iconLefttResId)`
- - `setIconRight(int iconRightResId)`
+ - `setSearchIcon(int searchIconResId)`
+ - `setNavigationIcon(int navigationIconResId)`
  - `setTextColor(int textColor)`
  - `setTextHintColor(int hintColor)`
  - `inflateMenu(int menuResource)`
@@ -116,22 +116,25 @@ protected void onDestroy() {
     saveSearchSuggestionToDisk(searchBar.getLastSuggestions());
 }
 
-//called when searchbar enabled or disabled
 @Override
 public void onSearchStateChanged(boolean enabled) {
     String s = enabled ? "enabled" : "disabled";
     Toast.makeText(MainActivity.this, "Search " + s, Toast.LENGTH_SHORT).show();
 }
 
-//called when user confirms request
 @Override
 public void onSearchConfirmed(CharSequence text) {
     startSearch(text.toString(), true, null, true);
 }
 
-//called when microphone icon clicked
 @Override
-public void onSpeechIconSelected() {
-    openVoiceRecognizer();
+public void onButtonClicked(int buttonCode) {
+    switch (buttonCode){
+        case MaterialSearchBar.BUTTON_NAVIGATION:
+            drawer.openDrawer(Gravity.LEFT);
+            break;
+        case MaterialSearchBar.BUTTON_SPEECH:
+            openVoiceRecognizer();
+    }
 }
 ```
