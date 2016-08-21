@@ -3,6 +3,7 @@ package com.mancj.example;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         searchBar.setOnSearchActionListener(this);
         searchBar.inflateMenu(R.menu.main);
+        searchBar.setText("Привет мир");
+        Log.d("LOG_TAG", getClass().getSimpleName() + ": text " + searchBar.getText());
     }
 
     @Override

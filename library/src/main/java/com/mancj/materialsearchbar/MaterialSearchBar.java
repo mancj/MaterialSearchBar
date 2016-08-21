@@ -278,6 +278,14 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
+     * True if MaterialSearchBar is in speech mode
+     * @return speech mode
+     */
+    public boolean isSpeechModeEnabled(){
+        return speechMode;
+    }
+
+    /**
      * Check if search bar is in edit mode
      * @return true if search bar is in edit mode
      */
@@ -355,6 +363,22 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             navIcon.setVisibility(GONE);
             navIcon.setClickable(false);
         }
+    }
+
+    /**
+     * Set search text
+     * @param text text
+     */
+    public void setText(String text){
+        searchEdit.setText(text);
+    }
+
+    /**
+     * Get search text
+     * @return text
+     */
+    public String getText(){
+        return searchEdit.getText().toString();
     }
 
     private boolean listenerExists(){
