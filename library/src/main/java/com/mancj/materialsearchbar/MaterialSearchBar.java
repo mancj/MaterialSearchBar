@@ -448,7 +448,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (suggestionsVisible)
             animateLastRequests(getListHeight(false), 0);
         adapter.addSuggestion(searchEdit.getText().toString());
-        return false;
+        return true;
     }
 
     /**
