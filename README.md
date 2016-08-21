@@ -66,6 +66,8 @@ then add SearchBar to your activity:
  - `disableSearch()`
  - `enableSearch()`
  - `isSearchEnabled()`
+ - `setText(String text)`
+ - `getText()`
  - `setHint(CharSequence hint)`
  - `setNavButtonEnabled(boolean navButtonEnabled)`
  - `setSpeechMode(boolean speechMode)`
