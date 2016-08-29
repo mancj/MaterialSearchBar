@@ -205,7 +205,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         left_in.setAnimationListener(this);
         inputContainer.setVisibility(VISIBLE);
         inputContainer.startAnimation(left_in);
-        animateLastRequests(0, getListHeight(false));
         if (listenerExists()) {
             onSearchActionListener.onSearchStateChanged(true);
         }
@@ -420,6 +419,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         }else {
             searchIcon.setVisibility(GONE);
             searchEdit.requestFocus();
+            animateLastRequests(0, getListHeight(false));
         }
     }
 
