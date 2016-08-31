@@ -106,7 +106,7 @@ protected void onCreate(Bundle savedInstanceState) {
     //enable searchbar callbacks
     searchBar.setOnSearchActionListener(this);
     //restore last queries from disk
-    lastSearches = loadSearchSuggestionFromDiks();
+    lastSearches = loadSearchSuggestionFromDisk();
     searchBar.setLastSuggestions(list);
     //Inflate menu and setup OnMenuItemClickListener
     searchBar.inflateMenu(R.menu.main);
