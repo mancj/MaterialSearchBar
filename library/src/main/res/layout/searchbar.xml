@@ -2,6 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
+        android:id="@+id/mt_container"
         app:cardElevation="4dp"
         app:cardBackgroundColor="@android:color/white"
         android:layout_margin="8dp"
