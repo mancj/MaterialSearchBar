@@ -27,7 +27,7 @@ add the dependency to the the app level build.gradle file
 
 ```gradle
 dependencies {
-	compile 'com.github.mancj:MaterialSearchBar:0.3.1'
+	compile 'com.github.mancj:MaterialSearchBar:0.3.5-beta'
 }
 
 ```
@@ -81,6 +81,8 @@ then add SearchBar to your activity:
  - `setTextHintColor(int hintColor)`
  - `inflateMenu(int menuResource)`
  - `getMenu()`
+ - `addTextChangeListener(TextWatcher textWatcher)`
+ - `setCardViewElevation(int elevation)`
  
 ----------
 

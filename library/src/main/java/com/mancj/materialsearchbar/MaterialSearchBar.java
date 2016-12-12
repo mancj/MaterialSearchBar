@@ -8,9 +8,11 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -396,6 +398,23 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public String getText(){
         return searchEdit.getText().toString();
+    }
+
+    /**
+     * Set CardView elevation
+     * @param elevation
+     */
+    public void setCardViewElevation(int elevation){
+        CardView cardView = (CardView) findViewById(R.id.mt_container);
+        cardView.setCardElevation(elevation);
+    }
+
+    /**
+     * Add text watcher to searchbar's EditText
+     * @param textWatcher
+     */
+    public void addTextChangeListener(TextWatcher textWatcher){
+        searchEdit.addTextChangedListener(textWatcher);
     }
 
     private boolean listenerExists(){

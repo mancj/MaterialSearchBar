@@ -3,6 +3,8 @@ package com.mancj.example;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -33,8 +35,24 @@ public class MainActivity extends AppCompatActivity
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         searchBar.setOnSearchActionListener(this);
         searchBar.inflateMenu(R.menu.main);
-        searchBar.setText("Привет мир");
+        searchBar.setText("Hello World!");
         Log.d("LOG_TAG", getClass().getSimpleName() + ": text " + searchBar.getText());
+        searchBar.setCardViewElevation(10);
+        searchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + searchBar.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d("LOG_TAG", getClass().getSimpleName() + " after text changed " + searchBar.getText());
+            }
+        });
     }
 
     @Override
