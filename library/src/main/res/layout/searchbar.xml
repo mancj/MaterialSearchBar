@@ -41,6 +41,33 @@
                 android:scaleType="center"
                 android:visibility="gone" />
 
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/palceholderContainer"
+                android:visibility="visible"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@+id/mt_nav"
+                android:layout_toRightOf="@+id/mt_nav"
+                android:layout_toStartOf="@+id/mt_menu"
+                android:layout_toLeftOf="@+id/mt_menu"
+                >
+
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textColor="@color/material_grey_600"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mt_placeholder"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -69,7 +96,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:hint="@string/action_search"
                     android:background="@android:color/transparent"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/mt_editText"
                     android:singleLine="true"

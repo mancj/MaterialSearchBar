@@ -2,4 +2,5 @@
     <string name="app_name">MaterialSearchBar</string>
     <string name="action_search">Search</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_placeholder">Your App Name</string>
 </resources>

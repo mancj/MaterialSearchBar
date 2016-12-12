@@ -38,10 +38,12 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public static final int BUTTON_NAVIGATION = 2;
 
     private LinearLayout inputContainer;
+    private RelativeLayout placeHolderContainer;
     private ImageView searchIcon;
     private ImageView arrowIcon;
     private EditText searchEdit;
     private ImageView navIcon;
+    private TextView placeHolder;
     private OnSearchActionListener onSearchActionListener;
     private boolean searchEnabled;
     private boolean suggestionsVisible;
@@ -53,6 +55,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private int searchIconRes;
     private int navIconResId;
     private CharSequence hint;
+    private CharSequence placeholder;
     private int maxSuggestionCount;
     private boolean speechMode;
 
@@ -87,6 +90,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_searchIconDrawable, -1);
         navIconResId = array.getResourceId(R.styleable.MaterialSearchBar_navIconDrawable, -1);
         hint = array.getString(R.styleable.MaterialSearchBar_hint);
+        placeholder = array.getString(R.styleable.MaterialSearchBar_placeholder);
         maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_maxSuggestionsCount, 3);
         speechMode = array.getBoolean(R.styleable.MaterialSearchBar_speechMode, false);
 
@@ -107,7 +111,9 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         searchIcon = (ImageView) findViewById(R.id.mt_search);
         arrowIcon = (ImageView) findViewById(R.id.mt_arrow);
         searchEdit = (EditText) findViewById(R.id.mt_editText);
+        placeHolder = (TextView) findViewById(R.id.mt_placeholder);
         inputContainer = (LinearLayout) findViewById(R.id.inputContainer);
+        placeHolderContainer = (RelativeLayout) findViewById(R.id.palceholderContainer);
         navIcon = (ImageView) findViewById(R.id.mt_nav);
         findViewById(R.id.mt_clear).setOnClickListener(this);
 
@@ -156,6 +162,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         setNavigationIcon(navIconResId);
         if (hint != null)
             searchEdit.setHint(hint);
+        if (placeHolder != null)
+            placeHolder.setText(placeholder);
         setupTextColors();
         setNavButtonEnabled(navButtonEnabled);
         if (popupMenu == null)
@@ -203,6 +211,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         Animation left_in = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_left);
         Animation left_out = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out_left);
         left_in.setAnimationListener(this);
+        placeHolderContainer.setVisibility(GONE);
         inputContainer.setVisibility(VISIBLE);
         inputContainer.startAnimation(left_in);
         if (listenerExists()) {
@@ -255,6 +264,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public void setHint(CharSequence hint) {
         this.hint = hint;
         searchEdit.setHint(hint);
+    }
+
+    /**
+     * Set the place holder text
+     * @param placeholder
+     */
+    public void setPlaceHolder(CharSequence placeholder){
+        this.placeholder = placeholder;
+        placeHolder.setText(placeholder);
     }
 
     /**
@@ -415,6 +433,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public void onAnimationEnd(Animation animation) {
         if (!searchEnabled){
             inputContainer.setVisibility(GONE);
+            placeHolderContainer.setVisibility(VISIBLE);
             searchEdit.setText("");
         }else {
             searchIcon.setVisibility(GONE);
@@ -529,6 +548,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (searchEnabled)
         {
             inputContainer.setVisibility(VISIBLE);
+            placeHolderContainer.setVisibility(GONE);
             searchIcon.setVisibility(GONE);
         }
 //        speechMode = savedState.speechMode == VIEW_VISIBLE;
