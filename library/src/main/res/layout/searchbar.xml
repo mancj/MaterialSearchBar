@@ -37,7 +37,6 @@
                 android:background="?attr/selectableItemBackground"
                 app:srcCompat="@drawable/ic_menu_black_24dp"
                 android:id="@+id/mt_nav"
-                android:layout_weight="1"
                 android:clickable="true"
                 android:scaleType="center"
                 android:visibility="gone" />
@@ -58,7 +57,7 @@
 
                 <TextView
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:fontFamily="sans-serif-condensed"
+                    android:fontFamily="monospace"
                     android:layout_centerVertical="true"
                     android:textStyle="bold"
                     android:textColor="@color/material_grey_600"
@@ -76,6 +75,7 @@
                 android:gravity="center_vertical"
                 android:id="@+id/inputContainer"
                 android:visibility="gone"
+                android:layout_toEndOf="@+id/mt_nav"
                 android:layout_toRightOf="@+id/mt_nav"
                 android:layout_toStartOf="@+id/mt_menu"
                 android:layout_toLeftOf="@+id/mt_menu">
