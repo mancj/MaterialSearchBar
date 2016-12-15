@@ -59,6 +59,7 @@ then add SearchBar to your activity:
 | textColor           | Change text color                                                                     |
 | hintColor           | Change text hint color                                                                |
 | navIconEnabled      | Set navigation icon enabled                                                           |
+| placeholder         | Set the place holder text before any click is performed to                            |
 
 
 ----------
@@ -84,6 +85,7 @@ then add SearchBar to your activity:
  - `getMenu()`
  - `addTextChangeListener(TextWatcher textWatcher)`
  - `setCardViewElevation(int elevation)`
+ - `setPlaceHolder(CharSequence placeholder)`
  
 ----------
 
