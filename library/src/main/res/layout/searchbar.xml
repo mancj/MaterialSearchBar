@@ -39,7 +39,7 @@
                 android:id="@+id/mt_nav"
                 android:clickable="true"
                 android:scaleType="center"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:orientation="horizontal"
