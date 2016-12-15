@@ -101,7 +101,7 @@
                     android:visibility="visible"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"
-                    android:maxLines="1" />
+                    android:singleLine="true" />
 
                 <ImageView
                     android:background="?attr/selectableItemBackground"
