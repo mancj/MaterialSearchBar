@@ -4,6 +4,7 @@
         <attr name="searchIconDrawable" format="reference"/>
         <attr name="navIconDrawable" format="reference"/>
         <attr name="hint" format="string"/>
+        <attr name="placeholder" format="string"/>
         <attr name="maxSuggestionsCount" format="string"/>
         <attr name="speechMode" format="boolean"/>
         <attr name="hintColor" format="color"/>

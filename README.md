@@ -7,6 +7,7 @@ This beautiful and easy to use library will help to add Lollipop Material Design
 
 ![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview.gif)
 ![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview.png)
+![Material Design SearchBar Android](https://github.com/wax911/MaterialSearchBar/blob/master/art/preview2.png)
 ----------
 #How to use
 
@@ -58,6 +59,7 @@ then add SearchBar to your activity:
 | textColor           | Change text color                                                                     |
 | hintColor           | Change text hint color                                                                |
 | navIconEnabled      | Set navigation icon enabled                                                           |
+| placeholder         | Set the place holder text before any click is performed to                            |
 
 
 ----------
@@ -83,6 +85,7 @@ then add SearchBar to your activity:
  - `getMenu()`
  - `addTextChangeListener(TextWatcher textWatcher)`
  - `setCardViewElevation(int elevation)`
+ - `setPlaceHolder(CharSequence placeholder)`
  
 ----------
 
