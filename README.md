@@ -7,7 +7,7 @@ This beautiful and easy to use library will help to add Lollipop Material Design
 
 ![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview.gif)
 ![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview.png)
-![Material Design SearchBar Android](https://github.com/wax911/MaterialSearchBar/blob/master/art/preview2.png)
+![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview2.png)
 ----------
 #How to use
 
@@ -28,7 +28,7 @@ add the dependency to the the app level build.gradle file
 
 ```gradle
 dependencies {
-	compile 'com.github.mancj:MaterialSearchBar:0.3.5-beta'
+	compile 'com.github.mancj:MaterialSearchBar:0.3.5'
 }
 
 ```
