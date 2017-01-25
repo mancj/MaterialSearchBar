@@ -19,6 +19,9 @@ import android.view.MenuItem;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MaterialSearchBar.OnSearchActionListener {
     MaterialSearchBar searchBar;
@@ -53,6 +56,9 @@ public class MainActivity extends AppCompatActivity
                 Log.d("LOG_TAG", getClass().getSimpleName() + " after text changed " + searchBar.getText());
             }
         });
+
+        showResults();
+
     }
 
     @Override
