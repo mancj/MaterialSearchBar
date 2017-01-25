@@ -241,6 +241,14 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             animator.start();
     }
 
+    public void showSuggestionsList(){
+        animateLastRequests(0, getListHeight(false));
+    }
+
+    public void hideSuggestionsList(){
+        animateLastRequests(getListHeight(false), 0);
+    }
+
     /**
      * Set search icon drawable resource
      * @param searchIconResId icon resource id
@@ -457,7 +465,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         }else {
             searchIcon.setVisibility(GONE);
             searchEdit.requestFocus();
-            animateLastRequests(0, getListHeight(false));
+            if (!suggestionsVisible)
+                showSuggestionsList();
         }
     }
 
@@ -484,7 +493,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (listenerExists())
             onSearchActionListener.onSearchConfirmed(searchEdit.getText());
         if (suggestionsVisible)
-            animateLastRequests(getListHeight(false), 0);
+            hideSuggestionsList();
         adapter.addSuggestion(searchEdit.getText().toString());
         return true;
     }
@@ -634,7 +643,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if(event.getKeyCode()==KeyEvent.KEYCODE_BACK&&searchEnabled) {
+        if(event.getKeyCode()==KeyEvent.KEYCODE_BACK && searchEnabled) {
             animateLastRequests(getListHeight(false), 0);
             disableSearch();
             return true;

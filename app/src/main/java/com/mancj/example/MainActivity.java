@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity
                 Log.d("LOG_TAG", getClass().getSimpleName() + " after text changed " + searchBar.getText());
             }
         });
-
-        showResults();
-
     }
 
     @Override
