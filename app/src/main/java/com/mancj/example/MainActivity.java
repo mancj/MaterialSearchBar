@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.mancj.materialsearchbar.SimpleOnSearchActionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity
             public void afterTextChanged(Editable editable) {
                 Log.d("LOG_TAG", getClass().getSimpleName() + " after text changed " + searchBar.getText());
             }
+
         });
     }
 
