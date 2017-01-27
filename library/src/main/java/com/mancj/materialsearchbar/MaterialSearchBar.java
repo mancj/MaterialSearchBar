@@ -355,10 +355,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      * @param suggestions an array of queries
      */
     public void updateLastSuggestions(List<String> suggestions){
-        List<String> newSuggestions = new ArrayList<>(suggestions);
         int startHeight = getListHeight(false);
-        adapter.setSuggestions(newSuggestions);
-        animateLastRequests(startHeight, getListHeight(false));
+        if (suggestions.size() > 0)
+        {
+            List<String> newSuggestions = new ArrayList<>(suggestions);
+            adapter.setSuggestions(newSuggestions);
+            animateLastRequests(startHeight, getListHeight(false));
+        }else {
+            animateLastRequests(startHeight, 0);
+        }
     }
 
     /**
