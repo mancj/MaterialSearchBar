@@ -21,6 +21,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.SimpleOnSearchActionListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Log.d("LOG_TAG", getClass().getSimpleName() + " after text changed " + searchBar.getText());
+
             }
 
         });
@@ -119,7 +120,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSearchStateChanged(boolean enabled) {
-
     }
 
     @Override
