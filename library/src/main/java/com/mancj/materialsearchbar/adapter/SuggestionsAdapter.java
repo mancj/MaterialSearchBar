@@ -11,6 +11,11 @@ import java.util.List;
  * Created by mancj on 27.01.17.
  */
 
+/**
+ * Create this adapter to customize the suggestions list of the MaterialSearchBar
+ * @param <S> type of your suggestions model
+ * @param <V> viewholder
+ */
 public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>{
     private List<S> suggestions = new ArrayList<>();
     private LayoutInflater inflater;
