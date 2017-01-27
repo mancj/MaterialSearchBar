@@ -88,6 +88,9 @@ then add SearchBar to your activity:
  - `addTextChangeListener(TextWatcher textWatcher)`
  - `setCardViewElevation(int elevation)`
  - `setPlaceHolder(CharSequence placeholder)`
+ - `setSuggstionsClickListener`
+ - `updateLastSuggestions`
+ - `setCustomSuggestionAdapter`
  
 ----------
 
@@ -149,3 +152,6 @@ public void onButtonClicked(int buttonCode) {
     }
 }
 ```
+
+
+More [Examples](https://github.com/mancj/MaterialSearchBar/tree/master/app/src/main/java/com/mancj/example)
