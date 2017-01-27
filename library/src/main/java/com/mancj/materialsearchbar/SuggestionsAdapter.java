@@ -43,6 +43,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
             suggestions.remove(r);
             suggestions.add(0, r);
         }
+        notifyDataSetChanged();
     }
 
     public void deleteSuggestion(int postion,String r){

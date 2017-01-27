@@ -249,6 +249,13 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         animateLastRequests(getListHeight(false), 0);
     }
 
+    public void addSuggestion(String suggestion, boolean showSuggestions){
+        int startHeight = getListHeight(false);
+        adapter.addSuggestion(suggestion);
+        if (showSuggestions)
+            animateLastRequests(startHeight, getListHeight(false));
+    }
+
     /**
      * Set search icon drawable resource
      * @param searchIconResId icon resource id
