@@ -30,7 +30,7 @@ add the dependency to the the app level build.gradle file
 
 ```gradle
 dependencies {
-	compile 'com.github.mancj:MaterialSearchBar:0.3.5'
+	compile 'com.github.mancj:MaterialSearchBar:0.6'
 }
 
 ```
