@@ -14,7 +14,7 @@ This beautiful and easy to use library will help to add Lollipop Material Design
 
 # See our [Wiki](https://github.com/mancj/MaterialSearchBar/wiki) 
 
-----------
+
 #How to use
 
 **to include SearchBar to your project:**
