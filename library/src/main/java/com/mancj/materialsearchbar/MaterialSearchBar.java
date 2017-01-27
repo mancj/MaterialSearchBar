@@ -379,6 +379,14 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
+     * Allows you to intercept the suggestions click event
+     * @param listener
+     */
+    public void setSuggstionsClickListener(SuggestionsAdapter.OnItemViewClickListener listener){
+        adapter.setListener(listener);
+    }
+
+    /**
      * Set search input text color
      * @param textColor text color
      */
