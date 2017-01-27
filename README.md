@@ -11,6 +11,10 @@ This beautiful and easy to use library will help to add Lollipop Material Design
 <img src="/art/pv3.png" width="400">
 
 ----------
+
+# See our [Wiki](https://github.com/mancj/MaterialSearchBar/wiki) 
+
+----------
 #How to use
 
 **to include SearchBar to your project:**
