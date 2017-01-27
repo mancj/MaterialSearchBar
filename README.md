@@ -6,8 +6,9 @@ Material Design Search Bar for Android
 This beautiful and easy to use library will help to add Lollipop Material Design SearchView in your project.
 
 <img src="/art/preview.gif" width="400">
-<img src="/art/preview.png" width="400">
-<img src="/art/preview2.png" width="400">
+<img src="/art/pv1.png" width="400">
+<img src="/art/pv2.png" width="400">
+<img src="/art/pv3.png" width="400">
 
 ----------
 #How to use
