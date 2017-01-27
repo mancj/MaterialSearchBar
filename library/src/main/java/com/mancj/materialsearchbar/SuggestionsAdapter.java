@@ -82,6 +82,11 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         notifyDataSetChanged();
     }
 
+    public void clearSuggestions() {
+        suggestions.clear();
+        notifyDataSetChanged();
+    }
+
     class SuggestionHolder extends RecyclerView.ViewHolder{
         private TextView text;
         private ImageView iv_delete;

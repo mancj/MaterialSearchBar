@@ -249,6 +249,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         animateLastRequests(getListHeight(false), 0);
     }
 
+    public void clearSuggestions(){
+        animateLastRequests(getListHeight(false), 0);
+        adapter.clearSuggestions();
+    }
+
+    public void updateSuggestionsView(){
+
+    }
+
     public void addSuggestion(String suggestion, boolean showSuggestions){
         int startHeight = getListHeight(false);
         adapter.addSuggestion(suggestion);
