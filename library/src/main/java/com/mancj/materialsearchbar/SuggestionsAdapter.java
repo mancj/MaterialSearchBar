@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -79,6 +80,12 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
     public void setSuggestions(List<String> suggestions) {
         this.suggestions = suggestions;
+        notifyDataSetChanged();
+    }
+
+    public void setSuggestions(String ... suggestions) {
+        this.suggestions.clear();
+        this.suggestions = Arrays.asList(suggestions);
         notifyDataSetChanged();
     }
 

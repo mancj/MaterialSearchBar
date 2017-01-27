@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -250,19 +251,9 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     public void clearSuggestions(){
-        animateLastRequests(getListHeight(false), 0);
+        if (suggestionsVisible)
+            animateLastRequests(getListHeight(false), 0);
         adapter.clearSuggestions();
-    }
-
-    public void updateSuggestionsView(){
-
-    }
-
-    public void addSuggestion(String suggestion, boolean showSuggestions){
-        int startHeight = getListHeight(false);
-        adapter.addSuggestion(suggestion);
-        if (showSuggestions)
-            animateLastRequests(startHeight, getListHeight(false));
     }
 
     /**
@@ -357,6 +348,17 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public List<String> getLastSuggestions(){
         return adapter.getSuggestions();
+    }
+
+    /**
+     * Changes the array of recent search queries with animation
+     * @param suggestions an array of queries
+     */
+    public void updateLastSuggestions(List<String> suggestions){
+        List<String> newSuggestions = new ArrayList<>(suggestions);
+        int startHeight = getListHeight(false);
+        adapter.setSuggestions(newSuggestions);
+        animateLastRequests(startHeight, getListHeight(false));
     }
 
     /**
