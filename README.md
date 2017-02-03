@@ -5,10 +5,16 @@ Material Design Search Bar for Android
 ----------
 This beautiful and easy to use library will help to add Lollipop Material Design SearchView in your project.
 
-![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview.gif)
-![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview.png)
-![Material Design SearchBar Android](https://github.com/mancj/MaterialSearchBar/blob/master/art/preview2.png)
+<img src="/art/preview.gif" width="400">
+<img src="/art/pv1.png" width="400">
+<img src="/art/pv2.png" width="400">
+<img src="/art/pv3.png" width="400">
+
 ----------
+
+# See our [Wiki](https://github.com/mancj/MaterialSearchBar/wiki) 
+
+
 #How to use
 
 **to include SearchBar to your project:**
@@ -28,7 +34,7 @@ add the dependency to the the app level build.gradle file
 
 ```gradle
 dependencies {
-	compile 'com.github.mancj:MaterialSearchBar:0.3.5'
+	compile 'com.github.mancj:MaterialSearchBar:0.6'
 }
 
 ```
@@ -86,6 +92,9 @@ then add SearchBar to your activity:
  - `addTextChangeListener(TextWatcher textWatcher)`
  - `setCardViewElevation(int elevation)`
  - `setPlaceHolder(CharSequence placeholder)`
+ - `setSuggstionsClickListener`
+ - `updateLastSuggestions`
+ - `setCustomSuggestionAdapter`
  
 ----------
 
@@ -147,3 +156,6 @@ public void onButtonClicked(int buttonCode) {
     }
 }
 ```
+
+
+More [Examples](https://github.com/mancj/MaterialSearchBar/tree/master/app/src/main/java/com/mancj/example)

@@ -3,6 +3,7 @@ package com.mancj.example;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.PopupMenu;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,6 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.mancj.materialsearchbar.SimpleOnSearchActionListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MaterialSearchBar.OnSearchActionListener {
@@ -50,8 +56,9 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Log.d("LOG_TAG", getClass().getSimpleName() + " after text changed " + searchBar.getText());
+
             }
+
         });
     }
 
@@ -114,7 +121,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSearchStateChanged(boolean enabled) {
-
     }
 
     @Override
