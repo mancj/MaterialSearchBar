@@ -22,12 +22,18 @@
         android:layout_height="match_parent"
         android:background="@color/transparentBlack">
 
+        <Button
+            android:layout_gravity="center"
+            android:text="Add product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button" />
     </FrameLayout>
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"
         app:navIconEnabled="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </android.support.design.widget.CoordinatorLayout>

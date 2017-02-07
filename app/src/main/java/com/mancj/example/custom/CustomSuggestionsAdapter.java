@@ -22,7 +22,7 @@ public class CustomSuggestionsAdapter extends SuggestionsAdapter<Product, Custom
 
     @Override
     public int getSingleViewHeight() {
-        return 60;
+        return 80;
     }
 
     @Override
