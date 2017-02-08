@@ -47,12 +47,10 @@
                 android:layout_height="50dp"
                 android:id="@+id/palceholderContainer"
                 android:visibility="visible"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/mt_nav"
                 android:layout_toRightOf="@+id/mt_nav"
-                android:layout_toStartOf="@+id/mt_menu"
-                android:layout_toLeftOf="@+id/mt_menu"
                 >
 
                 <TextView
