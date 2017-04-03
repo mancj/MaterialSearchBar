@@ -93,16 +93,16 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         inflate(getContext(), R.layout.searchbar, this);
 
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.MaterialSearchBar);
-        searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_searchIconDrawable, -1);
-        navIconResId = array.getResourceId(R.styleable.MaterialSearchBar_navIconDrawable, -1);
-        hint = array.getString(R.styleable.MaterialSearchBar_hint);
-        placeholderText = array.getString(R.styleable.MaterialSearchBar_placeholder);
-        maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_maxSuggestionsCount, 3);
-        speechMode = array.getBoolean(R.styleable.MaterialSearchBar_speechMode, false);
+        searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_searchIconDrawable, -1);
+        navIconResId = array.getResourceId(R.styleable.MaterialSearchBar_mt_navIconDrawable, -1);
+        hint = array.getString(R.styleable.MaterialSearchBar_mt_hint);
+        placeholderText = array.getString(R.styleable.MaterialSearchBar_mt_placeholder);
+        maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_mt_maxSuggestionsCount, 3);
+        speechMode = array.getBoolean(R.styleable.MaterialSearchBar_mt_speechMode, false);
 
-        hintColor = array.getColor(R.styleable.MaterialSearchBar_hintColor, -1);
-        textColor = array.getColor(R.styleable.MaterialSearchBar_textColor, -1);
-        navButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_navIconEnabled, false);
+        hintColor = array.getColor(R.styleable.MaterialSearchBar_mt_hintColor, -1);
+        textColor = array.getColor(R.styleable.MaterialSearchBar_mt_textColor, -1);
+        navButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconEnabled, false);
 
         destiny = getResources().getDisplayMetrics().density;
         if (adapter == null){

@@ -32,7 +32,7 @@
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"
-        app:navIconEnabled="false"
+        app:mt_navIconEnabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
