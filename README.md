@@ -12,7 +12,7 @@ This beautiful and easy to use library will help to add Lollipop Material Design
 
 ----------
 
-# See our [Wiki](https://github.com/mancj/MaterialSearchBar/wiki) 
+# See our [Wiki](https://github.com/mancj/MaterialSearchBar/wiki)
 
 
 #How to use
@@ -30,11 +30,11 @@ allprojects {
 }
 ```
 
-add the dependency to the the app level build.gradle file 
+add the dependency to the the app level build.gradle file
 
 ```gradle
 dependencies {
-	compile 'com.github.mancj:MaterialSearchBar:0.6'
+	compile 'com.github.mancj:MaterialSearchBar:0.7'
 }
 
 ```
@@ -43,9 +43,9 @@ then add SearchBar to your activity:
 
 ```xml
 <com.mancj.materialsearchbar.MaterialSearchBar
-    app:speechMode="true"
-    app:hint="Custom hint"
-    app:maxSuggestionsCount="10"
+    app:mt_speechMode="true"
+    app:mt_hint="Custom hint"
+    app:mt_maxSuggestionsCount="10"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/searchBar" />
@@ -57,15 +57,15 @@ then add SearchBar to your activity:
 
 | attribute           | description                                                                           |
 |---------------------|---------------------------------------------------------------------------------------|
-| hint                | Set custom prompt in the search box                                                   |
-| speechMode          | If set to true, microphone icon will display instead of the search icon.              |
-| maxSuggestionsCount | Specifies the maximum number of search queries stored until the activity is destroyed |
-| searchIconDrawable  | Set search icon drawable resource                                                     |
-| navIconDrawable     | Set navigation icon drawable resource                                                 |
-| textColor           | Change text color                                                                     |
-| hintColor           | Change text hint color                                                                |
-| navIconEnabled      | Set navigation icon enabled                                                           |
-| placeholder         | Set the place holder text before any click is performed to                            |
+| mt_hint                | Set custom prompt in the search box                                                   |
+| mt_speechMode          | If set to true, microphone icon will display instead of the search icon.              |
+| mt_maxSuggestionsCount | Specifies the maximum number of search queries stored until the activity is destroyed |
+| mt_searchIconDrawable  | Set search icon drawable resource                                                     |
+| mt_navIconDrawable     | Set navigation icon drawable resource                                                 |
+| mt_textColor           | Change text color                                                                     |
+| mt_hintColor           | Change text hint color                                                                |
+| mt_navIconEnabled      | Set navigation icon enabled                                                           |
+| mt_placeholder         | Set the place holder text before any click is performed to                            |
 
 
 ----------
@@ -95,12 +95,12 @@ then add SearchBar to your activity:
  - `setSuggstionsClickListener`
  - `updateLastSuggestions`
  - `setCustomSuggestionAdapter`
- 
+
 ----------
 
 
 To save search queries when the activity is destroyed, use the method `searchBar.getLastSuggestions()` and then, to restore them use `searchBar.setLastSuggestions(List<String>);` as shown in the example below
- 
+
 #Example
 
 Here is a simple example of using MaterialSearchBar
