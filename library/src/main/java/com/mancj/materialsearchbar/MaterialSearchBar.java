@@ -44,7 +44,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public static final int BUTTON_NAVIGATION = 2;
 
     private LinearLayout inputContainer;
-    private RelativeLayout placeHolderContainer;
     private ImageView searchIcon;
     private ImageView arrowIcon;
     private EditText searchEdit;
@@ -122,7 +121,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         searchEdit = (EditText) findViewById(R.id.mt_editText);
         placeHolder = (TextView) findViewById(R.id.mt_placeholder);
         inputContainer = (LinearLayout) findViewById(R.id.inputContainer);
-        placeHolderContainer = (RelativeLayout) findViewById(R.id.palceholderContainer);
         navIcon = (ImageView) findViewById(R.id.mt_nav);
         findViewById(R.id.mt_clear).setOnClickListener(this);
 
@@ -211,8 +209,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
         if (placeholderText != null)
         {
-            placeHolderContainer.setVisibility(VISIBLE);
-            placeHolderContainer.startAnimation(in);
+            placeHolder.setVisibility(VISIBLE);
+            placeHolder.startAnimation(in);
         }
         if (listenerExists())
             onSearchActionListener.onSearchStateChanged(false);
@@ -228,7 +226,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         Animation left_in = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_left);
         Animation left_out = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out_left);
         left_in.setAnimationListener(this);
-        placeHolderContainer.setVisibility(GONE);
+        placeHolder.setVisibility(GONE);
         inputContainer.setVisibility(VISIBLE);
         inputContainer.startAnimation(left_in);
         if (listenerExists()) {
@@ -636,7 +634,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (searchEnabled)
         {
             inputContainer.setVisibility(VISIBLE);
-            placeHolderContainer.setVisibility(GONE);
+            placeHolder.setVisibility(GONE);
             searchIcon.setVisibility(GONE);
         }
     }
