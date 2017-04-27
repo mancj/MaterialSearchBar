@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>{
     private List<S> suggestions = new ArrayList<>();
     private LayoutInflater inflater;
-    protected int maxSuggestionsCount;
+    protected int maxSuggestionsCount = 5;
 
     public SuggestionsAdapter(LayoutInflater inflater) {
         this.inflater = inflater;

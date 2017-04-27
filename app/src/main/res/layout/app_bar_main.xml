@@ -26,8 +26,8 @@
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"
-        app:navIconEnabled="true"
-        app:placeholder="Google Play Store"
+        app:mt_navIconEnabled="true"
+        app:mt_placeholder="Google Play"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
