@@ -3,6 +3,9 @@ package com.mancj.materialsearchbar.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +19,10 @@ import java.util.List;
  * @param <S> type of your suggestions model
  * @param <V> viewholder
  */
-public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>{
-    private List<S> suggestions = new ArrayList<>();
+public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V> implements Filterable {
+
+    protected List<S> suggestions = new ArrayList<>();
+    protected List<S> suggestions_clone = new ArrayList<>();
     private LayoutInflater inflater;
     protected int maxSuggestionsCount = 5;
 
@@ -41,27 +46,31 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
             suggestions.remove(r);
             suggestions.add(0, r);
         }
+        suggestions_clone = suggestions;
         notifyDataSetChanged();
     }
 
     public void setSuggestions(List<S> suggestions) {
         this.suggestions = suggestions;
+        suggestions_clone = suggestions;
         notifyDataSetChanged();
     }
 
     public void clearSuggestions() {
         suggestions.clear();
+        suggestions_clone = suggestions;
         notifyDataSetChanged();
     }
 
-    public void deleteSuggestion(int postion, S r){
+    public void deleteSuggestion(int position, S r) {
         if(r == null)
             return;
         //delete item with animation
         if(suggestions.contains(r))
         {
-            this.notifyItemRemoved(postion);
+            this.notifyItemRemoved(position);
             suggestions.remove(r);
+            suggestions_clone = suggestions;
         }
     }
 
@@ -102,6 +111,20 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
     @Override
     public int getItemCount() {
         return suggestions.size();
+    }
+
+    /**
+     * <p>Returns a filter that can be used to constrain data with a filtering
+     * pattern.</p>
+     * <p>
+     * <p>This method is usually implemented by {@link Adapter}
+     * classes.</p>
+     *
+     * @return a filter used to constrain data
+     */
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 
     public interface OnItemViewClickListener{
