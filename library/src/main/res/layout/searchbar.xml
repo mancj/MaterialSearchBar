@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:id="@+id/root"
@@ -57,7 +56,7 @@
                 android:textColor="@color/material_grey_600"
                 android:textStyle="bold"
                 android:visibility="visible"
-                tools:text="Hara haza mettig d1alocurg yu. Hara haza mettig d1alocurg yu. Hara haza mettig d1alocurg yu" />
+                tools:text="Hara" />
 
             <LinearLayout
                 android:id="@+id/inputContainer"
