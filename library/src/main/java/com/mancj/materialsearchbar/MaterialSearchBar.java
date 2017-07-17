@@ -440,14 +440,21 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (navButtonEnabled){
             navIcon.setVisibility(VISIBLE);
             navIcon.setClickable(true);
-            LayoutParams lp = (LayoutParams) inputContainer.getLayoutParams();
-            lp.leftMargin = (int) (50 * destiny);
-            inputContainer.setLayoutParams(lp);
+            navIcon.getLayoutParams().width = (int) (50 * destiny);
+
+            ((LayoutParams) inputContainer.getLayoutParams()).leftMargin = (int) (50 * destiny);
             arrowIcon.setVisibility(GONE);
         }else {
-            navIcon.setVisibility(GONE);
+            navIcon.getLayoutParams().width = 1;
+            navIcon.setVisibility(INVISIBLE);
             navIcon.setClickable(false);
+
+            ((LayoutParams) inputContainer.getLayoutParams()).leftMargin = (int) (0 * destiny);
+            arrowIcon.setVisibility(VISIBLE);
         }
+        navIcon.requestLayout();
+        placeHolder.requestLayout();
+        arrowIcon.requestLayout();
     }
 
     /**
