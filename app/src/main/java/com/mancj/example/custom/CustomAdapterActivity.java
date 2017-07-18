@@ -1,11 +1,13 @@
 package com.mancj.example.custom;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toolbar;
 
 import com.mancj.example.R;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -18,6 +20,20 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
     private List<Product> suggestions = new ArrayList<>();
     private CustomSuggestionsAdapter customSuggestionsAdapter;
 
+    // Sample data
+    private final String[] products = {
+        "Simvastatin",
+        "Carrot Daucus carota",
+        "Sodium Fluoride",
+        "White Kidney Beans",
+        "Salicylic Acid",
+        "cetirizine hydrochloride",
+        "Mucor racemosus",
+        "Thymol",
+        "TOLNAFTATE",
+        "Albumin Human"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +45,35 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
 
         Button addProductBtn = (Button) findViewById(R.id.button);
         addProductBtn.setOnClickListener(this);
-//        for (int i = 1; i < 11; i++) {
-//            suggestions.add(new Product("Product " + i, i * 10));
-//        }
-        customSuggestionsAdapter.setSuggestions(suggestions);
 
+        searchBar.setMaxSuggestionCount(2);
+        searchBar.setHint("Find Product..");
+
+        for (int i = 1; i < 11; i++) {
+            suggestions.add(new Product(products[i -1], i * 10));
+        }
+
+        customSuggestionsAdapter.setSuggestions(suggestions);
         searchBar.setCustomSuggestionAdapter(customSuggestionsAdapter);
 
+        searchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + searchBar.getText());
+                // send the entered text to our filter and let it manage everything
+                customSuggestionsAdapter.getFilter().filter(searchBar.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+        });
     }
 
     @Override

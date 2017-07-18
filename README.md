@@ -9,6 +9,8 @@ This beautiful and easy to use library will help to add Lollipop Material Design
 <img src="/art/pv1.png" width="400">
 <img src="/art/pv2.png" width="400">
 <img src="/art/pv3.png" width="400">
+<img src="/art/pv4.png" width="400">
+<img src="/art/pv5.png" width="400">
 
 ----------
 
