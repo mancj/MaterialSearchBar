@@ -144,8 +144,89 @@ then add SearchBar to your activity:
  - `updateLastSuggestions(List suggestions)`
 
 ----------
+**Styling Material SearchBar**
 
+**Custom Style - styles.xml**
+Create a custom style and use one of the provided styles as the parent.
 
+```xml
+Provided Styles are: MaterialSearchBarLight and MaterialSearchBarDark
+
+Example:
+<style name="MyCustomTheme" parent="MaterialSearchBarLight">
+    <item name="mt_searchBarColor">@color/searchBarPrimaryColor</item>
+        <item name="mt_dividerColor">@color/searchBarDividerColor</item>
+        <item name="mt_navIconTint">@color/searchBarNavIconTintColor</item>
+        <item name="mt_searchIconTint">@color/searchBarSearchIconTintColor</item>
+        <item name="mt_clearIconTint">@color/searchBarClearIconTintColor</item>
+        <item name="mt_menuIconTint">@color/searchBarMenuIconTintColor</item>
+        <item name="mt_backIconTint">@color/searchBarBackIconTintColor</item>
+        <item name="mt_textCursorTint">@color/searchBarCursorColor</item>
+        <item name="mt_textColor">@color/searchBarTextColor</item>
+        <item name="mt_hintColor">@color/searchBarHintColor</item>
+        <item name="mt_placeholderColor">@color/searchBarPlaceholderColor</item>
+        <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColor</item>
+        <item name="mt_leftTextSelectorTint">@color/leftTextSelectorColor</item>
+        <item name="mt_middleTextSelectorTint">@color/middleTextSelectorColor</item>
+        <item name="mt_rightTextSelectorTint">@color/rightTextSelectorColor</item>
+        <item name="mt_leftTextSelectorDrawable">@drawable/text_select_handle_left_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_middleTextSelectorDrawable">@drawable/text_select_handle_middle_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_rightTextSelectorDrawable">@drawable/text_select_handle_right_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_handlesTintEnabled">true</item>
+    </style>
+```
+**OR**
+
+**Custom Colors - colors.xml** 
+Simply set/change these colors(or some) and you have your custom style.
+```xml
+    //Material SearchBar Light Theme Colors
+    <color name="searchBarIconColor">#3a3a3a</color>
+    //Base
+    <color name="searchBarPrimaryColor">#FFFFFF</color>
+    <color name="searchBarCursorColor">#8000a1ff</color>
+    <color name="searchBarDividerColor">#1F000000</color>
+
+    //Icons
+    <color name="searchBarNavIconTintColor">@color/searchBarIconColor</color>
+    <color name="searchBarMenuIconTintColor">@color/searchBarIconColor</color>
+    <color name="searchBarSearchIconTintColor">@color/searchBarIconColor</color>
+    <color name="searchBarClearIconTintColor">@color/searchBarIconColor</color>
+    <color name="searchBarBackIconTintColor">@color/searchBarIconColor</color>
+
+    //Text
+    <color name="searchBarTextColor">#DE000000</color>
+    <color name="searchBarHintColor">#42000000</color>
+    <color name="searchBarPlaceholderColor">#8A000000</color>
+    <color name="searchBarTextHighlightColor">#8000a1ff</color>
+    <color name="leftTextSelectorColor">#00a1ff</color>
+    <color name="middleTextSelectorColor">#00a1ff</color>
+    <color name="rightTextSelectorColor">#00a1ff</color>
+
+    //Material SearchBar Dark Theme Colors
+    <color name="searchBarIconColorDark">#00a1ff</color>
+    //Base
+    <color name="searchBarPrimaryColorDark">#303030</color>
+    <color name="searchBarCursorColorDark">@color/searchBarIconColorDark</color>
+    <color name="searchBarDividerColorDark">#1FFFFFFF</color>
+
+    //Icons
+    <color name="searchBarNavIconTintColorDark">@color/searchBarIconColorDark</color>
+    <color name="searchBarMenuIconTintColorDark">@color/searchBarIconColorDark</color>
+    <color name="searchBarSearchIconTintColorDark">@color/searchBarIconColorDark</color>
+    <color name="searchBarClearIconTintColorDark">@color/searchBarIconColorDark</color>
+    <color name="searchBarBackIconTintColorDark">@color/searchBarIconColorDark</color>
+
+    //Text
+    <color name="searchBarTextColorDark">#DEFFFFFF</color>
+    <color name="searchBarHintColorDark">#42FFFFFF</color>
+    <color name="searchBarPlaceholderColorDark">#8AFFFFFF</color>
+    <color name="searchBarTextHighlightColorDark">#BF00a1ff</color>
+    <color name="leftTextSelectorColorDark">@color/searchBarIconColorDark</color>
+    <color name="middleTextSelectorColorDark">@color/searchBarIconColorDark</color>
+    <color name="rightTextSelectorColorDark">@color/searchBarIconColorDark</color>
+```
+----------
 To save search queries when the activity is destroyed, use the method `searchBar.getLastSuggestions()` and then, to restore them use `searchBar.setLastSuggestions(List<String>);` as shown in the example below
 
 #Example
