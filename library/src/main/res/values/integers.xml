@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="icon_animation_duration">250</integer>
+    <integer name="mtb_from">0</integer>
+    <integer name="mtb_to_btm_from">180</integer>
+    <integer name="btm_to">360</integer>
+</resources>

@@ -1,0 +1,8 @@
+<!--Morph From Back To Menu -->
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/icon_animation_duration"
+    android:propertyName="pathData"
+    android:valueFrom="@string/back_vector_path"
+    android:valueTo="@string/menu_vector_path"
+    android:valueType="pathType"/>

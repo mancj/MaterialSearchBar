@@ -13,7 +13,7 @@
     <RelativeLayout
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="64dp">
 
     </RelativeLayout>
 
@@ -25,10 +25,13 @@
     </FrameLayout>
 
     <com.mancj.materialsearchbar.MaterialSearchBar
+        style="@style/MaterialSearchBarLight"
         android:id="@+id/searchBar"
         app:mt_navIconEnabled="true"
         app:mt_placeholder="Google Play"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

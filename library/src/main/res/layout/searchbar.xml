@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       xmlns:tools="http://schemas.android.com/tools">
+
     <android.support.v7.widget.CardView
         android:id="@+id/mt_container"
-        app:cardElevation="4dp"
-        app:cardBackgroundColor="@android:color/white"
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@color/searchBarPrimaryColor"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="false"
+        >
+
         <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
             android:id="@+id/root"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/mt_menu"
-                android:layout_width="36dp"
-                android:layout_height="50dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:padding="13dp"
+                android:padding="12dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_dots_vertical_black_48dp"
-                android:tint="@color/material_grey_600"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/mt_nav"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:scaleType="center"
-                android:tint="@color/material_grey_600"
                 android:visibility="visible"
-                app:srcCompat="@drawable/ic_menu_black_24dp" />
+                app:srcCompat="@drawable/ic_menu_black_24dp"/>
 
             <TextView
                 android:id="@+id/mt_placeholder"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
+                android:layout_height="48dp"
                 android:layout_marginLeft="16dp"
                 android:layout_toLeftOf="@+id/mt_search"
                 android:layout_toRightOf="@+id/mt_nav"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
-                android:singleLine="true"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/material_grey_600"
+                android:maxLines="1"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/searchBarPlaceholderColor"
                 android:textStyle="bold"
                 android:visibility="visible"
-                tools:text="Hara" />
+                tools:text="PlaceHolder"/>
 
             <LinearLayout
                 android:id="@+id/inputContainer"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_toLeftOf="@+id/mt_menu"
                 android:layout_toStartOf="@+id/mt_menu"
                 android:gravity="center_vertical"
@@ -70,14 +71,13 @@
 
                 <ImageView
                     android:id="@+id/mt_arrow"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
-                    android:padding="13dp"
+                    android:padding="12dp"
                     android:src="@drawable/ic_arrow_left_black_48dp"
-                    android:tint="@color/material_grey_600"
-                    android:visibility="visible" />
+                    android:visibility="visible"/>
 
                 <EditText
                     android:id="@+id/mt_editText"
@@ -90,32 +90,35 @@
                     android:hint="@string/action_search"
                     android:imeOptions="flagNoExtractUi|actionSearch"
                     android:inputType="text"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:visibility="visible" />
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:visibility="visible"/>
 
                 <ImageView
                     android:id="@+id/mt_clear"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="14dp"
-                    android:src="@drawable/ic_close_black_48dp"
-                    android:tint="@color/material_grey_600" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_close_black_48dp"/>
 
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/last"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="50dp"
-                android:id="@+id/last">
+                android:layout_marginTop="48dp">
+
                 <View
+                    android:id="@+id/mt_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/material_grey_300"/>
+                    android:background="@color/searchBarDividerColor"/>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mt_recycler"
                     android:layout_width="match_parent"
@@ -124,18 +127,27 @@
 
             <ImageView
                 android:id="@+id/mt_search"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
+                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="false"
-                android:padding="13dp"
+                android:padding="12dp"
                 android:src="@drawable/ic_magnify_black_48dp"
-                android:tint="@color/material_grey_600"
-                android:visibility="visible" />
+                android:scaleType="centerCrop"
+                android:visibility="visible"/>
+
+            <View
+                android:id="@+id/mt_menu_divider"
+                android:layout_width="1dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="48dp"
+                android:background="@color/searchBarDividerColor"
+                android:clickable="false"
+                android:visibility="gone"/>
 
         </RelativeLayout>
-
     </android.support.v7.widget.CardView>
 </merge>

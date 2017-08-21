@@ -124,6 +124,10 @@ public class MainActivity extends AppCompatActivity
                 drawer.openDrawer(Gravity.LEFT);
                 break;
             case MaterialSearchBar.BUTTON_SPEECH:
+                break;
+            case MaterialSearchBar.BUTTON_BACK:
+                searchBar.disableSearch();
+                break;
         }
     }
 }

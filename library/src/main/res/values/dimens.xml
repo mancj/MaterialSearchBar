@@ -5,4 +5,6 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="icon_size">50dp</dimen>
+    <dimen name="corner_radius_rounded">25dp</dimen>
+    <dimen name="corner_radius_default">4dp</dimen>
 </resources>
