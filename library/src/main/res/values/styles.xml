@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -10,7 +9,7 @@
     </style>
 
     <!-- MaterialSearchBarLightTheme-->
-    <style name="MaterialSearchBarLight" parent="AppTheme">
+    <style name="MaterialSearchBarLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="mt_searchBarColor">@color/searchBarPrimaryColor</item>
         <item name="mt_dividerColor">@color/searchBarDividerColor</item>
         <item name="mt_navIconTint">@color/searchBarNavIconTintColor</item>
@@ -33,7 +32,7 @@
     </style>
 
     <!-- MaterialSearchBarDarkTheme-->
-    <style name="MaterialSearchBarDark" parent="AppTheme">
+    <style name="MaterialSearchBarDark" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="mt_searchBarColor">@color/searchBarPrimaryColorDark</item>
         <item name="mt_dividerColor">@color/searchBarDividerColorDark</item>
         <item name="mt_navIconTint">@color/searchBarNavIconTintColorDark</item>
