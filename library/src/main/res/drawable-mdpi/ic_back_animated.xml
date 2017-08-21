@@ -1,0 +1,11 @@
+<!--Back To Menu Animation -->
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_back_vector">
+    <target
+        android:name="back"
+        android:animation="@animator/back_to_menu_morph"/>
+    <target
+        android:name="rotation"
+        android:animation="@animator/back_to_menu_rotation"/>
+</animated-vector>
