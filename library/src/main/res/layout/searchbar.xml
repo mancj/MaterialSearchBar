@@ -28,10 +28,12 @@
                 android:layout_alignParentRight="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:padding="12dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_dots_vertical_black_48dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                tools:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/mt_nav"
@@ -39,8 +41,10 @@
                 android:layout_height="48dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:focusable="true"
                 android:scaleType="center"
                 android:visibility="visible"
+                tools:visibility="visible"
                 app:srcCompat="@drawable/ic_menu_black_24dp"/>
 
             <TextView
@@ -60,17 +64,19 @@
                 android:textColor="@color/searchBarPlaceholderColor"
                 android:textStyle="bold"
                 android:visibility="visible"
+                tools:visibility="visible"
                 tools:text="PlaceHolder"/>
 
             <LinearLayout
                 android:id="@+id/inputContainer"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_toLeftOf="@+id/mt_menu"
-                android:layout_toStartOf="@+id/mt_menu"
+                android:layout_toStartOf="@id/mt_menu"
+                android:layout_toLeftOf="@id/mt_menu"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="gone">
 
                 <ImageView
                     android:id="@+id/mt_arrow"
@@ -78,6 +84,7 @@
                     android:layout_height="48dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
+                    android:focusable="true"
                     android:padding="12dp"
                     android:src="@drawable/ic_arrow_left_black_48dp"
                     android:visibility="visible"/>
@@ -88,6 +95,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:hint="@string/action_search"
@@ -139,6 +148,7 @@
                 android:padding="12dp"
                 android:src="@drawable/ic_magnify_black_48dp"
                 android:scaleType="centerCrop"
+                tools:visibility="visible"
                 android:visibility="visible"/>
 
             <View
