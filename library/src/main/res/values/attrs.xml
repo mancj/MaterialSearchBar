@@ -5,6 +5,8 @@
         <attr name="mt_speechMode" format="boolean"/>
         <attr name="mt_maxSuggestionsCount" format="integer"/>
         <attr name="mt_navIconEnabled" format="boolean"/>
+        <attr name="mt_upButtonEnabled" format="boolean"/>
+
         <attr name="mt_roundedSearchBarEnabled" format="boolean"/> //(API 21+ , Will Revert To Default Shape On Lower
         <attr name="mt_menuDividerEnabled" format="boolean"/>
         <attr name="mt_dividerColor" format="color"/>
