@@ -76,6 +76,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private PopupMenu popupMenu;
 
     private int navIconResId;
+    private int upIconResId;
     private int menuIconRes;
     private int searchIconRes;
     private int speechIconRes;
@@ -85,6 +86,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private boolean speechMode;
     private int maxSuggestionCount;
     private boolean navButtonEnabled;
+    private boolean upButtonEnabled;
     private boolean roundedSearchBarEnabled;
     private boolean menuDividerEnabled;
     private int dividerColor;
@@ -118,6 +120,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private boolean textSelectorTintEnabled;
     private int highlightedTextColor;
 
+    ;
     //Nav/Back Arrow Flag
     private boolean navIconShown = true;
 
@@ -146,6 +149,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         speechMode = array.getBoolean(R.styleable.MaterialSearchBar_mt_speechMode, false);
         maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_mt_maxSuggestionsCount, 3);
         navButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconEnabled, false);
+        upButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_upButtonEnabled, false);
         roundedSearchBarEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_roundedSearchBarEnabled, false);
         menuDividerEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_menuDividerEnabled, false);
         dividerColor = array.getColor(R.styleable.MaterialSearchBar_mt_dividerColor, ContextCompat.getColor(getContext(), R.color.searchBarDividerColor));
@@ -334,8 +338,10 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         //Drawables
         //Animated Nav Icon
         navIconResId = R.drawable.ic_menu_animated;
-        this.navIcon.setImageResource(navIconResId);
-        setNavButtonEnabled(navButtonEnabled);
+        upIconResId = R.drawable.ic_up_vector;
+        setupNavIcon(navButtonEnabled, upButtonEnabled);
+
+
 
         //Menu
         if (popupMenu == null) {
@@ -477,15 +483,18 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     private void animateNavIcon() {
-        if (navIconShown) {
-            this.navIcon.setImageResource(R.drawable.ic_menu_animated);
-        } else {
-            this.navIcon.setImageResource(R.drawable.ic_back_animated);
+        if (navButtonEnabled) {
+            if (navIconShown) {
+                this.navIcon.setImageResource(navIconResId);
+            } else {
+                this.navIcon.setImageResource(R.drawable.ic_back_animated);
+            }
+            Drawable mDrawable = navIcon.getDrawable();
+            if (mDrawable instanceof Animatable) {
+                ((Animatable) mDrawable).start();
+            }
         }
-        Drawable mDrawable = navIcon.getDrawable();
-        if (mDrawable instanceof Animatable) {
-            ((Animatable) mDrawable).start();
-        }
+        //no anim for up button
         navIconShown = !navIconShown;
     }
 
@@ -826,13 +835,23 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public void setNavButtonEnabled(boolean navButtonEnabled) {
         this.navButtonEnabled = navButtonEnabled;
-        if (navButtonEnabled) {
+        setupNavIcon(navButtonEnabled, upButtonEnabled);
+    }
+
+    private void setupNavIcon(boolean navIconEnabled, boolean upButtonEnabled) {
+        if (navButtonEnabled || upButtonEnabled) {
             navIcon.setVisibility(VISIBLE);
             navIcon.setClickable(true);
             navIcon.getLayoutParams().width = (int) (50 * destiny);
 
             ((LayoutParams) inputContainer.getLayoutParams()).leftMargin = (int) (50 * destiny);
             arrowIcon.setVisibility(GONE);
+
+            if (navIconEnabled) {
+                this.navIcon.setImageResource(navIconResId);
+            } else {
+                this.navIcon.setImageResource(upIconResId);
+            }
         } else {
             navIcon.getLayoutParams().width = 1;
             navIcon.setVisibility(INVISIBLE);
@@ -844,6 +863,17 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         navIcon.requestLayout();
         placeHolder.requestLayout();
         arrowIcon.requestLayout();
+    }
+
+    /**
+     * Set navigation up menu enabled.
+     * Can display back icon (up navigation icon) instead of menu button {@link #setNavButtonEnabled(boolean)}.
+     * @param upButtonEnabled icon enabled
+     */
+
+    public void setUpButtonEnabled(boolean upButtonEnabled) {
+        this.upButtonEnabled = upButtonEnabled;
+        setupNavIcon(navIconTintEnabled, upButtonEnabled);
     }
 
     /**
