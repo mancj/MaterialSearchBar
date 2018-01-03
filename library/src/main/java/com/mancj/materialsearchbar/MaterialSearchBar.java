@@ -256,14 +256,19 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
                 menuIconRes = iconResId;
                 menuIcon.setImageResource(menuIconRes);
             }
-            RelativeLayout.LayoutParams params = (LayoutParams) searchIcon.getLayoutParams();
-            params.rightMargin = (int) (48 * destiny);
-            searchIcon.setLayoutParams(params);
+            if(!getResources().getBoolean(R.bool.is_right_to_left)) {
+                LayoutParams params = (LayoutParams) searchIcon.getLayoutParams();
+                params.alignWithParent = false;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                    params.setMarginEnd((int) (48 * destiny));
+                params.rightMargin = (int) (48 * destiny);
+                searchIcon.setLayoutParams(params);
+            }
             menuIcon.setVisibility(VISIBLE);
             menuIcon.setOnClickListener(this);
             popupMenu = new PopupMenu(getContext(), menuIcon);
             popupMenu.inflate(menuResource);
-            popupMenu.setGravity(Gravity.RIGHT);
+            popupMenu.setGravity(Gravity.END);
         }
     }
 
@@ -922,6 +927,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public void addTextChangeListener(TextWatcher textWatcher) {
         searchEdit.addTextChangedListener(textWatcher);
+    }
+
+    /**
+     * Remove text watcher to searchbar's EditText
+     *
+     * @param textWatcher textWatcher to add
+     */
+    public void removeTextChangeListener(TextWatcher textWatcher) {
+        searchEdit.removeTextChangedListener(textWatcher);
     }
 
     private boolean listenerExists() {
