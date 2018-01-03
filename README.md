@@ -1,4 +1,4 @@
-#Material SearchBar Android
+# Material SearchBar Android
 [![](https://jitpack.io/v/simonebortolin/MaterialSearchBar.svg)](https://jitpack.io/#simonebortolin/MaterialSearchBar)
 
 Android 3rd party library to make a MaterialSearchBar in a easy mode. 
