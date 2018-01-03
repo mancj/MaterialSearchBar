@@ -143,6 +143,43 @@ To save search queries when the activity is destroyed, use the method `searchBar
 #Example
 
 Here is a simple example of using MaterialSearchBar
+Kotlin
+
+    searchBar.inflateMenu(R.menu.main)
+    searchBar.text = "Hello World!"
+    searchBar.setCardViewElevation(10)
+    searchBar.setUpButtonEnabled(false)
+    searchBar.addTextChangeListener(object : TextWatcher {
+        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+        override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+        override fun afterTextChanged(editable: Editable) {
+
+        }
+
+    })
+    searchBar.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener {
+        override fun onSearchStateChanged(enabled: Boolean) {
+
+        }
+
+        override fun onSearchConfirmed(text: CharSequence) {
+
+        }
+
+        override fun onButtonClicked(buttonCode: Int) {
+            when (buttonCode) {
+                MaterialSearchBar.BUTTON_NAVIGATION -> {
+                }
+                MaterialSearchBar.BUTTON_SPEECH -> {
+                }
+                MaterialSearchBar.BUTTON_BACK -> searchBar.disableSearch()
+            }
+        }
+    })
+
+Java
 
 
     searchBar = findViewById(R.id.searchBar);
