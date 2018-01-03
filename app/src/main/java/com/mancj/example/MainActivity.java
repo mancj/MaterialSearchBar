@@ -5,12 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
-public class MainActivity extends AppCompatActivity
-        implements  MaterialSearchBar.OnSearchActionListener {
+
+public class MainActivity extends AppCompatActivity {
     MaterialSearchBar searchBar;
 
     @Override
@@ -19,7 +18,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.main_activity);
 
         searchBar = findViewById(R.id.searchBar);
-        searchBar.setOnSearchActionListener(this);
         searchBar.inflateMenu(R.menu.main);
         searchBar.setText("Hello World!");
         searchBar.setCardViewElevation(10);
@@ -39,6 +37,30 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
+        searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+            @Override
+            public void onSearchStateChanged(boolean enabled) {
+
+            }
+
+            @Override
+            public void onSearchConfirmed(CharSequence text) {
+
+            }
+
+            @Override
+            public void onButtonClicked(int buttonCode) {
+                switch (buttonCode) {
+                    case MaterialSearchBar.BUTTON_NAVIGATION:
+                        break;
+                    case MaterialSearchBar.BUTTON_SPEECH:
+                        break;
+                    case MaterialSearchBar.BUTTON_BACK:
+                        searchBar.disableSearch();
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -48,28 +70,5 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-
-    @Override
-    public void onSearchStateChanged(boolean enabled) {
-    }
-
-    @Override
-    public void onSearchConfirmed(CharSequence text) {
-
-    }
-
-    @Override
-    public void onButtonClicked(int buttonCode) {
-        switch (buttonCode){
-            case MaterialSearchBar.BUTTON_NAVIGATION:
-                break;
-            case MaterialSearchBar.BUTTON_SPEECH:
-                break;
-            case MaterialSearchBar.BUTTON_BACK:
-                searchBar.disableSearch();
-                break;
-        }
     }
 }

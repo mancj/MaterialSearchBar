@@ -16,15 +16,35 @@ import java.lang.reflect.Field;
 
 public class EditTextStyleHelper {
 
+    private final EditText editText;
+    private final Integer cursorColor;
+    private final Integer selectHandleLeftColor;
+    private final Integer selectHandleRightColor;
+    private final Integer selectHandleMiddleColor;
+    private final Integer selectHandleLeftDrawable;
+    private final Integer selectHandleRightDrawable;
+    private final Integer selectHandleMiddleDrawable;
+    private final boolean handlesUseTintEnabled;
+    private EditTextStyleHelper(Builder builder) {
+        editText = builder.editText;
+        cursorColor = builder.cursorColor;
+        selectHandleLeftColor = builder.selectHandleLeftColor;
+        selectHandleRightColor = builder.selectHandleRightColor;
+        selectHandleMiddleColor = builder.selectHandleMiddleColor;
+        selectHandleLeftDrawable = builder.selectHandleLeftDrawable;
+        selectHandleRightDrawable = builder.selectHandleRightDrawable;
+        selectHandleMiddleDrawable = builder.selectHandleMiddleDrawable;
+        handlesUseTintEnabled = builder.handlesUseTintEnabled;
+    }
+
     /**
      * Set the cursor and handle colors for an {@link EditText} programmatically.
      *
-     * @param editText
-     *     The {@link EditText} to tint
-     *     The color to apply for the cursor and select handles
-     * @throws EditTextStyleChangeError
-     *     If an error occured while attempting to tint the view.
+     * @param editText The {@link EditText} to tint
+     *                 The color to apply for the cursor and select handles
+     * @throws EditTextStyleChangeError If an error occured while attempting to tint the view.
      */
+
     public static void applyChanges(@NonNull EditText editText, int cursorColor, int leftHandleColor, int rightHandleColor, int middleHandleColor,
                                     int leftHandleRes, int rightHandleRes, int middleHandleRes, boolean handlesUseTintEnabled) throws EditTextStyleChangeError {
         EditTextStyleHelper editTextTint = new Builder(editText)
@@ -38,28 +58,6 @@ public class EditTextStyleHelper {
                 .setHandleTintEnabled(handlesUseTintEnabled)
                 .build();
         editTextTint.apply();
-    }
-
-    private final EditText editText;
-    private final Integer cursorColor;
-    private final Integer selectHandleLeftColor;
-    private final Integer selectHandleRightColor;
-    private final Integer selectHandleMiddleColor;
-    private final Integer selectHandleLeftDrawable;
-    private final Integer selectHandleRightDrawable;
-    private final Integer selectHandleMiddleDrawable;
-    private final boolean handlesUseTintEnabled;
-
-    private EditTextStyleHelper(Builder builder) {
-        editText = builder.editText;
-        cursorColor = builder.cursorColor;
-        selectHandleLeftColor = builder.selectHandleLeftColor;
-        selectHandleRightColor = builder.selectHandleRightColor;
-        selectHandleMiddleColor = builder.selectHandleMiddleColor;
-        selectHandleLeftDrawable = builder.selectHandleLeftDrawable;
-        selectHandleRightDrawable = builder.selectHandleRightDrawable;
-        selectHandleMiddleDrawable = builder.selectHandleMiddleDrawable;
-        handlesUseTintEnabled = builder.handlesUseTintEnabled;
     }
 
     /**

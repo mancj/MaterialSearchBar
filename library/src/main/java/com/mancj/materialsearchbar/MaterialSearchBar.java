@@ -51,7 +51,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public static final int BUTTON_SPEECH = 1;
     public static final int BUTTON_NAVIGATION = 2;
     public static final int BUTTON_BACK = 3;
-
+    public static final int VIEW_VISIBLE = 1;
+    public static final int VIEW_INVISIBLE = 0;
     private CardView searchBarCardView;
     private LinearLayout inputContainer;
     private ImageView navIcon;
@@ -63,12 +64,9 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private TextView placeHolder;
     private View suggestionDivider;
     private View menuDivider;
-
     private OnSearchActionListener onSearchActionListener;
     private boolean searchEnabled;
     private boolean suggestionsVisible;
-    public static final int VIEW_VISIBLE = 1;
-    public static final int VIEW_INVISIBLE = 0;
     private SuggestionsAdapter adapter;
     private float destiny;
 
@@ -761,6 +759,20 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
+     * Sets the array of recent search queries.
+     * It is advisable to save the queries when the activity is destroyed
+     * and call this method when creating the activity.
+     * <p><b color="red">Pass a List< String > if You don't use custom adapter.</b></p>
+     *
+     * @param suggestions an array of queries
+     * @see #getLastSuggestions()
+     * @see #setMaxSuggestionCount(int)
+     */
+    public void setLastSuggestions(List suggestions) {
+        adapter.setSuggestions(suggestions);
+    }
+
+    /**
      * Changes the array of recent search queries with animation.
      * <p><b color="red">Pass a List< String >  if You don't use custom adapter.</b></p>
      *
@@ -775,20 +787,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         } else {
             animateSuggestions(startHeight, 0);
         }
-    }
-
-    /**
-     * Sets the array of recent search queries.
-     * It is advisable to save the queries when the activity is destroyed
-     * and call this method when creating the activity.
-     * <p><b color="red">Pass a List< String > if You don't use custom adapter.</b></p>
-     *
-     * @param suggestions an array of queries
-     * @see #getLastSuggestions()
-     * @see #setMaxSuggestionCount(int)
-     */
-    public void setLastSuggestions(List suggestions) {
-        adapter.setSuggestions(suggestions);
     }
 
     /**
@@ -913,21 +911,21 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
-     * Set search text
-     *
-     * @param text text
-     */
-    public void setText(String text) {
-        searchEdit.setText(text);
-    }
-
-    /**
      * Get search text
      *
      * @return text
      */
     public String getText() {
         return searchEdit.getText().toString();
+    }
+
+    /**
+     * Set search text
+     *
+     * @param text text
+     */
+    public void setText(String text) {
+        searchEdit.setText(text);
     }
 
     /**
@@ -1052,32 +1050,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         }
     }
 
-    /**
-     * Interface definition for MaterialSearchBar callbacks.
-     */
-    public interface OnSearchActionListener {
-        /**
-         * Invoked when SearchBar opened or closed
-         *
-         * @param enabled state
-         */
-        void onSearchStateChanged(boolean enabled);
-
-        /**
-         * Invoked when search confirmed and "search" button is clicked on the soft keyboard
-         *
-         * @param text search input
-         */
-        void onSearchConfirmed(CharSequence text);
-
-        /**
-         * Invoked when "speech" or "navigation" buttons clicked.
-         *
-         * @param buttonCode {@link #BUTTON_NAVIGATION}, {@link #BUTTON_SPEECH} or {@link #BUTTON_BACK} will be passed
-         */
-        void onButtonClicked(int buttonCode);
-    }
-
     @Override
     protected Parcelable onSaveInstanceState() {
         SavedState savedState = new SavedState(super.onSaveInstanceState());
@@ -1108,7 +1080,54 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         }
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && searchEnabled) {
+            animateSuggestions(getListHeight(false), 0);
+            disableSearch();
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    /**
+     * Interface definition for MaterialSearchBar callbacks.
+     */
+    public interface OnSearchActionListener {
+        /**
+         * Invoked when SearchBar opened or closed
+         *
+         * @param enabled state
+         */
+        void onSearchStateChanged(boolean enabled);
+
+        /**
+         * Invoked when search confirmed and "search" button is clicked on the soft keyboard
+         *
+         * @param text search input
+         */
+        void onSearchConfirmed(CharSequence text);
+
+        /**
+         * Invoked when "speech" or "navigation" buttons clicked.
+         *
+         * @param buttonCode {@link #BUTTON_NAVIGATION}, {@link #BUTTON_SPEECH} or {@link #BUTTON_BACK} will be passed
+         */
+        void onButtonClicked(int buttonCode);
+    }
+
     private static class SavedState extends BaseSavedState {
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel source) {
+                return new SavedState(source);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
         private int isSearchBarVisible;
         private int suggestionsVisible;
         private int speechMode;
@@ -1117,20 +1136,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         private String hint;
         private List suggestions;
         private int maxSuggestions;
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeInt(isSearchBarVisible);
-            out.writeInt(suggestionsVisible);
-            out.writeInt(speechMode);
-
-            out.writeInt(searchIconRes);
-            out.writeInt(navIconResId);
-            out.writeString(hint);
-            out.writeList(suggestions);
-            out.writeInt(maxSuggestions);
-        }
 
         SavedState(Parcel source) {
             super(source);
@@ -1149,26 +1154,19 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             super(superState);
         }
 
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            @Override
-            public SavedState createFromParcel(Parcel source) {
-                return new SavedState(source);
-            }
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(isSearchBarVisible);
+            out.writeInt(suggestionsVisible);
+            out.writeInt(speechMode);
 
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && searchEnabled) {
-            animateSuggestions(getListHeight(false), 0);
-            disableSearch();
-            return true;
+            out.writeInt(searchIconRes);
+            out.writeInt(navIconResId);
+            out.writeString(hint);
+            out.writeList(suggestions);
+            out.writeInt(maxSuggestions);
         }
-        return super.dispatchKeyEvent(event);
     }
+
 }
