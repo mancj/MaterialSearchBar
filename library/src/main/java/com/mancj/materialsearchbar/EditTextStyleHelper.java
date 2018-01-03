@@ -70,7 +70,6 @@ public class EditTextStyleHelper {
      */
     public void apply() throws EditTextStyleChangeError {
         try {
-//            Resources res = editText.getContext().getResources();
 
             // Get the editor
             Field field = TextView.class.getDeclaredField("mEditor");

@@ -37,7 +37,7 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_custom_adapter);
+        setContentView(R.layout.item_adapter);
 
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);

@@ -18,6 +18,7 @@
         <attr name="mt_speechIconDrawable" format="reference"/>
         <attr name="mt_backIconDrawable" format="reference"/>
         <attr name="mt_clearIconDrawable" format="reference"/>
+        <attr name="mt_navIconDrawable" format="reference"/>
         <attr name="mt_navIconTint" format="color"/>
         <attr name="mt_menuIconTint" format="color"/>
         <attr name="mt_searchIconTint" format="color"/>

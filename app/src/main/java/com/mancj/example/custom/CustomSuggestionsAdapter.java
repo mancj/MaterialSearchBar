@@ -30,7 +30,7 @@ public class CustomSuggestionsAdapter extends SuggestionsAdapter<Product, Custom
 
     @Override
     public SuggestionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = getLayoutInflater().inflate(R.layout.item_custom_suggestion, parent, false);
+        View view = getLayoutInflater().inflate(R.layout.item, parent, false);
         return new SuggestionHolder(view);
     }
 
@@ -84,8 +84,8 @@ public class CustomSuggestionsAdapter extends SuggestionsAdapter<Product, Custom
 
         public SuggestionHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+            title = itemView.findViewById(R.id.title);
+            subtitle = itemView.findViewById(R.id.subtitle);
         }
     }
 

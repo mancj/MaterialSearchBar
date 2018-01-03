@@ -11,6 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mancj.example.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/main_app_bar">
 
 </RelativeLayout>

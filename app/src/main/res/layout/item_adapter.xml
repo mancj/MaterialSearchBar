@@ -8,7 +8,7 @@
     tools:context="com.mancj.example.MainActivity">
 
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/main_content" />
 
     <RelativeLayout
         android:background="@color/colorPrimary"
@@ -19,8 +19,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparentBlack">
+        android:layout_height="match_parent">
 
         <Button
             android:layout_gravity="center"

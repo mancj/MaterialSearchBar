@@ -31,7 +31,7 @@
                 android:focusable="true"
                 android:padding="12dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_dots_vertical_black_48dp"
+                app:srcCompat="@drawable/ic_more_vert_black_24dp"
                 android:visibility="gone"
                 tools:visibility="gone"/>
 
@@ -85,7 +85,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="12dp"
-                    android:src="@drawable/ic_arrow_left_black_48dp"
+                    app:srcCompat="@drawable/ic_arrow_left_black_24dp"
                     android:visibility="visible"/>
 
                 <EditText
@@ -112,7 +112,7 @@
                     android:layout_height="48dp"
                     android:background="?selectableItemBackgroundBorderless"
                     android:padding="12dp"
-                    android:src="@drawable/ic_close_black_48dp"/>
+                    app:srcCompat="@drawable/ic_close_black_24dp"/>
 
             </LinearLayout>
 
@@ -145,7 +145,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="false"
                 android:padding="12dp"
-                android:src="@drawable/ic_magnify_black_48dp"
+                app:srcCompat="@drawable/ic_search_black_24dp"
                 android:scaleType="centerCrop"
                 tools:visibility="visible"
                 android:visibility="visible"/>
