@@ -140,7 +140,7 @@ then add SearchBar to your activity:
 
 To save search queries when the activity is destroyed, use the method `searchBar.getLastSuggestions()` and then, to restore them use `searchBar.setLastSuggestions(List<String>);` as shown in the example below
 
-#Example
+### Example
 
 Here is a simple example of using MaterialSearchBar
 Kotlin
