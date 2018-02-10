@@ -2,10 +2,6 @@ package com.mancj.example.custom;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,13 +35,14 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_adapter);
 
-        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        customSuggestionsAdapter = new CustomSuggestionsAdapter(inflater);
-
         Button addProductBtn = (Button) findViewById(R.id.button);
         addProductBtn.setOnClickListener(this);
 
+        /*searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        customSuggestionsAdapter = new CustomSuggestionsAdapter(inflater);
+
+        searchBar.setRoundedSearchBarEnabled(true);
         searchBar.setMaxSuggestionCount(2);
         searchBar.setHint("Find Product..");
 
@@ -73,12 +70,14 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
 
             }
 
-        });
+        });*/
     }
 
     @Override
     public void onClick(View view) {
-        customSuggestionsAdapter.addSuggestion(new Product("Product", 100));
+        DialogStudyCodeDialog fragment = new DialogStudyCodeDialog.Builder()
+                .build();
+        fragment.show(getSupportFragmentManager(), "DialogStudyCodeDialog");
     }
 
 }

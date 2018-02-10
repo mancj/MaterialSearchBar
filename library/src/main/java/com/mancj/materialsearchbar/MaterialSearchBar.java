@@ -65,6 +65,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private View menuDivider;
 
     private OnSearchActionListener onSearchActionListener;
+    private OnClickArrowListener onClickArrowListener;
     private boolean searchEnabled;
     private boolean suggestionsVisible;
     public static final int VIEW_VISIBLE = 1;
@@ -435,10 +436,24 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         this.onSearchActionListener = onSearchActionListener;
     }
 
+
+    /**
+     * Register listener for click arrow callbacks.
+     *
+     * @param onClickArrowListener the callback listener
+     */
+    public void setOnClickArrowListener(OnClickArrowListener onClickArrowListener) {
+        this.onClickArrowListener = onClickArrowListener;
+    }
+
     /**
      * Hides search input and close arrow
      */
     public void disableSearch() {
+        if (onClickArrowListener != null) {
+            onClickArrowListener.onClickArrow();
+        }
+
         animateNavIcon();
         searchEnabled = false;
         Animation out = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
@@ -996,6 +1011,17 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             animateSuggestions(getListHeight(false), getListHeight(true));
             adapter.deleteSuggestion(position, (String) v.getTag());
         }
+    }
+
+    /**
+     * Interface definition for Click Arrow callbacks.
+     */
+    public interface OnClickArrowListener {
+        /**
+         * Invoked when arrow clicked
+         *
+         */
+        void onClickArrow();
     }
 
     /**
