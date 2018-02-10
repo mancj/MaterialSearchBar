@@ -1,0 +1,8 @@
+<!--Back To Menu Rotation -->
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/icon_animation_duration"
+    android:propertyName="rotation"
+    android:valueFrom="@integer/mtb_to_btm_from"
+    android:valueTo="@integer/btm_to"
+    android:valueType="floatType"/>

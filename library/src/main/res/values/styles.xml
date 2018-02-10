@@ -1,0 +1,61 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <!-- MaterialSearchBarLightTheme-->
+    <style name="MaterialSearchBarLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="mt_searchBarColor">@color/searchBarPrimaryColor</item>
+        <item name="mt_dividerColor">@color/searchBarDividerColor</item>
+        <item name="mt_navIconTint">@color/searchBarNavIconTintColor</item>
+        <item name="mt_searchIconTint">@color/searchBarSearchIconTintColor</item>
+        <item name="mt_clearIconTint">@color/searchBarClearIconTintColor</item>
+        <item name="mt_menuIconTint">@color/searchBarMenuIconTintColor</item>
+        <item name="mt_backIconTint">@color/searchBarBackIconTintColor</item>
+        <item name="mt_textCursorTint">@color/searchBarCursorColor</item>
+        <item name="mt_textColor">@color/searchBarTextColor</item>
+        <item name="mt_hintColor">@color/searchBarHintColor</item>
+        <item name="mt_placeholderColor">@color/searchBarPlaceholderColor</item>
+        <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColor</item>
+        <item name="mt_leftTextSelectorTint">@color/leftTextSelectorColor</item>
+        <item name="mt_middleTextSelectorTint">@color/middleTextSelectorColor</item>
+        <item name="mt_rightTextSelectorTint">@color/rightTextSelectorColor</item>
+        <item name="mt_leftTextSelectorDrawable">@drawable/text_select_handle_left_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_middleTextSelectorDrawable">@drawable/text_select_handle_middle_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_rightTextSelectorDrawable">@drawable/text_select_handle_right_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_handlesTintEnabled">true</item>
+    </style>
+
+    <!-- MaterialSearchBarDarkTheme-->
+    <style name="MaterialSearchBarDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="mt_searchBarColor">@color/searchBarPrimaryColorDark</item>
+        <item name="mt_dividerColor">@color/searchBarDividerColorDark</item>
+        <item name="mt_navIconTint">@color/searchBarNavIconTintColorDark</item>
+        <item name="mt_searchIconTint">@color/searchBarSearchIconTintColorDark</item>
+        <item name="mt_clearIconTint">@color/searchBarClearIconTintColorDark</item>
+        <item name="mt_menuIconTint">@color/searchBarMenuIconTintColorDark</item>
+        <item name="mt_backIconTint">@color/searchBarBackIconTintColorDark</item>
+        <item name="mt_textCursorTint">@color/searchBarCursorColorDark</item>
+        <item name="mt_textColor">@color/searchBarTextColorDark</item>
+        <item name="mt_hintColor">@color/searchBarHintColorDark</item>
+        <item name="mt_placeholderColor">@color/searchBarPlaceholderColorDark</item>
+        <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColorDark</item>
+        <item name="mt_leftTextSelectorTint">@color/leftTextSelectorColorDark</item>
+        <item name="mt_middleTextSelectorTint">@color/middleTextSelectorColorDark</item>
+        <item name="mt_rightTextSelectorTint">@color/rightTextSelectorColorDark</item>
+        <item name="mt_leftTextSelectorDrawable">@drawable/text_select_handle_left_mtrlsearch</item>
+        <item name="mt_middleTextSelectorDrawable">@drawable/text_select_handle_middle_mtrlsearch</item>
+        <item name="mt_rightTextSelectorDrawable">@drawable/text_select_handle_right_mtrlsearch</item>
+        <item name="mt_handlesTintEnabled">false</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

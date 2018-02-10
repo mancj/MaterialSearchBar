@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MaterialSearchBar</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_placeholder">Your App Name</string>
+
+
+    //Back Arrow Path Data
+    <string name="back_vector_path" translatable="false">M50 25,L80 50,M20 50,L80 50,M50 75,L80 50</string>
+    //Menu Path Data
+    <string name="menu_vector_path" translatable="false">M20 30,L80 30,M20 50,L80 50,M20 70,L80 70</string>
+</resources>
