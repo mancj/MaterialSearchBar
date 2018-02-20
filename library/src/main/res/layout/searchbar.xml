@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="@color/searchBarPrimaryColor"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
         >
 
