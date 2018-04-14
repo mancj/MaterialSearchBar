@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="@color/searchBarPrimaryColor"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
         >
 
@@ -60,7 +60,7 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/searchBarPlaceholderColor"
                 android:visibility="visible"
                 tools:visibility="visible"
