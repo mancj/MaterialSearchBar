@@ -51,7 +51,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public static final int BUTTON_SPEECH = 1;
     public static final int BUTTON_NAVIGATION = 2;
     public static final int BUTTON_BACK = 3;
-
+    public static final int VIEW_VISIBLE = 1;
+    public static final int VIEW_INVISIBLE = 0;
     private CardView searchBarCardView;
     private LinearLayout inputContainer;
     private ImageView navIcon;
@@ -63,16 +64,12 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private TextView placeHolder;
     private View suggestionDivider;
     private View menuDivider;
-
     private OnSearchActionListener onSearchActionListener;
     private boolean searchEnabled;
     private boolean suggestionsVisible;
-    public static final int VIEW_VISIBLE = 1;
-    public static final int VIEW_INVISIBLE = 0;
     private SuggestionsAdapter adapter;
     private float destiny;
 
-    private int menuResource;
     private PopupMenu popupMenu;
 
     private int navIconResId;
@@ -85,6 +82,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private boolean speechMode;
     private int maxSuggestionCount;
     private boolean navButtonEnabled;
+    private boolean upButtonEnabled;
     private boolean roundedSearchBarEnabled;
     private boolean menuDividerEnabled;
     private int dividerColor;
@@ -146,17 +144,19 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         speechMode = array.getBoolean(R.styleable.MaterialSearchBar_mt_speechMode, false);
         maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_mt_maxSuggestionsCount, 3);
         navButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconEnabled, false);
+        upButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_upButtonEnabled, false);
         roundedSearchBarEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_roundedSearchBarEnabled, false);
         menuDividerEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_menuDividerEnabled, false);
         dividerColor = array.getColor(R.styleable.MaterialSearchBar_mt_dividerColor, ContextCompat.getColor(getContext(), R.color.searchBarDividerColor));
         searchBarColor = array.getColor(R.styleable.MaterialSearchBar_mt_searchBarColor, ContextCompat.getColor(getContext(), R.color.searchBarPrimaryColor));
+        navIconResId = array.getResourceId(R.styleable.MaterialSearchBar_mt_navIconDrawable, -1);
 
         //Icon Related Attributes
-        menuIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_menuIconDrawable, R.drawable.ic_dots_vertical_black_48dp);
-        searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_searchIconDrawable, R.drawable.ic_magnify_black_48dp);
-        speechIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_speechIconDrawable, R.drawable.ic_microphone_black_48dp);
-        arrowIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_backIconDrawable, R.drawable.ic_arrow_left_black_48dp);
-        clearIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_clearIconDrawable, R.drawable.ic_close_black_48dp);
+        menuIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_menuIconDrawable, R.drawable.ic_more_vert_black_24dp);
+        searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_searchIconDrawable, R.drawable.ic_search_black_24dp);
+        speechIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_speechIconDrawable, R.drawable.ic_mic_black_24dp);
+        arrowIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_backIconDrawable, R.drawable.ic_arrow_left_black_24dp);
+        clearIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_clearIconDrawable, R.drawable.ic_close_black_24dp);
         navIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_navIconTint, ContextCompat.getColor(getContext(), R.color.searchBarNavIconTintColor));
         menuIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_menuIconTint, ContextCompat.getColor(getContext(), R.color.searchBarMenuIconTintColor));
         searchIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_searchIconTint, ContextCompat.getColor(getContext(), R.color.searchBarSearchIconTintColor));
@@ -192,24 +192,24 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (adapter instanceof DefaultSuggestionsAdapter)
             ((DefaultSuggestionsAdapter) adapter).setListener(this);
         adapter.setMaxSuggestionsCount(maxSuggestionCount);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mt_recycler);
+        RecyclerView recyclerView = findViewById(R.id.mt_recycler);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         array.recycle();
 
         //View References
-        searchBarCardView = (CardView) findViewById(R.id.mt_container);
-        suggestionDivider = (View) findViewById(R.id.mt_divider);
-        menuDivider = (View) findViewById(R.id.mt_menu_divider);
-        menuIcon = (ImageView) findViewById(R.id.mt_menu);
-        clearIcon = (ImageView) findViewById(R.id.mt_clear);
-        searchIcon = (ImageView) findViewById(R.id.mt_search);
-        arrowIcon = (ImageView) findViewById(R.id.mt_arrow);
-        searchEdit = (EditText) findViewById(R.id.mt_editText);
-        placeHolder = (TextView) findViewById(R.id.mt_placeholder);
-        inputContainer = (LinearLayout) findViewById(R.id.inputContainer);
-        navIcon = (ImageView) findViewById(R.id.mt_nav);
+        searchBarCardView = findViewById(R.id.mt_container);
+        suggestionDivider = findViewById(R.id.mt_divider);
+        menuDivider = findViewById(R.id.mt_menu_divider);
+        menuIcon = findViewById(R.id.mt_menu);
+        clearIcon = findViewById(R.id.mt_clear);
+        searchIcon = findViewById(R.id.mt_search);
+        arrowIcon = findViewById(R.id.mt_arrow);
+        searchEdit = findViewById(R.id.mt_editText);
+        placeHolder = findViewById(R.id.mt_placeholder);
+        inputContainer = findViewById(R.id.inputContainer);
+        navIcon = findViewById(R.id.mt_nav);
         findViewById(R.id.mt_clear).setOnClickListener(this);
 
         //Listeners
@@ -245,21 +245,25 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private void inflateMenuRequest(int menuResource, int iconResId
     ) {
-        this.menuResource = menuResource;
-        if (this.menuResource > 0) {
-            ImageView menuIcon = (ImageView) findViewById(R.id.mt_menu);
+        if (menuResource > 0) {
+            ImageView menuIcon = findViewById(R.id.mt_menu);
             if (iconResId != -1) {
                 menuIconRes = iconResId;
                 menuIcon.setImageResource(menuIconRes);
             }
-            RelativeLayout.LayoutParams params = (LayoutParams) searchIcon.getLayoutParams();
-            params.rightMargin = (int) (48 * destiny);
-            searchIcon.setLayoutParams(params);
+            if(!getResources().getBoolean(R.bool.is_right_to_left)) {
+                LayoutParams params = (LayoutParams) searchIcon.getLayoutParams();
+                params.alignWithParent = false;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                    params.setMarginEnd((int) (48 * destiny));
+                params.rightMargin = (int) (48 * destiny);
+                searchIcon.setLayoutParams(params);
+            }
             menuIcon.setVisibility(VISIBLE);
             menuIcon.setOnClickListener(this);
             popupMenu = new PopupMenu(getContext(), menuIcon);
             popupMenu.inflate(menuResource);
-            popupMenu.setGravity(Gravity.RIGHT);
+            popupMenu.setGravity(Gravity.END);
         }
     }
 
@@ -333,9 +337,10 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private void setupIcons() {
         //Drawables
         //Animated Nav Icon
-        navIconResId = R.drawable.ic_menu_animated;
-        this.navIcon.setImageResource(navIconResId);
-        setNavButtonEnabled(navButtonEnabled);
+        if(navIconResId < 0) navIconResId = R.drawable.ic_menu_animated;
+        setupNavIcon(navButtonEnabled, upButtonEnabled);
+
+
 
         //Menu
         if (popupMenu == null) {
@@ -477,21 +482,24 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     private void animateNavIcon() {
-        if (navIconShown) {
-            this.navIcon.setImageResource(R.drawable.ic_menu_animated);
-        } else {
-            this.navIcon.setImageResource(R.drawable.ic_back_animated);
+        if (navButtonEnabled) {
+            if (navIconShown || navIconResId > 0) {
+                this.navIcon.setImageResource(navIconResId);
+            } else {
+                this.navIcon.setImageResource(R.drawable.ic_back_animated);
+            }
+            Drawable mDrawable = navIcon.getDrawable();
+            if (mDrawable instanceof Animatable) {
+                ((Animatable) mDrawable).start();
+            }
         }
-        Drawable mDrawable = navIcon.getDrawable();
-        if (mDrawable instanceof Animatable) {
-            ((Animatable) mDrawable).start();
-        }
+        //no anim for up button
         navIconShown = !navIconShown;
     }
 
     private void animateSuggestions(int from, int to) {
         suggestionsVisible = to > 0;
-        final RelativeLayout last = (RelativeLayout) findViewById(R.id.last);
+        final RelativeLayout last = findViewById(R.id.last);
         final ViewGroup.LayoutParams lp = last.getLayoutParams();
         if (to == 0 && lp.height == 0)
             return;
@@ -569,6 +577,24 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public void setClearIcon(int clearIconResId) {
         this.clearIconRes = clearIconResId;
         this.clearIcon.setImageResource(clearIconRes);
+    }
+
+    /**
+     * Set the nav icon drawable
+     *
+     * @param navIconResId icon resource id
+     */
+    public void setNavIcon(int navIconResId) {
+        if(navIconResId < 0) navIconResId =  R.drawable.ic_back_animated;
+        this.navIconResId = navIconResId;
+        this.navIcon.setImageResource(navIconResId);
+    }
+    /**
+     * Set the animated nav icon drawable
+     *
+     */
+    public void setNavIcon() {
+        setNavIcon(-1);
     }
 
     /**
@@ -712,7 +738,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public void setCustomSuggestionAdapter(SuggestionsAdapter suggestionAdapter) {
         this.adapter = suggestionAdapter;
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mt_recycler);
+        RecyclerView recyclerView = findViewById(R.id.mt_recycler);
         recyclerView.setAdapter(adapter);
     }
 
@@ -733,6 +759,20 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
+     * Sets the array of recent search queries.
+     * It is advisable to save the queries when the activity is destroyed
+     * and call this method when creating the activity.
+     * <p><b color="red">Pass a List< String > if You don't use custom adapter.</b></p>
+     *
+     * @param suggestions an array of queries
+     * @see #getLastSuggestions()
+     * @see #setMaxSuggestionCount(int)
+     */
+    public void setLastSuggestions(List suggestions) {
+        adapter.setSuggestions(suggestions);
+    }
+
+    /**
      * Changes the array of recent search queries with animation.
      * <p><b color="red">Pass a List< String >  if You don't use custom adapter.</b></p>
      *
@@ -747,20 +787,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         } else {
             animateSuggestions(startHeight, 0);
         }
-    }
-
-    /**
-     * Sets the array of recent search queries.
-     * It is advisable to save the queries when the activity is destroyed
-     * and call this method when creating the activity.
-     * <p><b color="red">Pass a List< String > if You don't use custom adapter.</b></p>
-     *
-     * @param suggestions an array of queries
-     * @see #getLastSuggestions()
-     * @see #setMaxSuggestionCount(int)
-     */
-    public void setLastSuggestions(List suggestions) {
-        adapter.setSuggestions(suggestions);
     }
 
     /**
@@ -826,13 +852,19 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public void setNavButtonEnabled(boolean navButtonEnabled) {
         this.navButtonEnabled = navButtonEnabled;
-        if (navButtonEnabled) {
+        setupNavIcon(navButtonEnabled, upButtonEnabled);
+    }
+
+    private void setupNavIcon(boolean navIconEnabled, boolean upButtonEnabled) {
+        if (navButtonEnabled || upButtonEnabled) {
             navIcon.setVisibility(VISIBLE);
             navIcon.setClickable(true);
             navIcon.getLayoutParams().width = (int) (50 * destiny);
 
             ((LayoutParams) inputContainer.getLayoutParams()).leftMargin = (int) (50 * destiny);
             arrowIcon.setVisibility(GONE);
+
+            this.navIcon.setImageResource(navIconResId);
         } else {
             navIcon.getLayoutParams().width = 1;
             navIcon.setVisibility(INVISIBLE);
@@ -844,6 +876,17 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         navIcon.requestLayout();
         placeHolder.requestLayout();
         arrowIcon.requestLayout();
+    }
+
+    /**
+     * Set navigation up menu enabled.
+     * Can display back icon (up navigation icon) instead of menu button {@link #setNavButtonEnabled(boolean)}.
+     * @param upButtonEnabled icon enabled
+     */
+
+    public void setUpButtonEnabled(boolean upButtonEnabled) {
+        this.upButtonEnabled = upButtonEnabled;
+        setupNavIcon(navIconTintEnabled, upButtonEnabled);
     }
 
     /**
@@ -863,17 +906,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      * @param elevation desired elevation
      */
     public void setCardViewElevation(int elevation) {
-        CardView cardView = (CardView) findViewById(R.id.mt_container);
+        CardView cardView = findViewById(R.id.mt_container);
         cardView.setCardElevation(elevation);
-    }
-
-    /**
-     * Set search text
-     *
-     * @param text text
-     */
-    public void setText(String text) {
-        searchEdit.setText(text);
     }
 
     /**
@@ -886,12 +920,30 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
+     * Set search text
+     *
+     * @param text text
+     */
+    public void setText(String text) {
+        searchEdit.setText(text);
+    }
+
+    /**
      * Add text watcher to searchbar's EditText
      *
      * @param textWatcher textWatcher to add
      */
     public void addTextChangeListener(TextWatcher textWatcher) {
         searchEdit.addTextChangedListener(textWatcher);
+    }
+
+    /**
+     * Remove text watcher to searchbar's EditText
+     *
+     * @param textWatcher textWatcher to add
+     */
+    public void removeTextChangeListener(TextWatcher textWatcher) {
+        searchEdit.removeTextChangedListener(textWatcher);
     }
 
     private boolean listenerExists() {
@@ -994,34 +1046,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             /*Order of two line should't be change,
             because should calculate the height of item first*/
             animateSuggestions(getListHeight(false), getListHeight(true));
-            adapter.deleteSuggestion(position, (String) v.getTag());
+            adapter.deleteSuggestion(position, v.getTag());
         }
-    }
-
-    /**
-     * Interface definition for MaterialSearchBar callbacks.
-     */
-    public interface OnSearchActionListener {
-        /**
-         * Invoked when SearchBar opened or closed
-         *
-         * @param enabled state
-         */
-        void onSearchStateChanged(boolean enabled);
-
-        /**
-         * Invoked when search confirmed and "search" button is clicked on the soft keyboard
-         *
-         * @param text search input
-         */
-        void onSearchConfirmed(CharSequence text);
-
-        /**
-         * Invoked when "speech" or "navigation" buttons clicked.
-         *
-         * @param buttonCode {@link #BUTTON_NAVIGATION}, {@link #BUTTON_SPEECH} or {@link #BUTTON_BACK} will be passed
-         */
-        void onButtonClicked(int buttonCode);
     }
 
     @Override
@@ -1054,7 +1080,54 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         }
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && searchEnabled) {
+            animateSuggestions(getListHeight(false), 0);
+            disableSearch();
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    /**
+     * Interface definition for MaterialSearchBar callbacks.
+     */
+    public interface OnSearchActionListener {
+        /**
+         * Invoked when SearchBar opened or closed
+         *
+         * @param enabled state
+         */
+        void onSearchStateChanged(boolean enabled);
+
+        /**
+         * Invoked when search confirmed and "search" button is clicked on the soft keyboard
+         *
+         * @param text search input
+         */
+        void onSearchConfirmed(CharSequence text);
+
+        /**
+         * Invoked when "speech" or "navigation" buttons clicked.
+         *
+         * @param buttonCode {@link #BUTTON_NAVIGATION}, {@link #BUTTON_SPEECH} or {@link #BUTTON_BACK} will be passed
+         */
+        void onButtonClicked(int buttonCode);
+    }
+
     private static class SavedState extends BaseSavedState {
+        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel source) {
+                return new SavedState(source);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
         private int isSearchBarVisible;
         private int suggestionsVisible;
         private int speechMode;
@@ -1063,6 +1136,23 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         private String hint;
         private List suggestions;
         private int maxSuggestions;
+
+        SavedState(Parcel source) {
+            super(source);
+            isSearchBarVisible = source.readInt();
+            suggestionsVisible = source.readInt();
+            speechMode = source.readInt();
+
+            navIconResId = source.readInt();
+            searchIconRes = source.readInt();
+            hint = source.readString();
+            suggestions = source.readArrayList(null);
+            maxSuggestions = source.readInt();
+        }
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
 
         @Override
         public void writeToParcel(Parcel out, int flags) {
@@ -1077,44 +1167,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             out.writeList(suggestions);
             out.writeInt(maxSuggestions);
         }
-
-        public SavedState(Parcel source) {
-            super(source);
-            isSearchBarVisible = source.readInt();
-            suggestionsVisible = source.readInt();
-            speechMode = source.readInt();
-
-            navIconResId = source.readInt();
-            searchIconRes = source.readInt();
-            hint = source.readString();
-            suggestions = source.readArrayList(null);
-            maxSuggestions = source.readInt();
-        }
-
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            @Override
-            public SavedState createFromParcel(Parcel source) {
-                return new SavedState(source);
-            }
-
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && searchEnabled) {
-            animateSuggestions(getListHeight(false), 0);
-            disableSearch();
-            return true;
-        }
-        return super.dispatchKeyEvent(event);
-    }
 }

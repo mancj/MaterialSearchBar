@@ -21,10 +21,11 @@ import java.util.List;
  */
 public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V> implements Filterable {
 
+
     protected List<S> suggestions = new ArrayList<>();
     protected List<S> suggestions_clone = new ArrayList<>();
-    private LayoutInflater inflater;
     protected int maxSuggestionsCount = 5;
+    private LayoutInflater inflater;
 
     public SuggestionsAdapter(LayoutInflater inflater) {
         this.inflater = inflater;
@@ -50,12 +51,6 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
         notifyDataSetChanged();
     }
 
-    public void setSuggestions(List<S> suggestions) {
-        this.suggestions = suggestions;
-        suggestions_clone = suggestions;
-        notifyDataSetChanged();
-    }
-
     public void clearSuggestions() {
         suggestions.clear();
         suggestions_clone = suggestions;
@@ -76,6 +71,12 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
 
     public List<S> getSuggestions() {
         return suggestions;
+    }
+
+    public void setSuggestions(List<S> suggestions) {
+        this.suggestions = suggestions;
+        suggestions_clone = suggestions;
+        notifyDataSetChanged();
     }
 
     public int getMaxSuggestionsCount() {

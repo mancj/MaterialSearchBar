@@ -14,6 +14,7 @@ import com.mancj.materialsearchbar.R;
  */
 
 public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, DefaultSuggestionsAdapter.SuggestionHolder> {
+
     private SuggestionsAdapter.OnItemViewClickListener listener;
 
     public DefaultSuggestionsAdapter(LayoutInflater inflater) {
@@ -40,13 +41,19 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
         holder.text.setText(getSuggestions().get(position));
     }
 
+    public interface OnItemViewClickListener {
+        void OnItemClickListener(int position, View v);
+
+        void OnItemDeleteListener(int position, View v);
+    }
+
     class SuggestionHolder extends RecyclerView.ViewHolder{
         private TextView text;
         private ImageView iv_delete;
         public SuggestionHolder(final View itemView) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.text);
-            iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
+            text = itemView.findViewById(R.id.text);
+            iv_delete = itemView.findViewById(R.id.iv_delete);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -62,10 +69,5 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
                 }
             });
         }
-    }
-
-    public interface OnItemViewClickListener{
-        void OnItemClickListener(int position,View v);
-        void OnItemDeleteListener(int position,View v);
     }
 }
