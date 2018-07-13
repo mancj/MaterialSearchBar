@@ -12,6 +12,7 @@
         app:cardCornerRadius="2dp"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
         >
 
         <RelativeLayout
