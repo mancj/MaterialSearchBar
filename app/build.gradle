@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.mancj.example"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 3
-        versionName "1.2"
+        targetSdkVersion 27
+        versionCode 9
+        versionName "0.9"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -22,10 +22,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':library')
-        testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':library')
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
 }
