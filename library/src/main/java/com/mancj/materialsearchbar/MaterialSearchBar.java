@@ -292,6 +292,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             searchBarCardView.setRadius(getResources().getDimension(R.dimen.corner_radius_default));
         }
     }
+                
+      //A method to bold or italic the placeholder
+    public stylePlaceholder(boolean bold, boolean italic){
+     
+            if(bold)
+                    placeholder.setTypeface(placeholder.getTypeface(), Typeface,BOLD);
+            if(italic)
+                    plcaeholder.setTypeface(placeholder.getTypeface(),Typeface.ITALIC);
+    }
 
     private void setupSearchBarColor() {
         searchBarCardView.setCardBackgroundColor(searchBarColor);
