@@ -651,6 +651,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         this.placeholderText = placeholder;
         placeHolder.setText(placeholder);
     }
+            
+    /**
+     * Set the place holder text
+     *
+     * @return placeholder text
+     */
+    public CharSequence getPlaceHolderText() {
+        return placeHolder.getText();
+    }
 
     public void setMenuDividerEnabled(boolean menuDividerEnabled) {
         this.menuDividerEnabled = menuDividerEnabled;
