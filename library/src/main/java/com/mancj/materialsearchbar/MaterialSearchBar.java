@@ -669,6 +669,10 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         this.placeholderText = placeholder;
         placeHolder.setText(placeholder);
     }
+
+    public TextView getPlaceHolderTextView() {
+        return placeHolder;
+    }
             
     /**
      * Set the place holder text

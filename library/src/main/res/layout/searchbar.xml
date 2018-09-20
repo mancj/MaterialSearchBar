@@ -50,7 +50,6 @@
                 android:layout_marginLeft="16dp"
                 android:layout_toLeftOf="@+id/mt_search"
                 android:layout_toRightOf="@+id/mt_nav"
-                android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textAppearance="?android:attr/textAppearanceMedium"
