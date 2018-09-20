@@ -75,7 +75,9 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private int menuResource;
     private PopupMenu popupMenu;
 
-    private int navIconResId;
+    private int navIconRes;
+    private Integer navToBackRes;
+    private Integer backToNavRes;
     private int menuIconRes;
     private int searchIconRes;
     private int speechIconRes;
@@ -152,6 +154,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         searchBarColor = array.getColor(R.styleable.MaterialSearchBar_mt_searchBarColor, ContextCompat.getColor(getContext(), R.color.searchBarPrimaryColor));
 
         //Icon Related Attributes
+        navIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_navIconDrawable, R.drawable.ic_menu_animated);
         menuIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_menuIconDrawable, R.drawable.ic_dots_vertical_black_48dp);
         searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_searchIconDrawable, R.drawable.ic_magnify_black_48dp);
         speechIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_speechIconDrawable, R.drawable.ic_microphone_black_48dp);
@@ -333,8 +336,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private void setupIcons() {
         //Drawables
         //Animated Nav Icon
-        navIconResId = R.drawable.ic_menu_animated;
-        this.navIcon.setImageResource(navIconResId);
+        navIconRes = R.drawable.ic_menu_animated;
+        this.navIcon.setImageResource(navIconRes);
         setNavButtonEnabled(navButtonEnabled);
 
         //Menu
@@ -478,9 +481,17 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private void animateNavIcon() {
         if (navIconShown) {
-            this.navIcon.setImageResource(R.drawable.ic_menu_animated);
+            if (navToBackRes != null) {
+                this.navIcon.setImageResource(navToBackRes);
+            } else {
+                this.navIcon.setImageResource(R.drawable.ic_menu_animated);
+            }
         } else {
-            this.navIcon.setImageResource(R.drawable.ic_back_animated);
+            if (backToNavRes != null) {
+                this.navIcon.setImageResource(backToNavRes);
+            } else {
+                this.navIcon.setImageResource(R.drawable.ic_back_animated);
+            }
         }
         Drawable mDrawable = navIcon.getDrawable();
         if (mDrawable instanceof Animatable) {
@@ -520,6 +531,13 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (suggestionsVisible)
             animateSuggestions(getListHeight(false), 0);
         adapter.clearSuggestions();
+    }
+
+    public void setNavIcon(int navIconResId, int navToBackId, int backToNavId) {
+        this.navIconRes = navIconResId;
+        this.navToBackRes = navToBackId;
+        this.backToNavRes = backToNavId;
+        this.navIcon.setImageResource(navIconResId);
     }
 
     /**
@@ -650,6 +668,10 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     public void setPlaceHolder(CharSequence placeholder) {
         this.placeholderText = placeholder;
         placeHolder.setText(placeholder);
+    }
+
+    public TextView getPlaceHolderTextView() {
+        return placeHolder;
     }
             
     /**
@@ -1039,7 +1061,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         savedState.isSearchBarVisible = searchEnabled ? VIEW_VISIBLE : VIEW_INVISIBLE;
         savedState.suggestionsVisible = suggestionsVisible ? VIEW_VISIBLE : VIEW_INVISIBLE;
         savedState.speechMode = speechMode ? VIEW_VISIBLE : VIEW_INVISIBLE;
-        savedState.navIconResId = navIconResId;
+        savedState.navIconResId = navIconRes;
         savedState.searchIconRes = searchIconRes;
         savedState.suggestions = getLastSuggestions();
         savedState.maxSuggestions = maxSuggestionCount;

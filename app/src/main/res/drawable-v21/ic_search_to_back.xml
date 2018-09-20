@@ -1,0 +1,39 @@
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/searchback_image_width"
+    android:height="@dimen/searchback_image_height"
+    android:tint="@color/searchBarNavIconTintColor"
+    android:viewportHeight="@integer/searchback_viewport_height"
+    android:viewportWidth="@integer/searchback_viewport_width">
+
+    <path
+        android:name="stem"
+        android:pathData="@string/searchback_path_stem"
+        android:strokeColor="@color/searchback_stroke_color"
+        android:strokeWidth="@integer/searchback_stroke_width"
+        android:trimPathEnd="@fraction/searchback_stem_back_trim_end"
+        android:trimPathStart="@fraction/searchback_stem_back_trim_start"/>
+
+    <path
+        android:name="search_circle"
+        android:pathData="@string/searchback_path_circle"
+        android:strokeColor="@color/searchback_stroke_color"
+        android:strokeWidth="@integer/searchback_stroke_width"
+        android:trimPathEnd="@fraction/searchback_circle_back_trim_end"/>
+
+    <group android:name="arrow_head">
+        <path
+            android:name="arrow_head_top"
+            android:pathData="@string/searchback_path_arrow_head_top"
+            android:strokeColor="@color/searchback_stroke_color"
+            android:strokeWidth="@integer/searchback_stroke_width"
+            android:trimPathEnd="@fraction/searchback_arrow_head_back_trim_end"/>
+
+        <path
+            android:name="arrow_head_bottom"
+            android:pathData="@string/searchback_path_arrow_head_bottom"
+            android:strokeColor="@color/searchback_stroke_color"
+            android:strokeWidth="@integer/searchback_stroke_width"
+            android:trimPathEnd="@fraction/searchback_arrow_head_back_trim_end"/>
+    </group>
+</vector>

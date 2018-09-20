@@ -11,6 +11,7 @@
         <attr name="mt_searchBarColor" format="color"/>
 
         //Icons
+        <attr name="mt_navIconDrawable" format="reference" />
         <attr name="mt_menuIconDrawable" format="reference"/>
         <attr name="mt_searchIconDrawable" format="reference"/>
         <attr name="mt_speechIconDrawable" format="reference"/>
