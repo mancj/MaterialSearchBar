@@ -33,9 +33,12 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
     public void addSuggestion(S r){
         if (maxSuggestionsCount <= 0)
             return;
-
         if (r == null)
             return;
+        if (r instanceof String) {
+            String sugg = (String) r;
+            if (sugg.trim().isEmpty) return;
+        }    
         if (!suggestions.contains(r))
         {
             if (suggestions.size() >= maxSuggestionsCount) {
