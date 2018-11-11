@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onButtonClicked(int buttonCode) {
-        switch (buttonCode){
+        switch (buttonCode) {
             case MaterialSearchBar.BUTTON_NAVIGATION:
                 drawer.openDrawer(Gravity.LEFT);
                 break;
