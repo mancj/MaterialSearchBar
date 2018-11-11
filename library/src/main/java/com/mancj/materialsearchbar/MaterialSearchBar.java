@@ -890,11 +890,11 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         searchEdit.addTextChangedListener(textWatcher);
     }
 
-    public EditText getSearchEdit() {
+    public EditText getSearchEditText() {
         return searchEdit;
     }
 
-    public TextView getPlaceHolder() {
+    public TextView getPlaceHolderView() {
         return placeHolder;
     }
 
