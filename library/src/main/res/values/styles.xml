@@ -29,6 +29,8 @@
         <item name="mt_middleTextSelectorDrawable">@drawable/text_select_handle_middle_mtrl_alpha_mtrlsearch</item>
         <item name="mt_rightTextSelectorDrawable">@drawable/text_select_handle_right_mtrl_alpha_mtrlsearch</item>
         <item name="mt_handlesTintEnabled">true</item>
+        <item name="mt_suggestionTextColor">@color/searchBarSuggestionTextColor</item>
+        <item name="mt_suggestionIconTint">@color/searchBarSuggestionIconTintColor</item>
     </style>
 
     <!-- MaterialSearchBarDarkTheme-->
@@ -52,6 +54,8 @@
         <item name="mt_middleTextSelectorDrawable">@drawable/text_select_handle_middle_mtrlsearch</item>
         <item name="mt_rightTextSelectorDrawable">@drawable/text_select_handle_right_mtrlsearch</item>
         <item name="mt_handlesTintEnabled">false</item>
+        <item name="mt_suggestionTextColor">@color/searchBarSuggestionTextColorDark</item>
+        <item name="mt_suggestionIconTint">@color/searchBarSuggestionIconTintColorDark</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />

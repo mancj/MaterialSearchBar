@@ -20,7 +20,7 @@
     <color name="searchBarSearchIconTintColor">@color/searchBarIconColor</color>
     <color name="searchBarClearIconTintColor">@color/searchBarIconColor</color>
     <color name="searchBarBackIconTintColor">@color/searchBarIconColor</color>
-    <color name="searchBarSuggestionIconTintColor">@color/searchBarIconColor</color>
+    <color name="searchBarSuggestionIconTintColor">@color/material_grey_600</color>
 
     //Text
     <color name="searchBarTextColor">#DE000000</color>
@@ -45,10 +45,11 @@
     <color name="searchBarSearchIconTintColorDark">@color/searchBarIconColorDark</color>
     <color name="searchBarClearIconTintColorDark">@color/searchBarIconColorDark</color>
     <color name="searchBarBackIconTintColorDark">@color/searchBarIconColorDark</color>
-
+    <color name="searchBarSuggestionIconTintColorDark">#8AFFFFFF</color>
     //Text
     <color name="searchBarTextColorDark">#DEFFFFFF</color>
     <color name="searchBarHintColorDark">#42FFFFFF</color>
+    <color name="searchBarSuggestionTextColorDark">#8AFFFFFF</color>
     <color name="searchBarPlaceholderColorDark">#8AFFFFFF</color>
     <color name="searchBarTextHighlightColorDark">#BF00a1ff</color>
     <color name="leftTextSelectorColorDark">@color/searchBarIconColorDark</color>

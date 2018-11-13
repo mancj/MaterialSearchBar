@@ -1,5 +1,6 @@
 package com.mancj.materialsearchbar.adapter;
 
+import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +46,12 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
     class SuggestionHolder extends RecyclerView.ViewHolder{
         private TextView text;
         private ImageView iv_delete;
+        private ImageView iv_suggestion;
         public SuggestionHolder(final View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.text);
             iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
+            iv_suggestion = (ImageView) itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,6 +67,8 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
                 }
             });
             text.setTextColor(bar.suggestionTextColor);
+            if (bar.suggestionIconTintEnabled) iv_delete.setColorFilter(bar.suggestionIconTint, PorterDuff.Mode.SRC_IN);
+            if (bar.suggestionIconTintEnabled) iv_suggestion.setColorFilter(bar.suggestionIconTint, PorterDuff.Mode.SRC_IN);
         }
     }
 

@@ -190,7 +190,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
         destiny = getResources().getDisplayMetrics().density;
         if (adapter == null) {
-            adapter = new DefaultSuggestionsAdapter(LayoutInflater.from(getContext()));
+            adapter = new DefaultSuggestionsAdapter(this, LayoutInflater.from(getContext()));
         }
         if (adapter instanceof DefaultSuggestionsAdapter)
             ((DefaultSuggestionsAdapter) adapter).setListener(this);
@@ -783,6 +783,16 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public void setTextColor(int textColor) {
         this.textColor = textColor;
+        setupTextColors();
+    }
+
+    /**
+     * Set suggestion text color
+     *
+     * @param textColor text color
+     */
+    public void setSuggestionTextColor(int textColor) {
+        this.suggestionTextColor = textColor;
         setupTextColors();
     }
 
