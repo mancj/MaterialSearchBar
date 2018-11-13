@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.R;
 
 /**
@@ -15,9 +16,10 @@ import com.mancj.materialsearchbar.R;
 
 public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, DefaultSuggestionsAdapter.SuggestionHolder> {
     private SuggestionsAdapter.OnItemViewClickListener listener;
-
-    public DefaultSuggestionsAdapter(LayoutInflater inflater) {
+    private MaterialSearchBar bar;
+    public DefaultSuggestionsAdapter(MaterialSearchBar bar, LayoutInflater inflater) {
         super(inflater);
+        this.bar = bar;
     }
 
     public void setListener(SuggestionsAdapter.OnItemViewClickListener listener) {
@@ -61,6 +63,7 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
                     listener.OnItemDeleteListener(getAdapterPosition(),v);
                 }
             });
+            text.setTextColor(bar.suggestionTextColor);
         }
     }
 

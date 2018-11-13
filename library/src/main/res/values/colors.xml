@@ -20,9 +20,11 @@
     <color name="searchBarSearchIconTintColor">@color/searchBarIconColor</color>
     <color name="searchBarClearIconTintColor">@color/searchBarIconColor</color>
     <color name="searchBarBackIconTintColor">@color/searchBarIconColor</color>
+    <color name="searchBarSuggestionIconTintColor">@color/searchBarIconColor</color>
 
     //Text
     <color name="searchBarTextColor">#DE000000</color>
+    <color name="searchBarSuggestionTextColor">#DE000000</color>
     <color name="searchBarHintColor">#42000000</color>
     <color name="searchBarPlaceholderColor">#8A000000</color>
     <color name="searchBarTextHighlightColor">#8000a1ff</color>

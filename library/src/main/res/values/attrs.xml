@@ -21,12 +21,15 @@
         <attr name="mt_searchIconTint" format="color"/>
         <attr name="mt_backIconTint" format="color"/>
         <attr name="mt_clearIconTint" format="color"/>
+        <attr name="mt_suggestionIconTint" format="boolean"/>
         <attr name="mt_navIconUseTint" format="boolean"/>
         <attr name="mt_menuIconUseTint" format="boolean"/>
         <attr name="mt_searchIconUseTint" format="boolean"/>
         <attr name="mt_backIconUseTint" format="boolean"/>
         <attr name="mt_clearIconUseTint" format="boolean"/>
+        <attr name="mt_suggestionIconUseTint" format="boolean"/>
         <attr name="mt_borderlessRippleEnabled" format="boolean"/>
+
 
         //Text
         <attr name="mt_hint" format="string"/>
@@ -43,5 +46,6 @@
         <attr name="mt_rightTextSelectorTint" format="color"/>
         <attr name="mt_handlesTintEnabled" format="boolean"/>
         <attr name="mt_highlightedTextColor" format="color"/>
+        <attr name="mt_suggestionTextColor" format="boolean"/>
     </declare-styleable>
 </resources>

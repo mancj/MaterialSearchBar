@@ -97,12 +97,14 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private int searchIconTint;
     private int arrowIconTint;
     private int clearIconTint;
+    public int suggestionIconTint;
 
     private boolean navIconTintEnabled;
     private boolean menuIconTintEnabled;
     private boolean searchIconTintEnabled;
     private boolean arrowIconTintEnabled;
     private boolean clearIconTintEnabled;
+    public boolean suggestionIconTintEnabled;
     private boolean borderlessRippleEnabled = false;
 
     private int textCursorColor;
@@ -114,6 +116,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private int rightTextSelectorTint;
     private boolean textSelectorTintEnabled;
     private int highlightedTextColor;
+    public int suggestionTextColor;
 
     //Nav/Back Arrow Flag
     private boolean navIconShown = true;
@@ -159,11 +162,13 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         searchIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_searchIconTint, ContextCompat.getColor(getContext(), R.color.searchBarSearchIconTintColor));
         arrowIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_backIconTint, ContextCompat.getColor(getContext(), R.color.searchBarBackIconTintColor));
         clearIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_clearIconTint, ContextCompat.getColor(getContext(), R.color.searchBarClearIconTintColor));
+        suggestionIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_suggestionIconTint, ContextCompat.getColor(getContext(), R.color.searchBarSuggestionIconTintColor));
         navIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconUseTint, true);
         menuIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_menuIconUseTint, true);
         searchIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_searchIconUseTint, true);
         arrowIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_backIconUseTint, true);
         clearIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_clearIconUseTint, true);
+        suggestionIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_suggestionIconUseTint, true);
         borderlessRippleEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_borderlessRippleEnabled, false);
 
         //Text Related Attributes
@@ -181,6 +186,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         rightTextSelectorRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_rightTextSelectorDrawable, R.drawable.text_select_handle_right_mtrl_alpha_mtrlsearch);
         textSelectorTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_handlesTintEnabled, true);
         highlightedTextColor = array.getColor(R.styleable.MaterialSearchBar_mt_highlightedTextColor, ContextCompat.getColor(getContext(), R.color.searchBarTextHighlightColor));
+        suggestionTextColor = array.getColor(R.styleable.MaterialSearchBar_mt_suggestionTextColor, ContextCompat.getColor(getContext(), R.color.searchBarSuggestionTextColor));
 
         destiny = getResources().getDisplayMetrics().density;
         if (adapter == null) {
