@@ -998,6 +998,16 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         return true;
     }
 
+    public void search(String s) {
+        getSearchEditText().setText(s);
+        if (listenerExists())
+            onSearchActionListener.onSearchConfirmed(searchEdit.getText());
+        if (suggestionsVisible)
+            hideSuggestionsList();
+        if (adapter instanceof DefaultSuggestionsAdapter)
+            adapter.addSuggestion(searchEdit.getText().toString());
+    }
+
     /**
      * For calculate the height change when item delete or add animation
      * false is return the full height of item,
