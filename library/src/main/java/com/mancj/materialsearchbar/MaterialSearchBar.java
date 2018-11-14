@@ -998,11 +998,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.addSuggestion(searchEdit.getText().toString());
+                    adapter.addSuggestion(searchEdit.getText().toString().trim());
                 }
-            }, 1000);
+            }, 500);
 
         return true;
+    }
+
+    public SuggestionsAdapter getAdapter() {
+        return adapter;
     }
 
     public OnSearchActionListener getOnSearchListener() {

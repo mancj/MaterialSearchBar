@@ -30,7 +30,7 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
         this.inflater = inflater;
     }
 
-    public void addSuggestion(S r){
+    public synchronized void addSuggestion(S r){
         if (maxSuggestionsCount <= 0)
             return;
         if (r == null)
