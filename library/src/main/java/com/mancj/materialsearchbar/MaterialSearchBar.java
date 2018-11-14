@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
@@ -994,18 +995,18 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (suggestionsVisible)
             hideSuggestionsList();
         if (adapter instanceof DefaultSuggestionsAdapter)
-            adapter.addSuggestion(searchEdit.getText().toString());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.addSuggestion(searchEdit.getText().toString());
+                }
+            }, 1000);
+
         return true;
     }
 
-    public void search(String s) {
-        getSearchEditText().setText(s);
-        if (listenerExists())
-            onSearchActionListener.onSearchConfirmed(searchEdit.getText());
-        if (suggestionsVisible)
-            hideSuggestionsList();
-        if (adapter instanceof DefaultSuggestionsAdapter)
-            adapter.addSuggestion(searchEdit.getText().toString());
+    public OnSearchActionListener getOnSearchListener() {
+        return onSearchActionListener;
     }
 
     /**
