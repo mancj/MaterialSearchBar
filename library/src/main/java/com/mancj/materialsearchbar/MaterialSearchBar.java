@@ -48,6 +48,7 @@ import static android.content.ContentValues.TAG;
 public class MaterialSearchBar extends RelativeLayout implements View.OnClickListener,
         Animation.AnimationListener, SuggestionsAdapter.OnItemViewClickListener,
         View.OnFocusChangeListener, TextView.OnEditorActionListener {
+    public static final int BUTTON_DELETE_SUGGESTION = 1;
     public static final int BUTTON_SPEECH = 1;
     public static final int BUTTON_NAVIGATION = 2;
     public static final int BUTTON_BACK = 3;
@@ -1041,6 +1042,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             because should calculate the height of item first*/
             animateSuggestions(getListHeight(false), getListHeight(true));
             adapter.deleteSuggestion(position, (String) v.getTag());
+            onSearchActionListener.onButtonClicked(BUTTON_DELETE_SUGGESTION);
         }
     }
 
