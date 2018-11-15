@@ -118,6 +118,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private boolean textSelectorTintEnabled;
     private int highlightedTextColor;
     public int suggestionTextColor;
+    public boolean updateSuggestionsDisabled;
 
     //Nav/Back Arrow Flag
     private boolean navIconShown = true;

@@ -56,6 +56,8 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (bar.updateSuggestionsDisabled) return;
+                    bar.updateSuggestionsDisabled = true;
                     v.setTag(getSuggestions().get(getAdapterPosition()));
                     listener.OnItemClickListener(getAdapterPosition(),v);
                     MaterialSearchBar.OnSearchActionListener searchListener =bar.getOnSearchListener();
@@ -65,6 +67,7 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
                     if (adapter instanceof DefaultSuggestionsAdapter) new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            bar.updateSuggestionsDisabled = false;
                             bar.getAdapter().addSuggestion(text.getText().toString().trim());
                         }
                     }, 500);
