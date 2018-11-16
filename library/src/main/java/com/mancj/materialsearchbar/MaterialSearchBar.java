@@ -765,7 +765,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      *
      * @param listener click listener
      */
-    public void setSuggstionsClickListener(SuggestionsAdapter.OnItemViewClickListener listener) {
+    public void setSuggestionsClickListener(SuggestionsAdapter.OnItemViewClickListener listener) {
         if (adapter instanceof DefaultSuggestionsAdapter)
             ((DefaultSuggestionsAdapter) adapter).setListener(listener);
     }
