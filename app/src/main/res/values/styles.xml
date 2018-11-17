@@ -8,4 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyDarkSearchBar" parent="MaterialSearchBarDark">
+        <item name="mt_searchBarColor">@color/searchBarPrimaryColorDark</item>
+        <item name="mt_dividerColor">@color/searchBarDividerColorDark</item>
+        <item name="mt_navIconTint">@color/white</item>
+        <item name="mt_searchIconTint">@color/white</item>
+        <item name="mt_clearIconTint">@color/white</item>
+        <item name="mt_menuIconTint">@color/white</item>
+        <item name="mt_backIconTint">@color/white</item>
+        <item name="mt_textColor">@color/searchBarTextColorDark</item>
+        <item name="mt_hintColor">@color/searchBarHintColorDark</item>
+        <item name="mt_placeholderColor">@color/searchBarPlaceholderColorDark</item>
+        <item name="mt_leftTextSelectorDrawable">@drawable/text_select_handle_left_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_middleTextSelectorDrawable">@drawable/text_select_handle_middle_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_rightTextSelectorDrawable">@drawable/text_select_handle_right_mtrl_alpha_mtrlsearch</item>
+        <item name="mt_handlesTintEnabled">true</item>
+        <item name="mt_suggestionTextColor">@color/white</item>
+        <item name="mt_suggestionIconTint">@color/white</item>
+    </style>
+
 </resources>

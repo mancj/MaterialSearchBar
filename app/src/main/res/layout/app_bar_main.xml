@@ -25,7 +25,7 @@
     </FrameLayout>
 
     <com.mancj.materialsearchbar.MaterialSearchBar
-        style="@style/MaterialSearchBarLight"
+        style="@style/MaterialSearchBarDark"
         android:id="@+id/searchBar"
         app:mt_navIconEnabled="true"
         app:mt_placeholder="Google Play"
