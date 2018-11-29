@@ -1,5 +1,5 @@
 
-#Material SearchBar Android
+# Material SearchBar Android
 Material Design Search Bar for Android
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialSearchBar-orange.svg?style=flat)](http://android-arsenal.com/details/1/4158)
 ----------
@@ -17,7 +17,7 @@ This beautiful and easy to use library will help to add Lollipop Material Design
 # See our [Wiki](https://github.com/mancj/MaterialSearchBar/wiki)
 
 
-#How to use
+# How to use
 
 **to include SearchBar to your project:**
 
@@ -229,7 +229,7 @@ Simply set/change these colors(or some) and you have your custom style.
 ----------
 To save search queries when the activity is destroyed, use the method `searchBar.getLastSuggestions()` and then, to restore them use `searchBar.setLastSuggestions(List<String>);` as shown in the example below
 
-#Example
+# Example
 
 Here is a simple example of using MaterialSearchBar
 
