@@ -483,7 +483,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private void animateNavIcon() {
         if (navButtonEnabled) {
-            if (navIconShown || navIconResId > 0) {
+            if (navIconShown || navIconResId != R.drawable.ic_back_animated) {
                 this.navIcon.setImageResource(navIconResId);
             } else {
                 this.navIcon.setImageResource(R.drawable.ic_back_animated);
