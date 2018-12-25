@@ -17,7 +17,7 @@ import java.util.List;
 
 public class CustomAdapterActivity extends AppCompatActivity implements View.OnClickListener {
     private MaterialSearchBar searchBar;
-    private List<Product> suggestions = new ArrayList<>();
+    private final List<Product> suggestions = new ArrayList<>();
     private CustomSuggestionsAdapter customSuggestionsAdapter;
 
     // Sample data
@@ -39,11 +39,11 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_adapter);
 
-        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
+        searchBar = findViewById(R.id.searchBar);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         customSuggestionsAdapter = new CustomSuggestionsAdapter(inflater);
 
-        Button addProductBtn = (Button) findViewById(R.id.button);
+        Button addProductBtn = findViewById(R.id.button);
         addProductBtn.setOnClickListener(this);
 
         searchBar.setMaxSuggestionCount(2);

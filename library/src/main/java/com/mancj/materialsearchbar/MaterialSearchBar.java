@@ -69,7 +69,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private SuggestionsAdapter adapter;
     private float destiny;
 
-    private int menuResource;
     private PopupMenu popupMenu;
 
     private int navIconResId;
@@ -189,24 +188,24 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (adapter instanceof DefaultSuggestionsAdapter)
             ((DefaultSuggestionsAdapter) adapter).setListener(this);
         adapter.setMaxSuggestionsCount(maxSuggestionCount);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mt_recycler);
+        RecyclerView recyclerView = findViewById(R.id.mt_recycler);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         array.recycle();
 
         //View References
-        searchBarCardView = (CardView) findViewById(R.id.mt_container);
-        suggestionDivider = (View) findViewById(R.id.mt_divider);
-        menuDivider = (View) findViewById(R.id.mt_menu_divider);
-        menuIcon = (ImageView) findViewById(R.id.mt_menu);
-        clearIcon = (ImageView) findViewById(R.id.mt_clear);
-        searchIcon = (ImageView) findViewById(R.id.mt_search);
-        arrowIcon = (ImageView) findViewById(R.id.mt_arrow);
-        searchEdit = (EditText) findViewById(R.id.mt_editText);
-        placeHolder = (TextView) findViewById(R.id.mt_placeholder);
-        inputContainer = (LinearLayout) findViewById(R.id.inputContainer);
-        navIcon = (ImageView) findViewById(R.id.mt_nav);
+        searchBarCardView = findViewById(R.id.mt_container);
+        suggestionDivider = findViewById(R.id.mt_divider);
+        menuDivider = findViewById(R.id.mt_menu_divider);
+        menuIcon = findViewById(R.id.mt_menu);
+        clearIcon = findViewById(R.id.mt_clear);
+        searchIcon = findViewById(R.id.mt_search);
+        arrowIcon = findViewById(R.id.mt_arrow);
+        searchEdit = findViewById(R.id.mt_editText);
+        placeHolder = findViewById(R.id.mt_placeholder);
+        inputContainer = findViewById(R.id.inputContainer);
+        navIcon = findViewById(R.id.mt_nav);
         findViewById(R.id.mt_clear).setOnClickListener(this);
 
         //Listeners
@@ -242,9 +241,8 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private void inflateMenuRequest(int menuResource, int iconResId
     ) {
-        this.menuResource = menuResource;
-        if (this.menuResource > 0) {
-            ImageView menuIcon = (ImageView) findViewById(R.id.mt_menu);
+        if (menuResource > 0) {
+            ImageView menuIcon = findViewById(R.id.mt_menu);
             if (iconResId != -1) {
                 menuIconRes = iconResId;
                 menuIcon.setImageResource(menuIconRes);
@@ -256,7 +254,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             menuIcon.setOnClickListener(this);
             popupMenu = new PopupMenu(getContext(), menuIcon);
             popupMenu.inflate(menuResource);
-            popupMenu.setGravity(Gravity.RIGHT);
+            popupMenu.setGravity(Gravity.END);
         }
     }
 
@@ -488,18 +486,15 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private void animateSuggestions(int from, int to) {
         suggestionsVisible = to > 0;
-        final RelativeLayout last = (RelativeLayout) findViewById(R.id.last);
+        final RelativeLayout last = findViewById(R.id.last);
         final ViewGroup.LayoutParams lp = last.getLayoutParams();
         if (to == 0 && lp.height == 0)
             return;
         ValueAnimator animator = ValueAnimator.ofInt(from, to);
         animator.setDuration(200);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                lp.height = (int) animation.getAnimatedValue();
-                last.setLayoutParams(lp);
-            }
+        animator.addUpdateListener(animation -> {
+            lp.height = (int) animation.getAnimatedValue();
+            last.setLayoutParams(lp);
         });
         if (adapter.getItemCount() > 0)
             animator.start();
@@ -708,7 +703,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public void setCustomSuggestionAdapter(SuggestionsAdapter suggestionAdapter) {
         this.adapter = suggestionAdapter;
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mt_recycler);
+        RecyclerView recyclerView = findViewById(R.id.mt_recycler);
         recyclerView.setAdapter(adapter);
     }
 
@@ -859,7 +854,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      * @param elevation desired elevation
      */
     public void setCardViewElevation(int elevation) {
-        CardView cardView = (CardView) findViewById(R.id.mt_container);
+        CardView cardView = findViewById(R.id.mt_container);
         cardView.setCardElevation(elevation);
     }
 
@@ -964,10 +959,12 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (hasFocus) {
-            imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
-        } else {
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        if (imm != null) {
+            if (hasFocus) {
+                imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
+            } else {
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
         }
     }
 
@@ -1008,7 +1005,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             /*Order of two line should't be change,
             because should calculate the height of item first*/
             animateSuggestions(getListHeight(false), getListHeight(true));
-            adapter.deleteSuggestion(position, (String) v.getTag());
+            adapter.deleteSuggestion(position, v.getTag());
         }
     }
 

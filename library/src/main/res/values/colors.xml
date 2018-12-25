@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="transparentBlack">#96000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="grey">#ff757575</color>
 
 
     //Material SearchBar Light Theme Colors

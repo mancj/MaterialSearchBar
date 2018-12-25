@@ -4,7 +4,7 @@ package com.mancj.example.custom;
  * Created by mancj on 27.01.17.
  */
 
-public class Product {
+class Product {
     private String title;
     private int price;
 

@@ -1,5 +1,6 @@
 package com.mancj.materialsearchbar.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +30,9 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
         return 50;
     }
 
+    @NonNull
     @Override
-    public DefaultSuggestionsAdapter.SuggestionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DefaultSuggestionsAdapter.SuggestionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = getLayoutInflater().inflate(R.layout.item_last_request, parent, false);
         return new DefaultSuggestionsAdapter.SuggestionHolder(view);
     }
@@ -41,25 +43,19 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
     }
 
     class SuggestionHolder extends RecyclerView.ViewHolder{
-        private TextView text;
-        private ImageView iv_delete;
-        public SuggestionHolder(final View itemView) {
+        private final TextView text;
+        private final ImageView iv_delete;
+        SuggestionHolder(final View itemView) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.text);
-            iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    v.setTag(getSuggestions().get(getAdapterPosition()));
-                    listener.OnItemClickListener(getAdapterPosition(),v);
-                }
+            text = itemView.findViewById(R.id.text);
+            iv_delete = itemView.findViewById(R.id.iv_delete);
+            itemView.setOnClickListener(v -> {
+                v.setTag(getSuggestions().get(getAdapterPosition()));
+                listener.OnItemClickListener(getAdapterPosition(),v);
             });
-            iv_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    v.setTag(getSuggestions().get(getAdapterPosition()));
-                    listener.OnItemDeleteListener(getAdapterPosition(),v);
-                }
+            iv_delete.setOnClickListener(v -> {
+                v.setTag(getSuggestions().get(getAdapterPosition()));
+                listener.OnItemDeleteListener(getAdapterPosition(),v);
             });
         }
     }

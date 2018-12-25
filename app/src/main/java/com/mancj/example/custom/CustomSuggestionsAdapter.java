@@ -1,5 +1,6 @@
 package com.mancj.example.custom;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +29,9 @@ public class CustomSuggestionsAdapter extends SuggestionsAdapter<Product, Custom
         return 80;
     }
 
+    @NonNull
     @Override
-    public SuggestionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SuggestionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = getLayoutInflater().inflate(R.layout.item_custom_suggestion, parent, false);
         return new SuggestionHolder(view);
     }
@@ -78,14 +80,14 @@ public class CustomSuggestionsAdapter extends SuggestionsAdapter<Product, Custom
     }
 
     static class SuggestionHolder extends RecyclerView.ViewHolder{
-        protected TextView title;
-        protected TextView subtitle;
+        final TextView title;
+        final TextView subtitle;
         protected ImageView image;
 
-        public SuggestionHolder(View itemView) {
+        SuggestionHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+            title = itemView.findViewById(R.id.title);
+            subtitle = itemView.findViewById(R.id.subtitle);
         }
     }
 
