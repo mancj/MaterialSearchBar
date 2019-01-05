@@ -40,9 +40,16 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
         holder.text.setText(getSuggestions().get(position));
     }
 
-    class SuggestionHolder extends RecyclerView.ViewHolder{
+    public interface OnItemViewClickListener {
+        void OnItemClickListener(int position, View v);
+
+        void OnItemDeleteListener(int position, View v);
+    }
+
+    class SuggestionHolder extends RecyclerView.ViewHolder {
         private TextView text;
         private ImageView iv_delete;
+
         public SuggestionHolder(final View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.text);
@@ -51,21 +58,19 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
                 @Override
                 public void onClick(View v) {
                     v.setTag(getSuggestions().get(getAdapterPosition()));
-                    listener.OnItemClickListener(getAdapterPosition(),v);
+                    listener.OnItemClickListener(getAdapterPosition(), v);
                 }
             });
             iv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    v.setTag(getSuggestions().get(getAdapterPosition()));
-                    listener.OnItemDeleteListener(getAdapterPosition(),v);
+                    int position = getAdapterPosition();
+                    if (position > 0 && position < getSuggestions().size()) {
+                        v.setTag(getSuggestions().get(getAdapterPosition()));
+                        listener.OnItemDeleteListener(getAdapterPosition(), v);
+                    }
                 }
             });
         }
-    }
-
-    public interface OnItemViewClickListener{
-        void OnItemClickListener(int position,View v);
-        void OnItemDeleteListener(int position,View v);
     }
 }
