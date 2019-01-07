@@ -1,5 +1,6 @@
 package com.mancj.materialsearchbar.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,8 @@ import android.widget.Filterable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mancj on 27.01.17.
+/*
+  Created by mancj on 27.01.17.
  */
 
 /**
@@ -91,7 +92,7 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
     }
 
     @Override
-    public void onBindViewHolder(V holder, int position) {
+    public void onBindViewHolder(@NonNull V holder, int position) {
         onBindSuggestionHolder(suggestions.get(position), holder, position);
     }
 
