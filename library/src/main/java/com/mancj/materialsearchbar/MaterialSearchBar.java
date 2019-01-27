@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.mancj.materialsearchbar.adapter.DefaultSuggestionsAdapter;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private SuggestionsAdapter adapter;
     private float destiny;
 
-    private int menuResource;
     private PopupMenu popupMenu;
 
     private int navIconResId;
@@ -106,13 +106,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private boolean borderlessRippleEnabled = false;
 
     private int textCursorColor;
-    private int leftTextSelectorRes;
-    private int middleTextSelectorRes;
-    private int rightTextSelectorRes;
-    private int leftTextSelectorTint;
-    private int middleTextSelectorTint;
-    private int rightTextSelectorTint;
-    private boolean textSelectorTintEnabled;
     private int highlightedTextColor;
 
     //Nav/Back Arrow Flag
@@ -173,13 +166,6 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         hintColor = array.getColor(R.styleable.MaterialSearchBar_mt_hintColor, ContextCompat.getColor(getContext(), R.color.searchBarHintColor));
         placeholderColor = array.getColor(R.styleable.MaterialSearchBar_mt_placeholderColor, ContextCompat.getColor(getContext(), R.color.searchBarPlaceholderColor));
         textCursorColor = array.getColor(R.styleable.MaterialSearchBar_mt_textCursorTint, ContextCompat.getColor(getContext(), R.color.searchBarCursorColor));
-        leftTextSelectorTint = array.getColor(R.styleable.MaterialSearchBar_mt_leftTextSelectorTint, ContextCompat.getColor(getContext(), R.color.leftTextSelectorColor));
-        middleTextSelectorTint = array.getColor(R.styleable.MaterialSearchBar_mt_middleTextSelectorTint, ContextCompat.getColor(getContext(), R.color.middleTextSelectorColor));
-        rightTextSelectorTint = array.getColor(R.styleable.MaterialSearchBar_mt_rightTextSelectorTint, ContextCompat.getColor(getContext(), R.color.rightTextSelectorColor));
-        leftTextSelectorRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_leftTextSelectorDrawable, R.drawable.text_select_handle_left_mtrl_alpha_mtrlsearch);
-        middleTextSelectorRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_middleTextSelectorDrawable, R.drawable.text_select_handle_middle_mtrl_alpha_mtrlsearch);
-        rightTextSelectorRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_rightTextSelectorDrawable, R.drawable.text_select_handle_right_mtrl_alpha_mtrlsearch);
-        textSelectorTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_handlesTintEnabled, true);
         highlightedTextColor = array.getColor(R.styleable.MaterialSearchBar_mt_highlightedTextColor, ContextCompat.getColor(getContext(), R.color.searchBarTextHighlightColor));
 
         destiny = getResources().getDisplayMetrics().density;
@@ -189,24 +175,24 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (adapter instanceof DefaultSuggestionsAdapter)
             ((DefaultSuggestionsAdapter) adapter).setListener(this);
         adapter.setMaxSuggestionsCount(maxSuggestionCount);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mt_recycler);
+        RecyclerView recyclerView = findViewById(R.id.mt_recycler);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         array.recycle();
 
         //View References
-        searchBarCardView = (CardView) findViewById(R.id.mt_container);
-        suggestionDivider = (View) findViewById(R.id.mt_divider);
-        menuDivider = (View) findViewById(R.id.mt_menu_divider);
-        menuIcon = (ImageView) findViewById(R.id.mt_menu);
-        clearIcon = (ImageView) findViewById(R.id.mt_clear);
-        searchIcon = (ImageView) findViewById(R.id.mt_search);
-        arrowIcon = (ImageView) findViewById(R.id.mt_arrow);
-        searchEdit = (EditText) findViewById(R.id.mt_editText);
-        placeHolder = (TextView) findViewById(R.id.mt_placeholder);
-        inputContainer = (LinearLayout) findViewById(R.id.inputContainer);
-        navIcon = (ImageView) findViewById(R.id.mt_nav);
+        searchBarCardView = findViewById(R.id.mt_container);
+        suggestionDivider = findViewById(R.id.mt_divider);
+        menuDivider = findViewById(R.id.mt_menu_divider);
+        menuIcon = findViewById(R.id.mt_menu);
+        clearIcon = findViewById(R.id.mt_clear);
+        searchIcon = findViewById(R.id.mt_search);
+        arrowIcon = findViewById(R.id.mt_arrow);
+        searchEdit = findViewById(R.id.mt_editText);
+        placeHolder = findViewById(R.id.mt_placeholder);
+        inputContainer = findViewById(R.id.inputContainer);
+        navIcon = findViewById(R.id.mt_nav);
         findViewById(R.id.mt_clear).setOnClickListener(this);
 
         //Listeners
@@ -242,9 +228,9 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private void inflateMenuRequest(int menuResource, int iconResId
     ) {
-        this.menuResource = menuResource;
-        if (this.menuResource > 0) {
-            ImageView menuIcon = (ImageView) findViewById(R.id.mt_menu);
+        int menuResource1 = menuResource;
+        if (menuResource1 > 0) {
+            ImageView menuIcon = findViewById(R.id.mt_menu);
             if (iconResId != -1) {
                 menuIconRes = iconResId;
                 menuIcon.setImageResource(menuIconRes);
@@ -310,12 +296,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      * Setup editText coloring and drawables
      */
     private void setupSearchEditText() {
-        try {
-            EditTextStyleHelper.applyChanges(this.searchEdit, this.textCursorColor, this.leftTextSelectorTint, this.rightTextSelectorTint, this.middleTextSelectorTint,
-                    this.leftTextSelectorRes, this.rightTextSelectorRes, this.middleTextSelectorRes, this.textSelectorTintEnabled);
-        } catch (EditTextStyleHelper.EditTextStyleChangeError e) {
-            Log.e(TAG, "init: ", e);
-        }
+        setupCursorColor();
         searchEdit.setHighlightColor(highlightedTextColor);
 
         if (hintText != null)
@@ -323,6 +304,28 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         if (placeholderText != null) {
             arrowIcon.setBackground(null);
             placeHolder.setText(placeholderText);
+        }
+    }
+
+    private void setupCursorColor() {
+        try {
+            Field field = TextView.class.getDeclaredField("mEditor");
+            field.setAccessible(true);
+            Object editor = field.get(searchEdit);
+
+            field = TextView.class.getDeclaredField("mCursorDrawableRes");
+            field.setAccessible(true);
+            int cursorDrawableRes = field.getInt(searchEdit);
+            Drawable cursorDrawable = ContextCompat.getDrawable(getContext(), cursorDrawableRes).mutate();
+            cursorDrawable.setColorFilter(textCursorColor, PorterDuff.Mode.SRC_IN);
+            Drawable[] drawables = {cursorDrawable, cursorDrawable};
+            field = editor.getClass().getDeclaredField("mCursorDrawable");
+            field.setAccessible(true);
+            field.set(editor, drawables);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
@@ -488,7 +491,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
 
     private void animateSuggestions(int from, int to) {
         suggestionsVisible = to > 0;
-        final RelativeLayout last = (RelativeLayout) findViewById(R.id.last);
+        final RelativeLayout last = findViewById(R.id.last);
         final ViewGroup.LayoutParams lp = last.getLayoutParams();
         if (to == 0 && lp.height == 0)
             return;
@@ -708,7 +711,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      */
     public void setCustomSuggestionAdapter(SuggestionsAdapter suggestionAdapter) {
         this.adapter = suggestionAdapter;
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mt_recycler);
+        RecyclerView recyclerView = findViewById(R.id.mt_recycler);
         recyclerView.setAdapter(adapter);
     }
 
@@ -859,7 +862,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      * @param elevation desired elevation
      */
     public void setCardViewElevation(int elevation) {
-        CardView cardView = (CardView) findViewById(R.id.mt_container);
+        CardView cardView = findViewById(R.id.mt_container);
         cardView.setCardElevation(elevation);
     }
 
@@ -1008,7 +1011,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
             /*Order of two line should't be change,
             because should calculate the height of item first*/
             animateSuggestions(getListHeight(false), getListHeight(true));
-            adapter.deleteSuggestion(position, (String) v.getTag());
+            adapter.deleteSuggestion(position, v.getTag());
         }
     }
 

@@ -3,7 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="transparentBlack">#96000000</color>
     <color name="white">#FFFFFF</color>
 
 
@@ -26,17 +25,13 @@
     <color name="searchBarHintColor">#42000000</color>
     <color name="searchBarPlaceholderColor">#8A000000</color>
     <color name="searchBarTextHighlightColor">#8000a1ff</color>
-    <color name="leftTextSelectorColor">#00a1ff</color>
-    <color name="middleTextSelectorColor">#00a1ff</color>
-    <color name="rightTextSelectorColor">#00a1ff</color>
+
+    //Base
+    <color name="searchBarPrimaryColorDark">#303030</color>
+    <color name="searchBarDividerColorDark">#1FFFFFFF</color>
 
     //Material SearchBar Dark Theme Colors
     <color name="searchBarIconColorDark">#00a1ff</color>
-    //Base
-    <color name="searchBarPrimaryColorDark">#303030</color>
-    <color name="searchBarCursorColorDark">@color/searchBarIconColorDark</color>
-    <color name="searchBarDividerColorDark">#1FFFFFFF</color>
-
     //Icons
     <color name="searchBarNavIconTintColorDark">@color/searchBarIconColorDark</color>
     <color name="searchBarMenuIconTintColorDark">@color/searchBarIconColorDark</color>
@@ -49,8 +44,5 @@
     <color name="searchBarHintColorDark">#42FFFFFF</color>
     <color name="searchBarPlaceholderColorDark">#8AFFFFFF</color>
     <color name="searchBarTextHighlightColorDark">#BF00a1ff</color>
-    <color name="leftTextSelectorColorDark">@color/searchBarIconColorDark</color>
-    <color name="middleTextSelectorColorDark">@color/searchBarIconColorDark</color>
-    <color name="rightTextSelectorColorDark">@color/searchBarIconColorDark</color>
-    
+
 </resources>

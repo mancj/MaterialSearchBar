@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mancj on 27.01.17.
- */
-
-/**
  * Create this adapter to customize the suggestions list of the MaterialSearchBar
  * @param <S> type of your suggestions model
  * @param <V> viewholder
@@ -23,7 +19,7 @@ public abstract class SuggestionsAdapter<S, V extends RecyclerView.ViewHolder> e
 
     protected List<S> suggestions = new ArrayList<>();
     protected List<S> suggestions_clone = new ArrayList<>();
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     protected int maxSuggestionsCount = 5;
 
     public SuggestionsAdapter(LayoutInflater inflater) {

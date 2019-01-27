@@ -47,13 +47,13 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
     }
 
     class SuggestionHolder extends RecyclerView.ViewHolder {
-        private TextView text;
-        private ImageView iv_delete;
+        private final TextView text;
+        private final ImageView iv_delete;
 
         public SuggestionHolder(final View itemView) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.text);
-            iv_delete = (ImageView) itemView.findViewById(R.id.iv_delete);
+            text = itemView.findViewById(R.id.text);
+            iv_delete = itemView.findViewById(R.id.iv_delete);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
