@@ -10,7 +10,6 @@
 
     <!-- MaterialSearchBarLightTheme-->
     <style name="MaterialSearchBarLight" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorControlActivated">@color/colorAccent</item>
         <item name="mt_searchBarColor">@color/searchBarPrimaryColor</item>
         <item name="mt_dividerColor">@color/searchBarDividerColor</item>
         <item name="mt_navIconTint">@color/searchBarNavIconTintColor</item>
@@ -23,9 +22,6 @@
         <item name="mt_hintColor">@color/searchBarHintColor</item>
         <item name="mt_placeholderColor">@color/searchBarPlaceholderColor</item>
         <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColor</item>
-        <item name="mt_leftTextSelectorTint">@color/colorAccent</item>
-        <item name="mt_middleTextSelectorTint">@color/colorAccent</item>
-        <item name="mt_rightTextSelectorTint">@color/colorAccent</item>
     </style>
 
     <!-- MaterialSearchBarDarkTheme-->
@@ -42,9 +38,6 @@
         <item name="mt_hintColor">@color/searchBarHintColorDark</item>
         <item name="mt_placeholderColor">@color/searchBarPlaceholderColorDark</item>
         <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColorDark</item>
-        <item name="mt_leftTextSelectorTint">@color/colorAccent</item>
-        <item name="mt_middleTextSelectorTint">@color/colorAccent</item>
-        <item name="mt_rightTextSelectorTint">@color/colorAccent</item>
     </style>
 
 </resources>
