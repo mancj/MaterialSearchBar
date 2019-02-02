@@ -4,7 +4,7 @@
     tools:ignore="ContentDescription"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/mt_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     android:layout_height="1dp"
                     android:background="@color/searchBarDividerColor" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mt_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -157,5 +157,5 @@
                 android:layout_marginEnd="48dp" />
 
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </merge>
