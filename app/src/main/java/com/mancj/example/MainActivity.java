@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
+        searchBar.setNavIcon(R.drawable.ic_back_to_search, R.drawable.animated_search_to_back, R.drawable.animated_back_to_search);
         searchBar.setOnSearchActionListener(this);
         searchBar.inflateMenu(R.menu.main);
         searchBar.setText("Hello World!");
