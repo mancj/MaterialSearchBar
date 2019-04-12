@@ -33,4 +33,13 @@
         app:mt_navIconEnabled="true"
         app:mt_placeholder="Google Play" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_magnify_black_48dp" />
+
 </android.support.design.widget.CoordinatorLayout>

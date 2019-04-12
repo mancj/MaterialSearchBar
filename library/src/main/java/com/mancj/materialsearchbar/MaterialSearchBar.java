@@ -461,6 +461,11 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
      * Shows search input and close arrow
      */
     public void enableSearch() {
+        if (isSearchEnabled()) {
+            onSearchActionListener.onSearchStateChanged(true);
+            searchEdit.requestFocus();
+            return;
+        }
         animateNavIcon();
         adapter.notifyDataSetChanged();
         searchEnabled = true;
