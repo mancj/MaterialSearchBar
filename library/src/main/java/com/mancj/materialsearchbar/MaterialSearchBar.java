@@ -67,6 +67,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     private OnSearchActionListener onSearchActionListener;
     private boolean searchEnabled;
     private boolean suggestionsVisible;
+    private boolean isSuggestionsEnabled = true;
     private SuggestionsAdapter adapter;
     private float destiny;
 
@@ -537,6 +538,20 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
     }
 
     /**
+     * Check if suggestions are enabled
+     */
+    public boolean isSuggestionsEnabled() {
+        return isSuggestionsEnabled;
+    }
+
+    /**
+     * Set suggestions enabled
+     */
+    public void setSuggestionsEnabled(boolean suggestionsEnabled) {
+        isSuggestionsEnabled = suggestionsEnabled;
+    }
+
+    /**
      * Set Menu Icon Drawable
      *
      * @param menuIconResId icon resource id
@@ -959,7 +974,7 @@ public class MaterialSearchBar extends RelativeLayout implements View.OnClickLis
         } else {
             searchIcon.setVisibility(GONE);
             searchEdit.requestFocus();
-            if (!suggestionsVisible)
+            if (!suggestionsVisible && isSuggestionsEnabled)
                 showSuggestionsList();
         }
     }
