@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +11,9 @@
     <include layout="@layout/content_main" />
 
     <RelativeLayout
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary">
 
     </RelativeLayout>
 
@@ -23,17 +23,21 @@
         android:background="@color/transparentBlack">
 
         <Button
-            android:layout_gravity="center"
-            android:text="Add product"
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button" />
+            android:layout_gravity="center"
+            android:text="Add product" />
     </FrameLayout>
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"
-        app:mt_navIconEnabled="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:visibility="visible"
+        app:mt_navIconEnabled="false"
+        app:mt_placeholder="Hello!"
+        app:mt_placeholderColor="@color/colorAccent" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

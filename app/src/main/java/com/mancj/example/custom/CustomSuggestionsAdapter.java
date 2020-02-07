@@ -1,12 +1,13 @@
 package com.mancj.example.custom;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mancj.example.R;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
@@ -45,7 +46,7 @@ public class CustomSuggestionsAdapter extends SuggestionsAdapter<Product, Custom
      * <p>Returns a filter that can be used to constrain data with a filtering
      * pattern.</p>
      * <p>
-     * <p>This method is usually implemented by {@link Adapter}
+     * <p>This method is usually implemented by {@link androidx.recyclerview.widget.RecyclerView.Adapter}
      * classes.</p>
      *
      * @return a filter used to constrain data

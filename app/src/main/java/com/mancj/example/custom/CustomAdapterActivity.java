@@ -1,13 +1,15 @@
 package com.mancj.example.custom;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mancj.example.R;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -22,16 +24,16 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
 
     // Sample data
     private final String[] products = {
-        "Simvastatin",
-        "Carrot Daucus carota",
-        "Sodium Fluoride",
-        "White Kidney Beans",
-        "Salicylic Acid",
-        "cetirizine hydrochloride",
-        "Mucor racemosus",
-        "Thymol",
-        "TOLNAFTATE",
-        "Albumin Human"
+            "Simvastatin",
+            "Carrot Daucus carota",
+            "Sodium Fluoride",
+            "White Kidney Beans",
+            "Salicylic Acid",
+            "cetirizine hydrochloride",
+            "Mucor racemosus",
+            "Thymol",
+            "TOLNAFTATE",
+            "Albumin Human"
     };
 
     @Override
@@ -39,18 +41,17 @@ public class CustomAdapterActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_adapter);
 
-        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
+        searchBar = findViewById(R.id.searchBar);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         customSuggestionsAdapter = new CustomSuggestionsAdapter(inflater);
-
-        Button addProductBtn = (Button) findViewById(R.id.button);
+        Button addProductBtn = findViewById(R.id.button);
         addProductBtn.setOnClickListener(this);
 
         searchBar.setMaxSuggestionCount(2);
         searchBar.setHint("Find Product..");
 
         for (int i = 1; i < 11; i++) {
-            suggestions.add(new Product(products[i -1], i * 10));
+            suggestions.add(new Product(products[i - 1], i * 10));
         }
 
         customSuggestionsAdapter.setSuggestions(suggestions);

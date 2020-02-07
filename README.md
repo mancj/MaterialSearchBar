@@ -94,15 +94,15 @@ then add SearchBar to your activity:
 
  - `addTextChangeListener(TextWatcher textWatcher)`
  - `clearSuggestions()`
- - `disableSearch()`
- - `enableSearch()`
+ - `closeSearch()`
+ - `openSearch()`
  - `getLastSuggestions()`
  - `getMenu()`
  - `getText()`
  - `hideSuggestionList()`
  - `inflateMenu(int menuResource)`
  - `inflateMenu(int menuResource, int icon)`
- - `isSearchEnabled()`
+ - `isSearchOpened()`
  - `isSpeechModeEnabled()`
  - `isSuggestionsVisible()`
  - `setArrowIcon(int arrowIconResId)`
