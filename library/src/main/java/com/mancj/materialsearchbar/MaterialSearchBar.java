@@ -230,9 +230,6 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
                 menuIconRes = iconResId;
                 menuIcon.setImageResource(menuIconRes);
             }
-//            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) searchIcon.getLayoutParams();
-//            params.rightMargin = (int) (48 * destiny);
-//            searchIcon.setLayoutParams(params);
             menuIcon.setVisibility(VISIBLE);
             menuIcon.setOnClickListener(this);
             popupMenu = new PopupMenu(getContext(), menuIcon);
@@ -926,11 +923,11 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
         } else if (id == R.id.mt_menu) {
             popupMenu.show();
         } else if (id == R.id.mt_nav) {
+            int button = searchOpened ? BUTTON_BACK : BUTTON_NAVIGATION;
             if (searchOpened) {
                 closeSearch();
             }
             if (listenerExists()) {
-                int button = searchOpened ? BUTTON_NAVIGATION : BUTTON_BACK;
                 onSearchActionListener.onButtonClicked(button);
             }
         }
