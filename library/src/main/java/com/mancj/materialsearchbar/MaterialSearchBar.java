@@ -935,7 +935,6 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
 
     @Override
     public void onAnimationStart(Animation animation) {
-
     }
 
     @Override
