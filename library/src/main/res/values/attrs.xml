@@ -9,6 +9,7 @@
         <attr name="mt_menuDividerEnabled" format="boolean"/>
         <attr name="mt_dividerColor" format="color"/>
         <attr name="mt_searchBarColor" format="color"/>
+        <attr name="mt_suggestionsAnimationSpeed" format="integer"/>
 
         //Icons
         <attr name="mt_menuIconDrawable" format="reference"/>
