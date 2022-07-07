@@ -5,12 +5,15 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.TextAppearanceSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -28,14 +31,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mancj.materialsearchbar.adapter.DefaultSuggestionsAdapter;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
+import com.mancj.materialsearchbar.util.PrefixStyle;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -91,12 +97,19 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
     private CharSequence placeholderText;
     private int textColor;
     private int hintColor;
+    private int hintStyle;
+    private int searchStyle;
     private int placeholderColor;
     private int navIconTint;
     private int menuIconTint;
     private int searchIconTint;
     private int arrowIconTint;
     private int clearIconTint;
+    private int textSize;
+    private boolean isMarquee;
+    private int marqueeRepeatLimit = -1;
+
+    private int  fontFamily = 0;
 
     private boolean navIconTintEnabled;
     private boolean menuIconTintEnabled;
@@ -107,6 +120,21 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
 
     private int textCursorColor;
     private int highlightedTextColor;
+
+
+    public enum TEXT_STYLES {
+        NORMAL(0), BOLD(1), ITALIC(2);
+
+        private final int val;
+
+        TEXT_STYLES(int val) {
+            this.val = val;
+        }
+
+        public int getVal() {
+            return val;
+        }
+    }
 
     public MaterialSearchBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -129,76 +157,86 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
 
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.MaterialSearchBar);
 
-        //Base Attributes
-        speechMode = array.getBoolean(R.styleable.MaterialSearchBar_mt_speechMode, false);
-        maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_mt_maxSuggestionsCount, 3);
-        navButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconEnabled, false);
-        roundedSearchBarEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_roundedSearchBarEnabled, false);
-        dividerColor = array.getColor(R.styleable.MaterialSearchBar_mt_dividerColor, ContextCompat.getColor(getContext(), R.color.searchBarDividerColor));
-        searchBarColor = array.getColor(R.styleable.MaterialSearchBar_mt_searchBarColor, ContextCompat.getColor(getContext(), R.color.searchBarPrimaryColor));
+        try{
 
-        //Icon Related Attributes
-        menuIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_menuIconDrawable, R.drawable.ic_dots_vertical_black_48dp);
-        searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_searchIconDrawable, R.drawable.ic_magnify_black_48dp);
-        speechIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_speechIconDrawable, R.drawable.ic_microphone_black_48dp);
-        arrowIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_backIconDrawable, R.drawable.ic_arrow_left_black_48dp);
-        clearIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_clearIconDrawable, R.drawable.ic_close_black_48dp);
-        navIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_navIconTint, ContextCompat.getColor(getContext(), R.color.searchBarNavIconTintColor));
-        menuIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_menuIconTint, ContextCompat.getColor(getContext(), R.color.searchBarMenuIconTintColor));
-        searchIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_searchIconTint, ContextCompat.getColor(getContext(), R.color.searchBarSearchIconTintColor));
-        arrowIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_backIconTint, ContextCompat.getColor(getContext(), R.color.searchBarBackIconTintColor));
-        clearIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_clearIconTint, ContextCompat.getColor(getContext(), R.color.searchBarClearIconTintColor));
-        navIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconUseTint, true);
-        menuIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_menuIconUseTint, true);
-        searchIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_searchIconUseTint, true);
-        arrowIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_backIconUseTint, true);
-        clearIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_clearIconUseTint, true);
-        borderlessRippleEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_borderlessRippleEnabled, false);
+            //Base Attributes
+            speechMode = array.getBoolean(R.styleable.MaterialSearchBar_mt_speechMode, false);
+            maxSuggestionCount = array.getInt(R.styleable.MaterialSearchBar_mt_maxSuggestionsCount, 3);
+            navButtonEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconEnabled, false);
+            roundedSearchBarEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_roundedSearchBarEnabled, false);
+            dividerColor = array.getColor(R.styleable.MaterialSearchBar_mt_dividerColor, ContextCompat.getColor(getContext(), R.color.searchBarDividerColor));
+            searchBarColor = array.getColor(R.styleable.MaterialSearchBar_mt_searchBarColor, ContextCompat.getColor(getContext(), R.color.searchBarPrimaryColor));
 
-        //Text Related Attributes
-        hintText = array.getString(R.styleable.MaterialSearchBar_mt_hint);
-        placeholderText = array.getString(R.styleable.MaterialSearchBar_mt_placeholder);
-        textColor = array.getColor(R.styleable.MaterialSearchBar_mt_textColor, ContextCompat.getColor(getContext(), R.color.searchBarTextColor));
-        hintColor = array.getColor(R.styleable.MaterialSearchBar_mt_hintColor, ContextCompat.getColor(getContext(), R.color.searchBarHintColor));
-        placeholderColor = array.getColor(R.styleable.MaterialSearchBar_mt_placeholderColor, ContextCompat.getColor(getContext(), R.color.searchBarPlaceholderColor));
-        textCursorColor = array.getColor(R.styleable.MaterialSearchBar_mt_textCursorTint, ContextCompat.getColor(getContext(), R.color.searchBarCursorColor));
-        highlightedTextColor = array.getColor(R.styleable.MaterialSearchBar_mt_highlightedTextColor, ContextCompat.getColor(getContext(), R.color.searchBarTextHighlightColor));
+            //Icon Related Attributes
+            menuIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_menuIconDrawable, R.drawable.ic_dots_vertical_black_48dp);
+            searchIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_searchIconDrawable, R.drawable.ic_magnify_black_48dp);
+            speechIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_speechIconDrawable, R.drawable.ic_microphone_black_48dp);
+            arrowIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_backIconDrawable, R.drawable.ic_arrow_left_black_48dp);
+            clearIconRes = array.getResourceId(R.styleable.MaterialSearchBar_mt_clearIconDrawable, R.drawable.ic_close_black_48dp);
+            navIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_navIconTint, ContextCompat.getColor(getContext(), R.color.searchBarNavIconTintColor));
+            menuIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_menuIconTint, ContextCompat.getColor(getContext(), R.color.searchBarMenuIconTintColor));
+            searchIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_searchIconTint, ContextCompat.getColor(getContext(), R.color.searchBarSearchIconTintColor));
+            arrowIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_backIconTint, ContextCompat.getColor(getContext(), R.color.searchBarBackIconTintColor));
+            clearIconTint = array.getColor(R.styleable.MaterialSearchBar_mt_clearIconTint, ContextCompat.getColor(getContext(), R.color.searchBarClearIconTintColor));
+            navIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_navIconUseTint, true);
+            menuIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_menuIconUseTint, true);
+            searchIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_searchIconUseTint, true);
+            arrowIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_backIconUseTint, true);
+            clearIconTintEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_clearIconUseTint, true);
+            borderlessRippleEnabled = array.getBoolean(R.styleable.MaterialSearchBar_mt_borderlessRippleEnabled, false);
+           fontFamily= array.getResourceId(R.styleable.MaterialSearchBar_android_fontFamily, 0);
 
-        destiny = getResources().getDisplayMetrics().density;
-        if (adapter == null) {
-            adapter = new DefaultSuggestionsAdapter(LayoutInflater.from(getContext()));
+            //Text Related Attributes
+            hintText = array.getString(R.styleable.MaterialSearchBar_mt_hint);
+            placeholderText = array.getString(R.styleable.MaterialSearchBar_mt_placeholder);
+            textColor = array.getColor(R.styleable.MaterialSearchBar_mt_textColor, ContextCompat.getColor(getContext(), R.color.searchBarTextColor));
+            textSize = array.getDimensionPixelSize(R.styleable.MaterialSearchBar_mt_textSize,12);
+            hintColor = array.getColor(R.styleable.MaterialSearchBar_mt_hintColor, ContextCompat.getColor(getContext(), R.color.searchBarHintColor));
+            hintStyle = array.getInt(R.styleable.MaterialSearchBar_mt_hintStyle,0);
+            searchStyle = array.getInt(R.styleable.MaterialSearchBar_mt_searchStyle,0);
+
+
+            placeholderColor = array.getColor(R.styleable.MaterialSearchBar_mt_placeholderColor, ContextCompat.getColor(getContext(), R.color.searchBarPlaceholderColor));
+            textCursorColor = array.getColor(R.styleable.MaterialSearchBar_mt_textCursorTint, ContextCompat.getColor(getContext(), R.color.searchBarCursorColor));
+            highlightedTextColor = array.getColor(R.styleable.MaterialSearchBar_mt_highlightedTextColor, ContextCompat.getColor(getContext(), R.color.searchBarTextHighlightColor));
+            isMarquee = array.getBoolean(R.styleable.MaterialSearchBar_mt_marquee, false);
+            marqueeRepeatLimit = array.getInt(R.styleable.MaterialSearchBar_mt_marqueeRepeatLimit,-1);
+            destiny = getResources().getDisplayMetrics().density;
+            if (adapter == null) {
+                adapter = new DefaultSuggestionsAdapter(LayoutInflater.from(getContext()),fontFamily);
+            }
+            if (adapter instanceof DefaultSuggestionsAdapter)
+                ((DefaultSuggestionsAdapter) adapter).setListener(this);
+            adapter.setMaxSuggestionsCount(maxSuggestionCount);
+            RecyclerView recyclerView = findViewById(R.id.mt_recycler);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            //View References
+            searchBarCardView = findViewById(R.id.mt_container);
+            suggestionDivider = findViewById(R.id.mt_divider);
+            menuIcon = findViewById(R.id.mt_menu);
+            clearIcon = findViewById(R.id.mt_clear);
+            searchIcon = findViewById(R.id.mt_search);
+            arrowIcon = findViewById(R.id.mt_arrow);
+            searchEdit = findViewById(R.id.mt_editText);
+            placeHolder = findViewById(R.id.mt_placeholder);
+            inputContainer = findViewById(R.id.inputContainer);
+            navIcon = findViewById(R.id.mt_nav);
+            findViewById(R.id.mt_clear).setOnClickListener(this);
+
+            //Listeners
+            setOnClickListener(this);
+            arrowIcon.setOnClickListener(this);
+            searchIcon.setOnClickListener(this);
+            searchEdit.setOnFocusChangeListener(this);
+            searchEdit.setOnEditorActionListener(this);
+            navIcon.setOnClickListener(this);
+
+            postSetup();
+
+        }finally {
+            array.recycle();
         }
-        if (adapter instanceof DefaultSuggestionsAdapter)
-            ((DefaultSuggestionsAdapter) adapter).setListener(this);
-        adapter.setMaxSuggestionsCount(maxSuggestionCount);
-        RecyclerView recyclerView = findViewById(R.id.mt_recycler);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        array.recycle();
-
-        //View References
-        searchBarCardView = findViewById(R.id.mt_container);
-        suggestionDivider = findViewById(R.id.mt_divider);
-        menuIcon = findViewById(R.id.mt_menu);
-        clearIcon = findViewById(R.id.mt_clear);
-        searchIcon = findViewById(R.id.mt_search);
-        arrowIcon = findViewById(R.id.mt_arrow);
-        searchEdit = findViewById(R.id.mt_editText);
-        placeHolder = findViewById(R.id.mt_placeholder);
-        inputContainer = findViewById(R.id.inputContainer);
-        navIcon = findViewById(R.id.mt_nav);
-        findViewById(R.id.mt_clear).setOnClickListener(this);
-
-        //Listeners
-        setOnClickListener(this);
-        arrowIcon.setOnClickListener(this);
-        searchIcon.setOnClickListener(this);
-        searchEdit.setOnFocusChangeListener(this);
-        searchEdit.setOnEditorActionListener(this);
-        navIcon.setOnClickListener(this);
-
-        postSetup();
 
     }
 
@@ -248,12 +286,33 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
     }
 
     private void postSetup() {
-        setupTextColors();
+        setupText();
         setupRoundedSearchBarEnabled();
         setupSearchBarColor();
         setupIcons();
         setupSearchEditText();
+
+        setFontFamily();
+
+
     }
+
+
+
+    private void setFontFamily() {
+        if (fontFamily > 0) {
+            placeHolder.setTypeface(ResourcesCompat.getFont(getContext(), fontFamily));
+            searchEdit.setTypeface(ResourcesCompat.getFont(getContext(), fontFamily));
+        }
+    }
+
+
+    private void setupText(){
+        setupTextColors();
+        setupTextSize();
+        setupEffects();
+    }
+
 
     /**
      * Capsule shaped searchbar enabled
@@ -276,11 +335,71 @@ public class MaterialSearchBar extends FrameLayout implements View.OnClickListen
         suggestionDivider.setBackgroundColor(dividerColor);
     }
 
+    private void setupEffects(){
+        setupMarquee();
+        setupPlaceHolderFontStyle();
+        setupSearchViewStyle();
+    }
+
+
+
+    private void setupSearchViewStyle() {
+
+        if(searchStyle==0){
+            searchEdit.setTypeface(null, Typeface.NORMAL);
+            return;
+        }
+        if((searchStyle & PrefixStyle.BOLD) == PrefixStyle.BOLD) {
+            searchEdit.setTypeface(null, Typeface.BOLD);
+
+        }
+        if((searchStyle & PrefixStyle.ITALIC) == PrefixStyle.ITALIC) {
+            searchEdit.setTypeface(null, Typeface.ITALIC);
+        }
+        if((searchStyle & PrefixStyle.NORMAL) == PrefixStyle.NORMAL) {
+            searchEdit.setTypeface(null, Typeface.NORMAL);
+        }
+    }
+
+    private void setupPlaceHolderFontStyle() {
+
+        if(hintStyle==0){
+            placeHolder.setTypeface(null, Typeface.NORMAL);
+            return;
+        }
+        if((hintStyle & PrefixStyle.BOLD) == PrefixStyle.BOLD) {
+            placeHolder.setTypeface(null, Typeface.BOLD);
+
+        }
+        if((hintStyle & PrefixStyle.ITALIC) == PrefixStyle.ITALIC) {
+            placeHolder.setTypeface(null, Typeface.ITALIC);
+           }
+        if((hintStyle & PrefixStyle.NORMAL) == PrefixStyle.NORMAL) {
+            placeHolder.setTypeface(null, Typeface.NORMAL);
+           }
+    }
+
+    private void setupMarquee(){
+        if(isMarquee){
+            placeHolder.setHorizontallyScrolling(true);
+            placeHolder.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+            placeHolder.setMarqueeRepeatLimit(marqueeRepeatLimit);
+            placeHolder.setSelected(true);
+        }
+    }
+
     private void setupTextColors() {
         searchEdit.setHintTextColor(hintColor);
         searchEdit.setTextColor(textColor);
         placeHolder.setTextColor(placeholderColor);
     }
+
+    private void setupTextSize(){
+        searchEdit.setTextSize(textSize);
+        placeHolder.setTextSize(textSize);
+    }
+
+
 
     /**
      * Setup editText coloring and drawables

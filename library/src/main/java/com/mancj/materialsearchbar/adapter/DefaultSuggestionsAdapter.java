@@ -1,11 +1,13 @@
 package com.mancj.materialsearchbar.adapter;
 
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mancj.materialsearchbar.R;
@@ -16,9 +18,18 @@ import com.mancj.materialsearchbar.R;
 
 public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, DefaultSuggestionsAdapter.SuggestionHolder> {
     private SuggestionsAdapter.OnItemViewClickListener listener;
+    int fontFamily = 0;
 
-    public DefaultSuggestionsAdapter(LayoutInflater inflater) {
+    public DefaultSuggestionsAdapter(LayoutInflater inflater, int fontFamily) {
         super(inflater);
+        this.fontFamily=fontFamily;
+    }
+
+
+    private void setFontFamily(TextView view) {
+        if (fontFamily > 0) {
+            view.setTypeface(ResourcesCompat.getFont(view.getContext(), fontFamily));
+        }
     }
 
     public void setListener(SuggestionsAdapter.OnItemViewClickListener listener) {
@@ -39,6 +50,7 @@ public class DefaultSuggestionsAdapter extends SuggestionsAdapter<String, Defaul
     @Override
     public void onBindSuggestionHolder(String suggestion, SuggestionHolder holder, int position) {
         holder.text.setText(getSuggestions().get(position));
+        setFontFamily(holder.text);
     }
 
     public interface OnItemViewClickListener {

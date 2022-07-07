@@ -54,7 +54,13 @@ then add SearchBar to your activity:
     app:mt_maxSuggestionsCount="10"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/searchBar" />
+    android:id="@+id/searchBar"
+    app:mt_marquee="true"
+    app:mt_hintStyle="normal|bold"
+    app:mt_marqueeRepeatLimit="1"
+    app:mt_placeholder="Search"
+    android:fontFamily="@font/ariana"
+/>
 ```
 
 ----------
