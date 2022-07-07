@@ -31,7 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:mt_navIconEnabled="true"
-        app:mt_placeholder="Google Play" />
+        app:mt_textSize="12sp"
+        app:mt_marquee="true"
+        app:mt_hintStyle="normal"
+        app:mt_marqueeRepeatLimit="1"
+        android:fontFamily="@font/ariana"
+        app:mt_placeholder="Search" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/searchButton"

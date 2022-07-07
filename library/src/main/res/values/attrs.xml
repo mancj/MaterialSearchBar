@@ -29,10 +29,33 @@
         <attr name="mt_borderlessRippleEnabled" format="boolean"/>
 
         //Text
+
         <attr name="mt_hint" format="string"/>
         <attr name="mt_placeholder" format="string"/>
         <attr name="mt_textColor" format="color"/>
+
+        <attr name="mt_textSize" format="dimension"/>
+        <attr name="mt_marquee" format="boolean"/>
+        <attr name="mt_marqueeRepeatLimit" format="integer"/>
+        <attr name="mt_hintStyle">
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+            <flag name="normal" value="4" />
+        </attr>
+
+
+        <attr name="mt_searchStyle">
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+            <flag name="normal" value="4" />
+        </attr>
+
+
         <attr name="mt_hintColor" format="color"/>
+
+
+        <attr name="android:fontFamily" />
+        <attr name="mt_fontFamily" format="string"/>
         <attr name="mt_placeholderColor" format="color"/>
         <attr name="mt_textCursorTint" format="color"/>
         <attr name="mt_leftTextSelectorDrawable" format="reference"/>

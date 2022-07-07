@@ -36,24 +36,25 @@
             <TextView
                 android:id="@+id/mt_placeholder"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/searchBarPlaceholderColor"
-                android:textStyle="bold"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/mt_search"
                 app:layout_constraintStart_toEndOf="@+id/mt_nav"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginStart="16dp"
-                tools:text="PlaceHolder" />
+                tools:text="PlaceHolder"
+                />
 
             <LinearLayout
                 android:id="@+id/inputContainer"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone"
@@ -75,7 +76,7 @@
                 <EditText
                     android:id="@+id/mt_editText"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_weight="1"

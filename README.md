@@ -54,7 +54,13 @@ then add SearchBar to your activity:
     app:mt_maxSuggestionsCount="10"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/searchBar" />
+    android:id="@+id/searchBar"
+    app:mt_marquee="true"
+    app:mt_hintStyle="normal|bold"
+    app:mt_marqueeRepeatLimit="1"
+    app:mt_placeholder="Search"
+    android:fontFamily="@font/ariana"
+/>
 ```
 
 ----------
@@ -90,8 +96,15 @@ then add SearchBar to your activity:
 | mt_hintColor           | set hint color                                                                        | 
 | mt_placeholderColor    | set placeholder color                                                                 |
 | mt_textCursorTint      | set text cursors tint                                                                 |
-| mt_highlightedTextColor | set the text highlight tint color                                                    |
+| mt_highlightedTextColor | set the text highlight tint color                                                      |
+| mt_highlightedTextColor | set the text highlight tint color                                                      |
 
+| mt_textSize           | set the text size                                                                 |
+| mt_marquee           | set marquee                                                               |
+| mt_marqueeRepeatLimit           | set marquee repeat rate                                                             |
+| fontFamily           | set custom font family                                                            |
+| mt_searchStyle           | set search view textStyle                                                            |
+| mt_hintStyle          | set placeholder textStyle                                                            |
 ----------
 **public methods:**
 
